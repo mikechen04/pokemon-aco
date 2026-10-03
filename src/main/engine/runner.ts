@@ -15,6 +15,7 @@ import type {
 } from '../../shared/types';
 import type { NotifyEvent, NotifyKind } from '../core/notifier';
 import type { AccountRecord } from '../data/accounts';
+import type { StoredCard } from '../data/cards';
 import { waitInWaitingRoom } from '../retailers/flows';
 import type { MonitorContext, ProductTarget, RetailerModule, SearchHit, StockResult, TaskContext } from '../retailers/types';
 import { BrowserPage } from './browser';
@@ -41,6 +42,8 @@ export interface RunnerDeps {
   label: () => string;
   module: RetailerModule;
   profile: () => Profile | undefined;
+  /** The profile's stored full card, if the user added one. */
+  card: () => StoredCard | undefined;
   account: () => AccountRecord | undefined;
   settings: () => Settings;
   sessions: SessionManager;
@@ -229,6 +232,7 @@ export class TaskRunner {
       log: (message, level = 'info') => this.deps.log(level, message),
       status: (state, message) => this.status(state, message),
       notify: (kind, detail) => this.deps.notify(kind, detail),
+      card: () => this.deps.card() ?? null,
       beforePlaceOrder: () => {
         if (!this.releaseOrder) this.releaseOrder = this.deps.reserveOrder();
       },

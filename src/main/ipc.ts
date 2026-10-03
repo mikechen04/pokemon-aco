@@ -9,6 +9,7 @@ import { isRetailerUrl, parseProductInput, RETAILERS } from '../shared/retailers
 import {
   accountInputSchema,
   bulkAccountSchema,
+  cardInputSchema,
   catalogEntrySchema,
   firstIssue,
   profileInputSchema,
@@ -25,6 +26,7 @@ import { paths } from './core/paths';
 import { redact } from './core/redact';
 import { encryptionStatus } from './core/secrets';
 import type { AccountsRepo } from './data/accounts';
+import type { CardsRepo } from './data/cards';
 import type { CatalogRepo } from './data/catalog';
 import type { Collection } from './data/collection';
 import type { OverridesRepo } from './data/overrides';
@@ -39,6 +41,7 @@ export interface AppServices {
   settings: SettingsRepo;
   tasks: Collection<Task>;
   profiles: Collection<Profile>;
+  cards: CardsRepo;
   accounts: AccountsRepo;
   catalog: CatalogRepo;
   overrides: OverridesRepo;
@@ -60,7 +63,7 @@ function normalizeProfileInput(input: ProfileInput): ProfileInput {
 }
 
 export function registerIpc(services: AppServices): void {
-  const { settings, tasks, profiles, accounts, catalog, overrides, manager, sessions, keeper, accountWindows, notifier } = services;
+  const { settings, tasks, profiles, cards, accounts, catalog, overrides, manager, sessions, keeper, accountWindows, notifier } = services;
 
   const trusted = (event: IpcMainInvokeEvent) => {
     const win = services.mainWindow();
@@ -263,20 +266,38 @@ export function registerIpc(services: AppServices): void {
   handle('profiles:list', () => profiles.list());
   handle('profiles:create', (input) => {
     const valid = normalizeProfileInput(validate(profileInputSchema, input) as ProfileInput);
-    return profiles.insert({ ...valid, id: randomUUID(), createdAt: Date.now() });
+    return profiles.insert({ ...valid, id: randomUUID(), createdAt: Date.now(), card: null });
   });
   handle('profiles:update', (id, input) => {
     const existing = profiles.get(id);
     if (!existing) throw new Error('Profile not found');
     const valid = normalizeProfileInput(validate(profileInputSchema, input) as ProfileInput);
-    return profiles.replace({ ...valid, id, createdAt: existing.createdAt });
+    // With a stored card, the profile pays with that card, so its last 4 always match it.
+    const cardLast4 = existing.card ? existing.card.last4 : valid.cardLast4;
+    return profiles.replace({ ...valid, cardLast4, id, createdAt: existing.createdAt, card: existing.card });
   });
   handle('profiles:remove', (id) => {
     const users = tasks.list().filter((t) => t.profileId === id).length;
     if (users > 0) throw new Error(`This profile is used by ${users} task(s). Change or delete those tasks first.`);
     profiles.remove([id]);
+    cards.remove(id);
     accounts.forgetProfile(id);
     return { ok: true, message: 'Profile deleted' };
+  });
+  handle('profiles:setCard', (id, card) => {
+    const existing = profiles.get(id);
+    if (!existing) throw new Error('Profile not found');
+    const valid = validate(cardInputSchema, card);
+    const summary = cards.set(id, valid);
+    logBus.info(`Stored a card ending in ${summary.last4} for profile "${existing.name}"`);
+    return profiles.replace({ ...existing, cardLast4: summary.last4, card: summary });
+  });
+  handle('profiles:removeCard', (id) => {
+    const existing = profiles.get(id);
+    if (!existing) throw new Error('Profile not found');
+    cards.remove(id);
+    if (existing.card) logBus.info(`Deleted the stored card from profile "${existing.name}"`);
+    return profiles.replace({ ...existing, card: null });
   });
 
   // ---- accounts ----

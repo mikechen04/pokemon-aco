@@ -5,6 +5,7 @@ import type { KeywordQuery } from '../../shared/keywords';
 import type { LogLevel, Profile, RetailerId, Settings, Task, TaskState } from '../../shared/types';
 import type { NotifyKind } from '../core/notifier';
 import type { AccountRecord } from '../data/accounts';
+import type { StoredCard } from '../data/cards';
 import type { BrowserPage } from '../engine/browser';
 import type { HttpClient } from '../engine/http';
 import type { SessionHandle } from '../engine/sessions';
@@ -79,6 +80,11 @@ export interface TaskContext extends SessionContext {
   notify(kind: NotifyKind, detail: string): void;
   /** This task's hidden browser window in the account's isolated session (opened on first use). */
   page(): Promise<BrowserPage>;
+  /**
+   * The profile's stored full card, or null. Only for typing into the payment form on the
+   * store's own checkout page; never log it or send it anywhere else.
+   */
+  card(): StoredCard | null;
   /**
    * Call immediately before submitting an order. Throws GoalReachedError when the task's
    * group already has the number of orders the user asked for. Never called in dry runs.

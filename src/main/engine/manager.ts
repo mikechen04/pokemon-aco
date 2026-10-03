@@ -17,6 +17,7 @@ import type {
 import { logBus } from '../core/logger';
 import type { NotifyEvent, NotifyKind, Notifier } from '../core/notifier';
 import type { AccountsRepo } from '../data/accounts';
+import type { CardsRepo } from '../data/cards';
 import type { Collection } from '../data/collection';
 import type { RetailerModule } from '../retailers/types';
 import { BrowserPage } from './browser';
@@ -30,6 +31,7 @@ import type { SessionManager } from './sessions';
 export interface ManagerDeps {
   tasks: Collection<Task>;
   profiles: Collection<Profile>;
+  cards: CardsRepo;
   accounts: AccountsRepo;
   getSettings: () => Settings;
   sessions: SessionManager;
@@ -246,6 +248,7 @@ export class TaskManager extends EventEmitter {
         label: () => this.label(task),
         module: deps.modules[task.retailer],
         profile: () => deps.profiles.get(task.profileId),
+        card: () => deps.cards.get(task.profileId),
         account: () => deps.accounts.get(task.accountId),
         settings: deps.getSettings,
         sessions: deps.sessions,

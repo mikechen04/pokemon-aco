@@ -1,7 +1,16 @@
 // Loose validation for records loaded from disk. Anything malformed is dropped rather
 // than crashing the app; fields that are missing get safe defaults.
 import { parseProductInput } from '../../shared/retailers';
-import { RETAILER_IDS, type Address, type Profile, type RetailerId, type Task, type TaskResult } from '../../shared/types';
+import {
+  RETAILER_IDS,
+  type Address,
+  type CardBrand,
+  type CardSummary,
+  type Profile,
+  type RetailerId,
+  type Task,
+  type TaskResult,
+} from '../../shared/types';
 
 type Obj = Record<string, unknown>;
 
@@ -27,6 +36,22 @@ function normalizeAddress(raw: unknown): Address {
   };
 }
 
+const CARD_BRANDS: readonly CardBrand[] = ['visa', 'mastercard', 'amex', 'discover', 'other'];
+
+function normalizeCardSummary(raw: unknown): CardSummary | null {
+  if (!isObj(raw)) return null;
+  const last4 = str(raw.last4);
+  if (!/^\d{4}$/.test(last4)) return null;
+  return {
+    brand: CARD_BRANDS.includes(raw.brand as CardBrand) ? (raw.brand as CardBrand) : 'other',
+    last4,
+    expMonth: num(raw.expMonth, 1),
+    expYear: num(raw.expYear, 2000),
+    holder: str(raw.holder),
+    updatedAt: num(raw.updatedAt, Date.now()),
+  };
+}
+
 export function normalizeProfile(raw: unknown): Profile | null {
   if (!isObj(raw) || typeof raw.id !== 'string' || typeof raw.name !== 'string') return null;
   const last4 = str(raw.cardLast4);
@@ -39,6 +64,7 @@ export function normalizeProfile(raw: unknown): Profile | null {
     billing: normalizeAddress(raw.billing),
     cardLast4: /^\d{4}$/.test(last4) ? last4 : '',
     cardLabel: str(raw.cardLabel),
+    card: normalizeCardSummary(raw.card),
   };
 }
 

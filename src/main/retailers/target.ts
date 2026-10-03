@@ -44,7 +44,7 @@ export const TARGET_DEFAULTS = {
   addToCartText: '^(add to cart|ship it|preorder|pre-order)$',
   placeOrderSelectors: ['button[data-test="placeOrderButton"]'],
   placeOrderText: '^place (your )?order$',
-  continueText: '^(save and continue|continue|continue to payment|continue to review|review order)$',
+  continueText: '^(save (and|&) continue|continue|continue to payment|continue to review|review order)$',
   confirmationUrlPattern: 'co-thankyou|thank-?you|order-?confirmation',
 };
 

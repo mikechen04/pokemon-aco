@@ -44,6 +44,8 @@ export interface ClickTarget {
   text?: string;
   /** Regex source: only look inside the smallest container whose text matches this. */
   within?: string;
+  /** Regex source: never click an element whose label matches this (e.g. "Place order"). */
+  exclude?: string;
 }
 
 export function pageClick(target: ClickTarget): { clicked: boolean; label: string } {
@@ -94,7 +96,8 @@ export function pageClick(target: ClickTarget): { clicked: boolean; label: strin
     const clickable = root.querySelectorAll('button, a, input[type="submit"], input[type="button"], [role="button"], [role="link"]');
     for (const el of Array.from(clickable)) if (re.test(labelOf(el))) candidates.push(el);
   }
-  const el = candidates.find((c) => visible(c) && enabled(c)) as HTMLElement | undefined;
+  const excluded = target.exclude ? new RegExp(target.exclude, 'i') : null;
+  const el = candidates.find((c) => visible(c) && enabled(c) && !(excluded && excluded.test(labelOf(c)))) as HTMLElement | undefined;
   if (!el) return { clicked: false, label: '' };
   el.scrollIntoView({ block: 'center', inline: 'center' });
   el.click();
@@ -162,22 +165,27 @@ export function pageReadText(selectors: string[]): string | null {
 }
 
 /**
- * Detects a request to type card data: a visible CVV field, a card-number field, or a
- * payment processor's secure card iframe. Field values are never read.
+ * Detects a payment form waiting for card data: an empty card-number or security-code field,
+ * or (with `includeFrames`) a payment processor's secure card iframe. Gift card, loyalty and
+ * promo fields are ignored. Only emptiness is checked; field values are never read out.
  */
-export function pageCardEntryVisible(): 'cvv' | 'card' | null {
+export function pageCardEntryVisible(includeFrames: boolean): 'cvv' | 'card' | null {
   const shown = (el: Element): boolean => {
     const r = el.getBoundingClientRect();
     return r.width > 0 && r.height > 0 && getComputedStyle(el).visibility !== 'hidden' && getComputedStyle(el).display !== 'none';
   };
   const hint = (input: HTMLInputElement): string =>
     `${input.name} ${input.id} ${input.autocomplete} ${input.placeholder} ${input.getAttribute('aria-label') ?? ''}`;
-  const inputs = Array.from(document.querySelectorAll('input')).filter(shown);
-  if (inputs.some((i) => /cc-number|card\s*number|cardnumber|credit-?card-?number/i.test(hint(i)))) return 'card';
-  const secureFrame = Array.from(document.querySelectorAll('iframe')).some(
-    (f) => shown(f) && /cybersource|flex\.|microform|adyen|checkoutshopper|braintree|hosted-?fields|stripe|paypal\.com\/sdk/i.test(f.src),
+  const inputs = Array.from(document.querySelectorAll('input')).filter(
+    (i) => shown(i) && !i.disabled && !i.readOnly && i.value.trim() === '' && !/gift|loyalty|reward|redcard|promo|coupon/i.test(hint(i)),
   );
-  if (secureFrame) return 'card';
+  if (inputs.some((i) => /cc-number|card\s*number|cardnumber|credit-?card-?number/i.test(hint(i)))) return 'card';
+  if (includeFrames) {
+    const secureFrame = Array.from(document.querySelectorAll('iframe')).some(
+      (f) => shown(f) && /cybersource|flex\.|microform|adyen|checkoutshopper|braintree|hosted-?fields|stripe|paypal\.com\/sdk/i.test(f.src),
+    );
+    if (secureFrame) return 'card';
+  }
   if (inputs.some((i) => /cvv|cvc|cc-csc|security\s*code|securitycode|card\s*verification/i.test(hint(i)))) return 'cvv';
   return null;
 }

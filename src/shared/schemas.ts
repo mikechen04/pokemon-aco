@@ -2,31 +2,17 @@
 // plus catalog files imported from disk.
 import { z } from 'zod';
 import { isValidLogin } from './accountLines';
+import { cardBrand, cardExpired, cvvLength, digitsOnly, luhnValid } from './cards';
 import { DISCORD_WEBHOOK_PATTERN, LIMITS, US_STATES } from './constants';
 import { parseKeywords } from './keywords';
 import { parseProxyList } from './proxies';
 import { parseProductInput } from './retailers';
 import { RETAILER_IDS, type CatalogEntry, type RetailerId } from './types';
 
-function luhnValid(digits: string): boolean {
-  let sum = 0;
-  let double = false;
-  for (let i = digits.length - 1; i >= 0; i--) {
-    let d = Number(digits[i]);
-    if (double) {
-      d *= 2;
-      if (d > 9) d -= 9;
-    }
-    sum += d;
-    double = !double;
-  }
-  return sum % 10 === 0;
-}
-
 /**
  * True when the text contains something shaped like a payment card number
  * (13-19 digits, optionally grouped with spaces or dashes, passing the Luhn check).
- * The app must never collect card numbers, so free-text fields reject these.
+ * Free-text fields reject these: a card number belongs only in a profile's stored card.
  */
 export function looksLikeCardNumber(text: string): boolean {
   const candidates = text.match(/\d(?:[ -]?\d){12,18}/g) ?? [];
@@ -36,7 +22,7 @@ export function looksLikeCardNumber(text: string): boolean {
   });
 }
 
-const NO_CARD = 'Do not enter card numbers here. The app only uses the last 4 digits.';
+const NO_CARD = 'Do not enter card numbers here. A full card goes only in a profile’s stored card section.';
 const safeText = (max: number) =>
   z
     .string()
@@ -75,6 +61,34 @@ export const profileInputSchema = z.object({
     .regex(/^\d{4}$/, 'Enter exactly the last 4 digits of the saved card'),
   cardLabel: safeText(40),
 });
+
+const thisYear = new Date().getFullYear();
+
+/** A full card for a profile. Checked here and again in the main process before it is encrypted. */
+export const cardInputSchema = z
+  .object({
+    holder: requiredText('Name on card', 80),
+    number: z
+      .string()
+      .max(40)
+      .transform(digitsOnly)
+      .pipe(
+        z
+          .string()
+          .regex(/^\d{13,19}$/, 'Card number must be 13 to 19 digits')
+          .refine(luhnValid, 'That card number is not valid. Check for a typo.'),
+      ),
+    expMonth: z.number().int().min(1, 'Pick the expiry month').max(12, 'Pick the expiry month'),
+    expYear: z.number().int().min(thisYear - 1, 'Pick the expiry year').max(thisYear + 25, 'Pick the expiry year'),
+    cvv: z.string().trim().regex(/^\d{3,4}$/, 'Security code must be 3 or 4 digits'),
+  })
+  .superRefine((card, ctx) => {
+    if (cardExpired(card.expMonth, card.expYear)) ctx.addIssue({ code: 'custom', message: 'This card has expired', path: ['expYear'] });
+    const brand = cardBrand(card.number);
+    if (brand !== 'other' && card.cvv.length !== cvvLength(brand)) {
+      ctx.addIssue({ code: 'custom', message: `The security code for this card is ${cvvLength(brand)} digits`, path: ['cvv'] });
+    }
+  });
 
 export const accountInputSchema = z.object({
   retailer: retailerIdSchema,

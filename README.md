@@ -1,6 +1,6 @@
 # Pokemon ACO
 
-A Windows desktop app that watches Pokémon TCG products at **Target, Best Buy, Amazon and Pokémon Center** and checks out automatically when they come in stock, using each store's normal purchase flow and the payment method already saved on your store account.
+A Windows desktop app that watches Pokémon TCG products at **Target, Best Buy, Amazon and Pokémon Center** and checks out automatically when they come in stock, using each store's normal purchase flow. It pays with the card saved on your store account, or with a card you store in the app (for example a virtual card).
 
 Built with Electron + TypeScript + React. It packages as a normal Windows installer (`.exe`) you can share.
 
@@ -13,6 +13,7 @@ Built with Electron + TypeScript + React. It packages as a normal Windows instal
 - **Tasks** from a product URL, a SKU/TCIN/ASIN, keywords (`pokemon, elite trainer box, -sleeves`) or a **catalog** entry.
 - **Background monitoring** without touching your mouse or keyboard. Tasks on the same product share one stock check per interval.
 - **Automatic checkout** the moment stock appears: add to cart, then on the store's own checkout page it verifies **card last 4, ship-to address and subtotal** before placing the order.
+- **Stored cards (optional)**: save a full card (number, expiry, security code, billing address) on a profile. Fresh accounts with nothing saved still check out: the app fills the shipping form, adds the card and answers security-code prompts on the store's checkout page.
 - **Multi-account**: bulk-add the store accounts you own, then one "New task" creates one task per account. They all try to check out in parallel. An optional **"stop after N orders"** limit keeps the group from over-buying.
 - **Pokémon Center waiting room**: the task joins the line in its own window, waits (it never skips or reloads), and continues when the queue passes. You get a notification while the queue is what's holding it up.
 - **Live updates** per task, desktop notifications and an optional **Discord webhook**.
@@ -22,7 +23,7 @@ Built with Electron + TypeScript + React. It packages as a normal Windows instal
 
 - No CAPTCHA solving, no TLS or browser fingerprint spoofing, no user-agent changes, no anti-bot sensor generation, no queue skipping, and no switching proxies to dodge a block.
 - When a store shows a **CAPTCHA, bot challenge, block or 2FA prompt**, the task **pauses** and tells you. You can open that task's window, handle it yourself, and press Start. If you finish the order by hand in that window, the app detects the confirmation page and marks the task checked out.
-- It **never asks for, stores or sends card numbers or security codes (CVV)**. If a store asks for card details, the task pauses and you finish in the window.
+- Card data is **never sent anywhere except the store's own checkout page** (and the card processor's secure fields embedded in it). A full card is only stored if you add one to a profile. Without one, a store asking for card details pauses the task and you finish in the window.
 - It does not create store accounts. It only uses accounts you add.
 
 ---
@@ -64,21 +65,32 @@ On Linux without a keyring, start with `ACO_ALLOW_WEAK_ENCRYPTION=1 npm run dev`
 
 ## What you need to fill in
 
-1. **Profiles**: shipping address, plus the **last 4 digits** of the card saved on your store accounts.
+1. **Profiles**: shipping address and the card to pay with. Either:
+   - **Saved on the store account**: enter its **last 4 digits**, or
+   - **Store the full card here**: number, expiry and security code (encrypted, see below). Good for virtual cards and for fresh accounts with nothing saved.
 2. **Accounts**: your store logins (or **Bulk add**: one `email:password` per line). Press **Sign in** once per account to get past 2FA. That session is kept and reused.
-3. **On each store account** (in your normal browser): save the card and shipping address you want used. The app selects the saved card by its last 4. It cannot add one.
+3. **On each store account** (optional with a stored card): save the card and shipping address you want used. The app selects a saved card by its last 4. With a stored card it adds the card at checkout when the account has none.
 4. **Catalog**: the shipped entries (30th Celebration, recent sets, Pokémon Center exclusives, ETBs, booster bundles) are **placeholders with no SKUs or links**. Paste each store's product URL (or SKU/TCIN/ASIN) when listings go live, or import a JSON file.
 5. **Settings (optional)**: Discord webhook URL, a free **Best Buy developer API key** (recommended for Best Buy keyword search), proxies.
-6. Run a task in **dry run** first. When it reports "card, ZIP and subtotal verified", turn dry run off (sidebar toggle).
+6. Run a task in **dry run** first. When it reports "card, ZIP and subtotal verified", turn dry run off (sidebar toggle). With a stored card, a dry run can save the address and card on the store account (that is part of the store's checkout), but it never places the order.
 
 ## How a task runs
 
 ```
 Start → check sign-in → prepare (warm session, check cart) → monitor stock
       → in stock and ≤ max price → (waiting room? wait in it) → add to cart
-      → checkout page: card last 4 ✓  ship-to ZIP + street ✓  subtotal ≤ max × qty ✓
+      → checkout: fill empty shipping fields → saved card by last 4, or type in the stored card
+      → review page: card last 4 ✓  ship-to ZIP + street ✓  subtotal ≤ max × qty ✓
       → dry run: stop here      live: place order → confirmation + order number
 ```
+
+**Stored cards at checkout:**
+
+- A card saved on the account with the same last 4 is always tried first.
+- Otherwise the app opens the store's "Add a card" form and types the card in.
+- Card fields can sit in the page itself or in a payment processor's secure iframe (Cybersource, Adyen, Braintree, Stripe and others). Billing fields get the profile's billing address.
+- If the store asks for the security code, including once right after "Place order", the app enters it.
+- Card data only goes to frames on the store's own domain or a known payment processor.
 
 | Status | Meaning |
 | --- | --- |
@@ -127,9 +139,14 @@ HTTP is used wherever the store's flow allows it. A hidden browser window, with 
 ## Safety and privacy
 
 - **Credentials:** accounts, profiles, tasks and settings are encrypted on disk with **Windows DPAPI** (Electron `safeStorage`). Accounts refuse to save if OS encryption is unavailable.
+- **Stored cards:**
+  - **Opt-in, one per profile.** They live in their own DPAPI-encrypted file (`data\cards.json`), and the app refuses to store a card without strong OS encryption.
+  - **Never shown back.** The number and security code never reach the app's UI: after saving you only see the brand, last 4, expiry and name.
+  - **Never logged.** The number is masked in every log line and notification.
+  - **One place only.** They're typed only into the store's checkout page. Deleting a profile (or switching it back to "Saved on the store account") deletes its card.
 - **Passwords:** never sent to the UI, never logged. Every log line and notification goes through redaction (passwords, tokens, cookies, card-like numbers, emails).
 - **Discord messages:** show no emails, passwords or full addresses. Profile names and order numbers are hidden behind spoiler tags.
-- **Free-text fields:** reject anything that looks like a full card number.
+- **Free-text fields:** reject anything that looks like a full card number (cards go only in the stored-card fields).
 - **Windows and IPC:** store windows are sandboxed and can't open pop-ups or downloads. The app's own UI uses context isolation, a strict Content-Security-Policy, and a validated, allow-listed IPC bridge.
 - **After "Place order" is clicked:** any uncertainty pauses the task. It never retries, so it can't order twice.
 
@@ -149,18 +166,24 @@ Only keys that exist in `DEFAULTS`, with values of the same type, are applied. S
 ## Troubleshooting
 
 - **Paused: CAPTCHA / bot challenge / blocked**: wait a while, or click the window icon on the task, handle it there, then press Start. The app won't try to get around it.
-- **Paused: security code / card number requested**: finish the order in the task's window. The app notices the confirmation page and marks the task checked out.
+- **Paused: security code / card number requested**: add a stored card to the profile so the app can enter it, or finish the order in the task's window. The app notices the confirmation page and marks the task checked out.
+- **Paused: could not enter the stored card**: the store's card form wasn't recognized (the message names the field). Finish in the window. If the card fields sit in a payment processor's frame that isn't covered, add its domain to `PAYMENT_FRAME_HOSTS` in `src/main/retailers/flows.ts`.
 - **Signed out / 2FA**: Accounts → **Sign in** opens that account's window with the login filled in. Finish 2FA and close the window.
 - **Pokémon Center keyword tasks find nothing**: the search page may be rendered in the browser only. Use product URLs for Pokémon Center.
 - **Where is my data?** `%APPDATA%\Pokemon ACO\`
-  - `data\` – encrypted settings, tasks, profiles, accounts
+  - `data\` – encrypted settings, tasks, profiles, accounts, stored cards
   - `catalog.json` – editable catalog
   - `retailer-overrides.json` – store overrides
   - `logs\` – 14 days of logs
 
 ## Honest limitations
 
-- The store flows were written from their public web pages and APIs. The whole engine was tested end to end against a local mock store: stock change, cart, guarded checkout, dry run, a live order, a group limit with parallel accounts, a block pausing a task, and the kill switch. They were **not** tested against live drops. Store sites change often; expect to adjust an endpoint or selector through `retailer-overrides.json` now and then.
+- The store flows were written from their public web pages and APIs. The whole engine was tested end to end against a local mock store. That covered:
+  - stock change, cart, guarded checkout, dry run and a live order
+  - a group limit with parallel accounts, a block pausing a task, and the kill switch
+  - a fresh account checking out with a stored card: shipping form, card in a cross-origin processor iframe, separate billing address, and a security-code prompt after "Place order"
+
+  They were **not** tested against live drops. Store sites change often; expect to adjust an endpoint or selector through `retailer-overrides.json` now and then.
 - Stores run bot protection. Because this app never evades it, some attempts will be paused for you instead of completing on their own. That trade-off is intentional.
 - Best Buy and some Target sessions can't be confirmed signed-in over plain HTTP. Their sign-in is checked in the window before the drop.
 

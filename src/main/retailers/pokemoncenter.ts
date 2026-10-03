@@ -199,7 +199,7 @@ export function createPokemonCenter(cfg: () => PokemonCenterConfig): RetailerMod
       changePaymentText: '^(change|edit)$',
       confirmPaymentText: '^(use this card|save|continue|done|apply)$',
       confirmationUrl: new RegExp(c.confirmationUrlPattern, 'i'),
-      maxSteps: 5,
+      maxSteps: 8,
     });
   }
 

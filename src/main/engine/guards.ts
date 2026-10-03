@@ -60,6 +60,14 @@ export function mentionsCardLast4(text: string, last4: string): boolean {
   return pattern.test(text);
 }
 
+const CARD_MENTION = /(?:ending\s*(?:in|with)?|ends\s*(?:in|with)|[•*·]{2,})\s*[-:]?\s*(\d{4})(?!\d)/gi;
+
+/** True when the text shows a card ending in four digits other than `last4` (another card is selected). */
+export function mentionsOtherCard(text: string, last4: string): boolean {
+  for (const match of text.matchAll(CARD_MENTION)) if (match[1] !== last4) return true;
+  return false;
+}
+
 const SUBTOTAL =
   /(?:item\(?s?\)?\s*subtotal|merchandise\s*subtotal|items?\s*subtotal|\bsubtotal|\bitems?\s*(?:\(\s*\d+\s*\))?\s*:)\s*(?:\(\s*\d+\s*items?\s*\))?\s*:?\s*\$\s*([\d,]+\.\d{2})/i;
 const ORDER_TOTAL = /(?:order\s*total|estimated\s*total|grand\s*total|(?<!sub)\btotal(?:\s*(?:due|price))?)\s*:?\s*\$\s*([\d,]+\.\d{2})/i;

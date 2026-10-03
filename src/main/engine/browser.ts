@@ -1,9 +1,10 @@
 // The browser fallback: a hidden Chromium window bound to an account's isolated session.
 // It is never shown unless the user asks (Open window), never takes focus on its own,
 // and is driven with DOM events inside the page only.
-import { BrowserWindow, Menu } from 'electron';
+import { BrowserWindow, Menu, type WebFrameMain } from 'electron';
 import { classifyPage, type Detection } from './detection';
 import { AbortedError, RetailerError, sleep } from './errors';
+import { emptyFillReport, mergeFillReports, pageFillForms, type FillReport, type FillRequest } from './fillScripts';
 import {
   pageCardEntryVisible,
   pageClick,
@@ -244,9 +245,73 @@ export class BrowserPage {
     return this.tryEvaluate<[string[]], string | null>(null, pageReadText, selectors);
   }
 
-  /** 'cvv' or 'card' when the page asks for card data the app must never handle. */
-  cardEntryVisible(): Promise<'cvv' | 'card' | null> {
-    return this.tryEvaluate<[], 'cvv' | 'card' | null>(null, pageCardEntryVisible);
+  /**
+   * 'card' or 'cvv' when a payment form is waiting for card data. `includeFrames` also counts a
+   * payment processor's card iframe (its contents cannot be checked from the page).
+   */
+  cardEntryVisible(includeFrames = true): Promise<'cvv' | 'card' | null> {
+    return this.tryEvaluate<[boolean], 'cvv' | 'card' | null>(null, pageCardEntryVisible, includeFrames);
+  }
+
+  /** Child frames (not the page itself) whose origin `allow` accepts. */
+  private childFrames(allow: (origin: string) => boolean): WebFrameMain[] {
+    if (!this.alive) return [];
+    const main = this.win.webContents.mainFrame;
+    return main.framesInSubtree.filter(
+      (frame) => frame.frameTreeNodeId !== main.frameTreeNodeId && !frame.isDestroyed() && !frame.detached && allow(frame.origin),
+    );
+  }
+
+  /** Runs a page function in a child frame's own context; null if it navigated or did not answer. */
+  private async inFrame<A extends unknown[], R>(frame: WebFrameMain, fn: (...args: A) => R, ...args: A): Promise<R | null> {
+    const code = `(${fn.toString()})(...${JSON.stringify(args)})`;
+    let timer: NodeJS.Timeout | undefined;
+    try {
+      return (await Promise.race([
+        frame.executeJavaScript(code) as Promise<R>,
+        new Promise<null>((resolve) => {
+          timer = setTimeout(() => resolve(null), 5000);
+        }),
+      ])) as R | null;
+    } catch {
+      return null;
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+
+  /**
+   * Fills empty address fields in the page and, when the request carries a card, card fields
+   * in the page and in the child frames `allowCardFrame` accepts (a payment processor's
+   * secure fields live in their own frames). Shipping data is only used in the page itself.
+   */
+  async fillForms(request: FillRequest, allowCardFrame: (origin: string) => boolean): Promise<FillReport> {
+    const reports: FillReport[] = [];
+    const main = await this.tryEvaluate<[FillRequest], FillReport | null>(null, pageFillForms, request);
+    if (main) reports.push(main);
+    if (main?.toggledBilling) {
+      // The separate billing form renders after "same as shipping" is unticked.
+      await sleep(700);
+      const again = await this.tryEvaluate<[FillRequest], FillReport | null>(null, pageFillForms, { ...request, separateBilling: false });
+      if (again) reports.push(again);
+    }
+    if (request.card) {
+      const frameRequest: FillRequest = { ...request, shipping: null, separateBilling: false, defaultSection: 'billing' };
+      for (const frame of this.childFrames(allowCardFrame)) {
+        const report = await this.inFrame(frame, pageFillForms, frameRequest);
+        if (report) reports.push(report);
+      }
+    }
+    return reports.length ? mergeFillReports(reports) : emptyFillReport();
+  }
+
+  /** Clicks inside the allowed child frames only (e.g. the "Add your card" button of a store's card dialog). */
+  async clickInChildFrames(target: ClickTarget, allow: (origin: string) => boolean): Promise<{ clicked: boolean; label: string }> {
+    for (const frame of this.childFrames(allow)) {
+      const result = await this.inFrame(frame, pageClick, target);
+      if (result?.clicked) return result;
+    }
+    return { clicked: false, label: '' };
   }
 
   selectCard(last4: string): Promise<CardSelection> {

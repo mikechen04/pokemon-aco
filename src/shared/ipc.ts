@@ -8,6 +8,7 @@ import type {
   BulkAccountInput,
   BulkAccountResult,
   AppInfo,
+  CardInput,
   CatalogEntry,
   CatalogFile,
   CatalogImportResult,
@@ -55,6 +56,9 @@ export interface InvokeContract {
   'profiles:create': (input: ProfileInput) => Profile;
   'profiles:update': (id: string, input: ProfileInput) => Profile;
   'profiles:remove': (id: string) => ActionResult;
+  /** Stores (encrypted) or replaces the profile's full card. Returns the profile with only a card summary. */
+  'profiles:setCard': (id: string, card: CardInput) => Profile;
+  'profiles:removeCard': (id: string) => Profile;
 
   'accounts:list': () => AccountPublic[];
   'accounts:create': (input: AccountInput) => AccountPublic;
@@ -119,6 +123,8 @@ export const INVOKE_CHANNELS = {
   'profiles:create': true,
   'profiles:update': true,
   'profiles:remove': true,
+  'profiles:setCard': true,
+  'profiles:removeCard': true,
   'accounts:list': true,
   'accounts:create': true,
   'accounts:bulkCreate': true,

@@ -7,6 +7,7 @@ import { Notifier } from './core/notifier';
 import { paths } from './core/paths';
 import { encryptionStatus } from './core/secrets';
 import { AccountsRepo } from './data/accounts';
+import { CardsRepo, summarizeCard } from './data/cards';
 import { CatalogRepo } from './data/catalog';
 import { Collection } from './data/collection';
 import { normalizeProfile, normalizeTask } from './data/normalize';
@@ -33,6 +34,22 @@ function showMainWindow(): void {
   mainWindow.focus();
 }
 
+/**
+ * Keeps each profile's card summary in step with the encrypted card file (for example after
+ * cards.json could not be decrypted), and deletes cards whose profile is gone.
+ */
+function syncStoredCards(profiles: Collection<Profile>, cards: CardsRepo): void {
+  for (const profile of profiles.list()) {
+    const stored = cards.get(profile.id);
+    const summary = stored ? summarizeCard(stored) : null;
+    if (JSON.stringify(summary) === JSON.stringify(profile.card)) continue;
+    if (profile.card && !stored) logBus.warn(`The stored card for profile "${profile.name}" could not be loaded. Add it again in Profiles.`);
+    profiles.replace({ ...profile, card: summary, ...(summary ? { cardLast4: summary.last4 } : {}) });
+  }
+  const removed = cards.removeOrphans(new Set(profiles.list().map((p) => p.id)));
+  if (removed > 0) logBus.info(`Deleted ${removed} stored card(s) whose profile no longer exists`);
+}
+
 async function start(): Promise<void> {
   Menu.setApplicationMenu(process.env.VITE_DEV_SERVER_URL ? Menu.buildFromTemplate([{ role: 'viewMenu' }]) : null);
   await logBus.init(paths.logs);
@@ -44,6 +61,8 @@ async function start(): Promise<void> {
   const settings = new SettingsRepo(onError);
   const tasks = new Collection<Task>(paths.dataFile('tasks.json'), normalizeTask, onError);
   const profiles = new Collection<Profile>(paths.dataFile('profiles.json'), normalizeProfile, onError);
+  const cards = new CardsRepo(onError);
+  syncStoredCards(profiles, cards);
   const accounts = new AccountsRepo(onError);
   const catalog = new CatalogRepo(onError);
   const overrides = new OverridesRepo(onError);
@@ -54,7 +73,7 @@ async function start(): Promise<void> {
   const sessions = new SessionManager(getSettings);
   const monitor = new StockMonitor(sessions, getSettings);
   const notifier = new Notifier(getSettings, icon, showMainWindow);
-  const manager = new TaskManager({ tasks, profiles, accounts, getSettings, sessions, monitor, notifier, modules });
+  const manager = new TaskManager({ tasks, profiles, cards, accounts, getSettings, sessions, monitor, notifier, modules });
   const keeper = new SessionKeeper({
     accounts,
     sessions,
@@ -70,6 +89,7 @@ async function start(): Promise<void> {
     settings,
     tasks,
     profiles,
+    cards,
     accounts,
     catalog,
     overrides,
@@ -122,7 +142,7 @@ async function start(): Promise<void> {
       }
       keeper.stop();
       accountWindows.closeAll();
-      for (const store of [settings, tasks, profiles, accounts]) store.flush();
+      for (const store of [settings, tasks, profiles, cards, accounts]) store.flush();
       logBus.flushSync();
       app.quit();
     })();

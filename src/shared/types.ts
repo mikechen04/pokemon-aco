@@ -98,6 +98,27 @@ export interface Address {
   phone: string;
 }
 
+export type CardBrand = 'visa' | 'mastercard' | 'amex' | 'discover' | 'other';
+
+/** What the UI may see about a stored card. The number and security code stay in the main process. */
+export interface CardSummary {
+  brand: CardBrand;
+  last4: string;
+  expMonth: number;
+  expYear: number;
+  holder: string;
+  updatedAt: number;
+}
+
+/** A full card typed in the Profiles tab. Sent once to the main process, which encrypts it. */
+export interface CardInput {
+  holder: string;
+  number: string;
+  expMonth: number;
+  expYear: number;
+  cvv: string;
+}
+
 export interface Profile {
   id: string;
   createdAt: number;
@@ -105,12 +126,14 @@ export interface Profile {
   shipping: Address;
   billingSameAsShipping: boolean;
   billing: Address;
-  /** Last 4 digits of a card already saved on the retailer account. Never a full number. */
+  /** Last 4 digits of the card to pay with: one saved on the retailer account, or the stored card. */
   cardLast4: string;
   cardLabel: string;
+  /** Optional full card (e.g. a virtual card) typed into checkout when the account has no saved card. */
+  card: CardSummary | null;
 }
 
-export type ProfileInput = Omit<Profile, 'id' | 'createdAt'>;
+export type ProfileInput = Omit<Profile, 'id' | 'createdAt' | 'card'>;
 
 export type AccountSessionState = 'unknown' | 'checking' | 'signed_in' | 'signed_out' | 'needs_attention';
 
