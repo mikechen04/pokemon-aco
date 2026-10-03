@@ -8,6 +8,7 @@ import type {
   BulkAccountInput,
   BulkAccountResult,
   AppInfo,
+  AppUpdateStatus,
   CardInput,
   CatalogEntry,
   CatalogFile,
@@ -34,6 +35,11 @@ export interface InvokeContract {
   'app:info': () => AppInfo;
   'app:openPath': (kind: PathKind) => ActionResult;
   'app:openProductUrl': (url: string) => ActionResult;
+
+  'appUpdate:status': () => AppUpdateStatus;
+  'appUpdate:check': () => AppUpdateStatus;
+  'appUpdate:download': () => AppUpdateStatus;
+  'appUpdate:install': () => ActionResult;
 
   'settings:get': () => Settings;
   'settings:update': (patch: SettingsPatch) => Settings;
@@ -93,6 +99,7 @@ export interface EventContract {
   'accounts:changed': AccountPublic[];
   'profiles:changed': Profile[];
   'catalog:changed': CatalogFile;
+  'appUpdate:status': AppUpdateStatus;
   toast: Toast;
 }
 
@@ -104,6 +111,10 @@ export const INVOKE_CHANNELS = {
   'app:info': true,
   'app:openPath': true,
   'app:openProductUrl': true,
+  'appUpdate:status': true,
+  'appUpdate:check': true,
+  'appUpdate:download': true,
+  'appUpdate:install': true,
   'settings:get': true,
   'settings:update': true,
   'settings:setKillSwitch': true,
@@ -155,6 +166,7 @@ export const EVENT_CHANNELS = {
   'accounts:changed': true,
   'profiles:changed': true,
   'catalog:changed': true,
+  'appUpdate:status': true,
   toast: true,
 } as const satisfies Record<EventChannel, true>;
 

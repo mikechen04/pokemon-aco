@@ -37,6 +37,7 @@ export const DEFAULT_SETTINGS: Settings = {
   showAutomationWindows: false,
   bestBuyApiKey: '',
   amazonSoldByAmazonOnly: true,
+  autoUpdate: true,
 };
 
 export const CATALOG_CATEGORIES = [

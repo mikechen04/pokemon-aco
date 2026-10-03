@@ -209,6 +209,29 @@ a {
   color: #fff;
   box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.25);
 }
+.update-chip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--accent-line);
+  background: var(--accent-soft);
+  color: var(--accent);
+  font: inherit;
+  font-size: 12.5px;
+  cursor: pointer;
+}
+.update-chip:hover {
+  background: rgba(142, 203, 255, 0.2);
+}
+.update-chip.passive {
+  cursor: default;
+  color: var(--text-dim);
+  border-color: var(--border-strong);
+  background: transparent;
+}
 .version {
   font-size: 11px;
   color: var(--text-faint);

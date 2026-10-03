@@ -1,11 +1,11 @@
-import { Bell, FileJson, FolderOpen, Gauge, Globe, OctagonX, Send, ShieldCheck, Store } from 'lucide-react';
+import { Bell, Download, FileJson, FolderOpen, Gauge, Globe, OctagonX, RefreshCw, Send, ShieldCheck, Store } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import { DEFAULT_NOTIFY_ON, LIMITS } from '../../shared/constants';
 import { parseProxyList } from '../../shared/proxies';
 import { firstIssue, settingsPatchSchema } from '../../shared/schemas';
 import type { NotifyOn, ProxyTestResult, Settings, SettingsPatch } from '../../shared/types';
 import { call } from '../api';
-import { PageHeader, setDryRun } from '../App';
+import { installUpdate, PageHeader, setDryRun } from '../App';
 import { Button, Field, ToggleRow } from '../components/ui';
 import { act, useApp } from '../store';
 
@@ -28,6 +28,8 @@ function toDraft(s: Settings): Draft {
 export function SettingsPage() {
   const settings = useApp((s) => s.settings);
   const info = useApp((s) => s.info);
+  const appUpdate = useApp((s) => s.appUpdate);
+  const running = useApp((s) => s.tasks.filter((t) => t.runtime.running).length);
   const [draft, setDraft] = useState<Draft | null>(settings ? toDraft(settings) : null);
   const [showSecret, setShowSecret] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -262,6 +264,57 @@ export function SettingsPage() {
               <span className="faint" style={{ fontSize: 12 }}>
                 Fix a changed endpoint or selector without rebuilding.
               </span>
+            </div>
+          </div>
+
+          <div className="card card-pad">
+            <h2>
+              <RefreshCw size={16} style={{ verticalAlign: -2, marginRight: 6 }} color="var(--accent)" />
+              App updates
+            </h2>
+            <p className="hint">
+              New versions come from the project’s GitHub Releases. Downloads wait until no task is running, and a downloaded update
+              installs when you quit the app.
+            </p>
+            <div className="kv">
+              <span className="k">Installed</span>
+              <span className="v">v{appUpdate?.currentVersion ?? info?.version}</span>
+              <span className="k">Status</span>
+              <span className="v">
+                {appUpdate?.message ?? '—'}
+                {appUpdate?.state === 'downloading' ? ` (${appUpdate.percent ?? 0}%)` : ''}
+              </span>
+              {appUpdate?.checkedAt ? (
+                <>
+                  <span className="k">Last check</span>
+                  <span className="v">{new Date(appUpdate.checkedAt).toLocaleString()}</span>
+                </>
+              ) : null}
+            </div>
+            <ToggleRow
+              title="Download updates automatically"
+              description="Off: you are told about a new version and download it yourself."
+              on={draft.autoUpdate}
+              onChange={(on) => set('autoUpdate', on)}
+            />
+            <div className="toolbar" style={{ marginTop: 6 }}>
+              <Button
+                small
+                disabled={!appUpdate || ['unsupported', 'checking', 'downloading', 'ready'].includes(appUpdate.state)}
+                onClick={() => void act(call('appUpdate:check'))}
+              >
+                <RefreshCw size={13} /> Check now
+              </Button>
+              {appUpdate?.state === 'available' ? (
+                <Button small onClick={() => void act(call('appUpdate:download'))}>
+                  <Download size={13} /> Download {appUpdate.version}
+                </Button>
+              ) : null}
+              {appUpdate?.state === 'ready' ? (
+                <Button small variant="primary" onClick={() => void installUpdate(running)}>
+                  <Download size={13} /> Restart and install {appUpdate.version}
+                </Button>
+              ) : null}
             </div>
           </div>
 

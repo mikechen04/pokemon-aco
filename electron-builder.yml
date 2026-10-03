@@ -14,8 +14,13 @@ files:
 
 asar: true
 npmRebuild: false
-# No auto-update server: installers are shared by hand or via GitHub Releases.
-publish: null
+# Auto-update: installed apps read this repo's GitHub Releases (src/main/updater.ts).
+# The build writes latest.yml next to the installer; the release workflow uploads both.
+publish:
+  provider: github
+  owner: mikechen04
+  repo: pokemon-aco
+  releaseType: release
 
 win:
   target:

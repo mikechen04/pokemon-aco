@@ -214,6 +214,8 @@ export interface Settings {
   showAutomationWindows: boolean;
   bestBuyApiKey: string;
   amazonSoldByAmazonOnly: boolean;
+  /** Download new versions from GitHub Releases on their own (installed when the app quits). */
+  autoUpdate: boolean;
 }
 
 export type SettingsPatch = Partial<Omit<Settings, 'notifyOn'>> & { notifyOn?: Partial<NotifyOn> };
@@ -258,6 +260,19 @@ export interface AppInfo {
   platform: string;
   encryption: { available: boolean; backend: string; strong: boolean };
   paths: { userData: string; logs: string; catalog: string; overrides: string };
+}
+
+export type AppUpdateState = 'unsupported' | 'idle' | 'checking' | 'up_to_date' | 'available' | 'downloading' | 'ready' | 'error';
+
+export interface AppUpdateStatus {
+  state: AppUpdateState;
+  currentVersion: string;
+  /** The newer version found on GitHub Releases. */
+  version?: string;
+  /** Download progress, 0-100. */
+  percent?: number;
+  message: string;
+  checkedAt?: number;
 }
 
 export interface ProxyTestResult {

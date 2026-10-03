@@ -20,6 +20,7 @@ import { StockMonitor } from './engine/monitor';
 import { SessionManager } from './engine/sessions';
 import { registerIpc, wireEvents } from './ipc';
 import { createRetailerModules } from './retailers/registry';
+import { Updater } from './updater';
 import { createMainWindow } from './window';
 
 /** Must match electron-builder's appId so Windows notifications are attributed to the app. */
@@ -83,6 +84,7 @@ async function start(): Promise<void> {
     onSignedOut: (accountId) => manager.onAccountSignedOut(accountId),
   });
   const accountWindows = new AccountWindows(accounts, sessions, modules, (accountId) => void keeper.check(accountId));
+  const updater = new Updater({ getSettings, busy: () => manager.list().some((t) => manager.isRunning(t.id)) });
 
   const services = {
     mainWindow: () => mainWindow,
@@ -98,6 +100,7 @@ async function start(): Promise<void> {
     keeper,
     accountWindows,
     notifier,
+    updater,
   };
   registerIpc(services);
   wireEvents(services);
@@ -110,6 +113,7 @@ async function start(): Promise<void> {
   logBus.info(`Pokemon ACO ${app.getVersion()} started${settings.get().dryRun ? ' (dry run is ON: no orders will be placed)' : ''}`);
 
   mainWindow = createMainWindow(icon);
+  updater.start();
   mainWindow.on('close', (event) => {
     const running = manager.list().filter((t) => manager.isRunning(t.id)).length;
     if (running === 0 || !mainWindow) return;
@@ -141,6 +145,7 @@ async function start(): Promise<void> {
         // shutting down regardless
       }
       keeper.stop();
+      updater.stop();
       accountWindows.closeAll();
       for (const store of [settings, tasks, profiles, cards, accounts]) store.flush();
       logBus.flushSync();

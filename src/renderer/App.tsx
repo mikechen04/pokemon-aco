@@ -3,6 +3,7 @@ import {
   BookOpen,
   CircleAlert,
   CircleCheck,
+  Download,
   Info,
   KeyRound,
   ListChecks,
@@ -47,11 +48,28 @@ export async function setDryRun(next: boolean): Promise<void> {
   await act(call('settings:update', { dryRun: next }), next ? 'Dry run on: orders will not be placed' : 'Live: tasks will place orders');
 }
 
+/** Installs a downloaded app update (the app restarts). Not while tasks are running. */
+export async function installUpdate(running: number): Promise<void> {
+  if (running > 0) {
+    useApp.getState().toast('warn', `Stop the ${running} running task(s) first. The update also installs on its own when you quit.`);
+    return;
+  }
+  const ok = await confirm({
+    title: 'Restart and install the update?',
+    message: 'Pokemon ACO closes, installs the new version and opens again. Your tasks, profiles and accounts are kept.',
+    confirmLabel: 'Restart and install',
+  });
+  if (!ok) return;
+  const result = await act(call('appUpdate:install'));
+  if (result && !result.ok) useApp.getState().toast('warn', result.message);
+}
+
 function Sidebar() {
   const tab = useApp((s) => s.tab);
   const setTab = useApp((s) => s.setTab);
   const settings = useApp((s) => s.settings);
   const info = useApp((s) => s.info);
+  const appUpdate = useApp((s) => s.appUpdate);
   const tasks = useApp((s) => s.tasks);
   const accounts = useApp((s) => s.accounts);
   const running = tasks.filter((t) => t.runtime.running).length;
@@ -96,6 +114,15 @@ function Sidebar() {
           <OctagonX size={17} />
           {killed ? 'KILL SWITCH ON' : 'KILL SWITCH'}
         </button>
+        {appUpdate?.state === 'ready' ? (
+          <button className="update-chip" onClick={() => void installUpdate(running)} title={appUpdate.message}>
+            <Download size={14} /> Update {appUpdate.version} ready · Restart
+          </button>
+        ) : appUpdate?.state === 'downloading' ? (
+          <div className="update-chip passive">
+            <Download size={14} /> Downloading {appUpdate.version} · {appUpdate.percent ?? 0}%
+          </div>
+        ) : null}
         <div className="version">
           v{info?.version} · {info?.encryption.backend}
           {info && !info.encryption.strong ? ' (weak)' : ''}

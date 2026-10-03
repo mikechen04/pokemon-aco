@@ -35,6 +35,7 @@ import type { AccountWindows } from './engine/accountWindow';
 import type { SessionKeeper } from './engine/keepalive';
 import type { TaskManager } from './engine/manager';
 import type { SessionManager } from './engine/sessions';
+import type { Updater } from './updater';
 
 export interface AppServices {
   mainWindow: () => BrowserWindow | null;
@@ -50,6 +51,7 @@ export interface AppServices {
   keeper: SessionKeeper;
   accountWindows: AccountWindows;
   notifier: Notifier;
+  updater: Updater;
 }
 
 function validate<T>(schema: z.ZodType<T>, value: unknown): T {
@@ -63,7 +65,7 @@ function normalizeProfileInput(input: ProfileInput): ProfileInput {
 }
 
 export function registerIpc(services: AppServices): void {
-  const { settings, tasks, profiles, cards, accounts, catalog, overrides, manager, sessions, keeper, accountWindows, notifier } = services;
+  const { settings, tasks, profiles, cards, accounts, catalog, overrides, manager, sessions, keeper, accountWindows, notifier, updater } = services;
 
   const trusted = (event: IpcMainInvokeEvent) => {
     const win = services.mainWindow();
@@ -108,6 +110,12 @@ export function registerIpc(services: AppServices): void {
     await shell.openExternal(url);
     return { ok: true, message: 'Opened in your browser' };
   });
+
+  // ---- app updates ----
+  handle('appUpdate:status', () => updater.get());
+  handle('appUpdate:check', () => updater.check());
+  handle('appUpdate:download', () => updater.download());
+  handle('appUpdate:install', () => updater.install());
 
   // ---- settings ----
   const applySettings = (patch: unknown): Settings => {
@@ -417,6 +425,7 @@ export function wireEvents(services: AppServices): void {
   services.accounts.on('account', (account: EventContract['account:changed']) => send('account:changed', account));
   services.settings.on('changed', (value: Settings) => send('settings:changed', value));
   services.catalog.on('changed', (file: EventContract['catalog:changed']) => send('catalog:changed', file));
+  services.updater.on('status', (status: EventContract['appUpdate:status']) => send('appUpdate:status', status));
   logBus.on('entry', (entry: EventContract['log:entry']) => send('log:entry', entry));
   logBus.on('cleared', () => send('logs:cleared', null));
 }

@@ -33,6 +33,7 @@ function normalizeSettings(raw: unknown): Settings {
     'blockImagesInBackground',
     'showAutomationWindows',
     'amazonSoldByAmazonOnly',
+    'autoUpdate',
   ] as const;
   for (const key of booleans) if (typeof source[key] === 'boolean') out[key] = source[key];
   const strings = ['proxies', 'webhookUrl', 'bestBuyApiKey'] as const;

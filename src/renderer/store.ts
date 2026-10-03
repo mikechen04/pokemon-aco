@@ -4,6 +4,7 @@ import { create } from 'zustand';
 import type {
   AccountPublic,
   AppInfo,
+  AppUpdateStatus,
   CatalogFile,
   LogEntry,
   LogLevel,
@@ -32,6 +33,7 @@ interface AppState {
   loadError: string | null;
   tab: Tab;
   info: AppInfo | null;
+  appUpdate: AppUpdateStatus | null;
   settings: Settings | null;
   tasks: TaskView[];
   profiles: Profile[];
@@ -57,6 +59,7 @@ export const useApp = create<AppState>((set, get) => ({
   loadError: null,
   tab: 'tasks',
   info: null,
+  appUpdate: null,
   settings: null,
   tasks: [],
   profiles: [],
@@ -95,11 +98,13 @@ export const useApp = create<AppState>((set, get) => ({
     );
     subscribe('settings:changed', (settings) => set({ settings }));
     subscribe('catalog:changed', (catalog) => set({ catalog }));
+    subscribe('appUpdate:status', (appUpdate) => set({ appUpdate }));
     subscribe('log:entry', (entry) => set((s) => ({ logs: [...s.logs, entry].slice(-MAX_LOGS) })));
     subscribe('logs:cleared', () => set({ logs: [] }));
     try {
-      const [info, settings, tasks, profiles, accounts, catalog, logs] = await Promise.all([
+      const [info, appUpdate, settings, tasks, profiles, accounts, catalog, logs] = await Promise.all([
         call('app:info'),
+        call('appUpdate:status'),
         call('settings:get'),
         call('tasks:list'),
         call('profiles:list'),
@@ -107,7 +112,7 @@ export const useApp = create<AppState>((set, get) => ({
         call('catalog:get'),
         call('logs:recent', MAX_LOGS),
       ]);
-      set({ info, settings, tasks, profiles, accounts, catalog, logs, ready: true });
+      set({ info, appUpdate, settings, tasks, profiles, accounts, catalog, logs, ready: true });
     } catch (err) {
       set({ loadError: err instanceof Error ? err.message : String(err) });
     }

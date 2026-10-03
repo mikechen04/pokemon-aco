@@ -30,11 +30,15 @@ Built with Electron + TypeScript + React. It packages as a normal Windows instal
 
 ## Install on Windows
 
-**Option A: download the installer (no setup).** Every push builds the installer on GitHub Actions:
+**Option A: download the installer (no setup).** Get `Pokemon-ACO-Setup-<version>.exe` from the repo's **Releases** page (or from any green **Actions → Windows installer** run, under Artifacts) and run it.
 
-1. Open the repo on GitHub → **Actions** → **Windows installer** → the latest green run.
-2. Download the **Pokemon-ACO-Setup** artifact, unzip it, and run `Pokemon-ACO-Setup-1.0.0.exe`.
-3. Pushing a tag like `v1.0.0` also attaches the installer to a GitHub **Release**, which is the easiest way to share it.
+**Updates are automatic** from version 1.1.0 on:
+
+- **How it checks:** the installed app looks at this repo's GitHub Releases a few seconds after it starts, then every 6 hours.
+- **When it downloads:** new versions download in the background, but only while no task is running, so a download never competes with a drop.
+- **When it installs:** when you quit the app, or right away with **Settings → App updates → Restart and install**. Tasks, profiles, accounts and stored cards are kept.
+- **Turning it off:** switch off "Download updates automatically" in Settings to download by hand instead.
+- **Older installs:** anyone on 1.0.0 has to install 1.1.0 once by hand (1.0.0 had no updater).
 
 **Option B: build it yourself.**
 
@@ -44,9 +48,27 @@ Built with Electron + TypeScript + React. It packages as a normal Windows instal
    npm ci
    npm run dist:win
    ```
-3. The installer is at `release/Pokemon-ACO-Setup-1.0.0.exe`.
+3. The installer is at `release/Pokemon-ACO-Setup-<version>.exe`.
 
 The installer is not code-signed, so Windows SmartScreen will warn on first run: click **More info → Run anyway**. To sign it, give electron-builder a certificate (`CSC_LINK` / `CSC_KEY_PASSWORD`).
+
+## Publishing an update
+
+Installed apps update themselves from GitHub Releases. To ship a new version:
+
+```bash
+npm version patch            # or minor / major: bumps package.json and creates the tag
+git push --follow-tags       # pushes the commit and the v<version> tag
+```
+
+The **Windows installer** workflow then:
+
+1. Checks that the tag matches `package.json`.
+2. Runs the type check and tests.
+3. Builds the installer.
+4. Publishes a Release with `Pokemon-ACO-Setup-<version>.exe`, its `.blockmap` and `latest.yml`.
+
+Installed apps find it within 6 hours, or on their next start.
 
 ## Run in development
 
@@ -203,10 +225,11 @@ src/main/
                        stock monitor, task runner, task manager, keep-alive
   retailers/           target, bestbuy, amazon, pokemoncenter + shared flows
   ipc.ts index.ts      IPC handlers and app lifecycle
+  updater.ts           auto-update from GitHub Releases (installed Windows app only)
 src/preload/           the allow-listed bridge between UI and main process
 src/renderer/          React UI: Tasks, Profiles, Accounts, Catalog, Updates, Settings
 tests/                 unit tests for the pure logic
-.github/workflows/     CI (Linux) and the Windows installer build
+.github/workflows/     CI (Linux), the Windows installer build and release publishing
 ```
 
 **Adding a store:** implement `RetailerModule` (`src/main/retailers/types.ts`), add its id to `RETAILER_IDS` and its metadata to `src/shared/retailers.ts`, then register it in `src/main/retailers/registry.ts`.

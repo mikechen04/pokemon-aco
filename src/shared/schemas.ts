@@ -183,6 +183,7 @@ export const settingsPatchSchema = z
       .trim()
       .regex(/^[A-Za-z0-9]{0,64}$/, 'Best Buy API keys are letters and digits only'),
     amazonSoldByAmazonOnly: z.boolean(),
+    autoUpdate: z.boolean(),
   })
   .partial()
   .strict();
