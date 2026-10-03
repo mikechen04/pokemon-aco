@@ -1,0 +1,26 @@
+{
+  "note": "Retail prices in USD. 'known' are confirmed prices by TCGplayer product id. 'types' give the usual price for a kind of product (shown with ≈ in the app); the first matching regex wins; null = prices vary too much to guess.",
+  "known": {
+    "704143": 49.99,
+    "704144": 59.99,
+    "712104": 59.99
+  },
+  "types": [
+    { "match": "pok[eé]mon center.*elite trainer box", "category": "Pokémon Center Exclusive", "msrp": 59.99 },
+    { "match": "elite trainer box", "category": "Elite Trainer Box", "msrp": 49.99 },
+    { "match": "booster bundle", "category": "Booster Bundle", "msrp": 26.94 },
+    { "match": "booster (box|display)", "category": "Booster Box", "msrp": 161.64 },
+    { "match": "sleeved booster|booster pack", "category": "Booster Pack", "msrp": 4.49 },
+    { "match": "(3|three)[- ]?(pack|booster) blister", "category": "Booster Pack", "msrp": 14.99 },
+    { "match": "checklane blister", "category": "Booster Pack", "msrp": 5.99 },
+    { "match": "mini tins?\\b", "category": "Tin", "msrp": 9.99 },
+    { "match": "\\btins?\\b", "category": "Tin", "msrp": null },
+    { "match": "binder collection", "category": "Collection Box", "msrp": 31.99 },
+    { "match": "poster collection", "category": "Collection Box", "msrp": 14.99 },
+    { "match": "sticker collection", "category": "Collection Box", "msrp": 14.99 },
+    { "match": "knock ?out collection", "category": "Collection Box", "msrp": 9.99 },
+    { "match": "\\bex box\\b", "category": "Collection Box", "msrp": 21.99 },
+    { "match": "battle deck", "category": "Other", "msrp": 19.99 },
+    { "match": "collection|premium|\\bbox\\b", "category": "Collection Box", "msrp": null }
+  ]
+}

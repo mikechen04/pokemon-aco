@@ -1,6 +1,6 @@
-import { Bell, Download, FileJson, FolderOpen, Gauge, Globe, OctagonX, RefreshCw, Send, ShieldCheck, Store } from 'lucide-react';
+import { Bell, BookOpen, Download, FileJson, FolderOpen, Gauge, Globe, OctagonX, RefreshCw, Send, ShieldCheck, Store } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
-import { DEFAULT_NOTIFY_ON, LIMITS } from '../../shared/constants';
+import { CATALOG_FEED_URL, DEFAULT_NOTIFY_ON, LIMITS } from '../../shared/constants';
 import { parseProxyList } from '../../shared/proxies';
 import { firstIssue, settingsPatchSchema } from '../../shared/schemas';
 import type { NotifyOn, ProxyTestResult, Settings, SettingsPatch } from '../../shared/types';
@@ -316,6 +316,32 @@ export function SettingsPage() {
                 </Button>
               ) : null}
             </div>
+          </div>
+
+          <div className="card card-pad">
+            <h2>
+              <BookOpen size={16} style={{ verticalAlign: -2, marginRight: 6 }} color="var(--pink)" />
+              Catalog feed
+            </h2>
+            <p className="hint">
+              A list of current Pokémon TCG products with TCGplayer market prices, rebuilt every day by the project’s GitHub workflow.
+              Syncing adds new products and refreshes prices; your own entries and edits are kept.
+            </p>
+            <ToggleRow
+              title="Sync the catalog automatically"
+              description="Shortly after the app starts, then every 6 hours."
+              on={draft.catalogAutoSync}
+              pink
+              onChange={(on) => set('catalogAutoSync', on)}
+            />
+            <Field label="Feed URL" help="Change only if you publish your own feed.">
+              <div style={{ display: 'flex', gap: 8 }}>
+                <input className="input" value={draft.catalogFeedUrl} onChange={(e) => set('catalogFeedUrl', e.target.value.trim())} spellCheck={false} />
+                <Button small disabled={draft.catalogFeedUrl === CATALOG_FEED_URL} onClick={() => set('catalogFeedUrl', CATALOG_FEED_URL)}>
+                  Default
+                </Button>
+              </div>
+            </Field>
           </div>
 
           <div className="card card-pad">

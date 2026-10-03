@@ -1,0 +1,34 @@
+{
+  "note": "Store links checked by hand. A line matches a product by TCGplayer id, or by words that must (nameIncludes) and must not (nameExcludes) appear in the product name. Only add links copied from the store's own product page.",
+  "links": [
+    {
+      "tcgplayerId": 704143,
+      "checked": "2026-10-03",
+      "target": "https://www.target.com/p/pok-233-mon-trading-card-game-30th-celebration-elite-trainer-box/-/A-1010892076",
+      "bestbuy": "https://www.bestbuy.com/product/pokemon-trading-card-game-30th-celebration-elite-trainer-box/JJG2TL8XCJ/sku/13089535",
+      "amazon": "https://www.amazon.com/dp/B0H78BB9TY"
+    },
+    {
+      "tcgplayerId": 704144,
+      "checked": "2026-10-03",
+      "pokemoncenter": "https://www.pokemoncenter.com/product/10-10447-111/pokemon-tcg-30th-celebration-pokemon-center-elite-trainer-box"
+    },
+    {
+      "nameIncludes": ["30th Celebration", "Booster Bundle"],
+      "nameExcludes": ["Case", "Display", "Pokemon Center"],
+      "checked": "2026-10-03",
+      "bestbuy": "https://www.bestbuy.com/product/pokemon-trading-card-game-30th-celebration-booster-bundle/JJG2TL8X2V",
+      "amazon": "https://www.amazon.com/dp/B0H783FY5Z"
+    },
+    {
+      "nameIncludes": ["30th Celebration", "Binder Collection"],
+      "checked": "2026-10-03",
+      "amazon": "https://www.amazon.com/dp/B0H7818YHY"
+    },
+    {
+      "nameIncludes": ["Ditto", "Premium Collection"],
+      "checked": "2026-10-03",
+      "amazon": "https://www.amazon.com/dp/B0H7815T4Y"
+    }
+  ]
+}

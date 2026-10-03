@@ -16,5 +16,5 @@
     "types": ["node"],
     "noEmit": true
   },
-  "include": ["src/main/**/*", "src/preload/**/*", "src/shared/**/*", "tests/**/*", "vite.config.mts", "vitest.config.mts"]
+  "include": ["src/main/**/*", "src/preload/**/*", "src/shared/**/*", "scripts/**/*.ts", "tests/**/*", "vite.config.mts", "vitest.config.mts"]
 }

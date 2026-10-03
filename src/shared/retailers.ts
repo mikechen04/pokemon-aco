@@ -120,18 +120,42 @@ function parseTarget(input: string, url: URL | null): ParseOutcome {
   return { ok: true, product: { productId: tcin, url: cleanUrl(url, preselect ? ['preselect'] : []) } };
 }
 
+/** Best Buy SKUs are numeric; newer ones have 8 digits. */
+export const BESTBUY_SKU = /^\d{6,9}$/;
+
 function parseBestBuy(input: string, url: URL | null): ParseOutcome {
   if (!url) {
     const raw = input.trim();
-    if (/^\d{6,8}$/.test(raw)) return { ok: true, product: { productId: raw, url: canonicalProductUrl('bestbuy', raw) } };
-    return { ok: false, error: 'Enter a Best Buy product URL or a SKU (6-8 digits).' };
+    if (BESTBUY_SKU.test(raw)) return { ok: true, product: { productId: raw, url: canonicalProductUrl('bestbuy', raw) } };
+    return { ok: false, error: 'Enter a Best Buy product URL or a SKU (6-9 digits).' };
   }
   const sku =
-    url.searchParams.get('skuId')?.match(/^\d{6,8}$/)?.[0] ??
-    /\/(\d{6,8})\.p(?:[/?#]|$)/i.exec(url.pathname)?.[1] ??
-    /\/sku\/(\d{6,8})(?:[/?#]|$)/i.exec(url.pathname)?.[1];
-  if (!sku) return { ok: false, error: 'Could not find a SKU in this Best Buy URL (look for skuId=...).' };
-  return { ok: true, product: { productId: sku, url: cleanUrl(url, ['skuId']) } };
+    url.searchParams.get('skuId')?.match(BESTBUY_SKU)?.[0] ??
+    /\/(\d{6,9})\.p(?:[/?#]|$)/i.exec(url.pathname)?.[1] ??
+    /\/sku\/(\d{6,9})(?:[/?#]|$)/i.exec(url.pathname)?.[1];
+  if (sku) return { ok: true, product: { productId: sku, url: cleanUrl(url, ['skuId']) } };
+  // Newer links, /product/<name>/<CODE>, carry a product code; the SKU is looked up on that page.
+  const code = /^\/product\/[^/]+\/([A-Z0-9]{8,12})\/?$/i.exec(url.pathname)?.[1];
+  if (code && /\d/.test(code) && /[A-Z]/i.test(code)) return { ok: true, product: { productId: code.toUpperCase(), url: cleanUrl(url, []) } };
+  return { ok: false, error: 'Could not find a SKU in this Best Buy URL (look for skuId=... or /sku/...).' };
+}
+
+/**
+ * The SKU on a Best Buy product page: the canonical link's /sku/ part, else the skuId that the
+ * page's data mentions most often (recommendations mention other SKUs only a few times).
+ */
+export function bestBuySkuFromHtml(html: string): string | null {
+  const canonical = /<link[^>]+rel=["']canonical["'][^>]*>/i.exec(html)?.[0] ?? /<meta[^>]+property=["']og:url["'][^>]*>/i.exec(html)?.[0] ?? '';
+  const fromCanonical = /\/sku\/(\d{6,9})|skuId=(\d{6,9})/.exec(canonical);
+  if (fromCanonical) return fromCanonical[1] ?? fromCanonical[2] ?? null;
+  const counts = new Map<string, number>();
+  for (const match of html.matchAll(/\\?["']sku(?:Id)?\\?["']\s*:\s*\\?["']?(\d{6,9})|data-sku-id=["'](\d{6,9})/gi)) {
+    const sku = match[1] ?? match[2];
+    if (sku) counts.set(sku, (counts.get(sku) ?? 0) + 1);
+  }
+  let best: string | null = null;
+  for (const [sku, n] of counts) if (best === null || n > (counts.get(best) ?? 0)) best = sku;
+  return best;
 }
 
 const ASIN = /^(?:B0[A-Z0-9]{8}|\d{9}[\dX])$/i;

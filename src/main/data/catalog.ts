@@ -1,13 +1,19 @@
-// The product catalog: a plain, human-editable JSON file in the user data folder,
-// seeded from catalog/default-catalog.json (which ships with empty placeholders).
+// The product catalog: a plain, human-editable JSON file in the user data folder. It is seeded
+// from catalog/default-catalog.json and kept current from the catalog feed (catalog/feed.json,
+// rebuilt daily from TCGplayer prices by this repo's catalog-feed workflow).
 import { EventEmitter } from 'node:events';
 import { existsSync, readFileSync, renameSync } from 'node:fs';
 import { readFile } from 'node:fs/promises';
+import { net } from 'electron';
 import defaultCatalog from '../../../catalog/default-catalog.json';
-import { catalogFileSchema, firstIssue } from '../../shared/schemas';
-import type { CatalogEntry, CatalogFile, CatalogImportResult } from '../../shared/types';
+import { catalogFeedSchema, catalogFileSchema, firstIssue } from '../../shared/schemas';
+import type { CatalogEntry, CatalogFeedState, CatalogFile, CatalogImportResult, CatalogSyncResult } from '../../shared/types';
 import { writeFileAtomic } from '../core/fileStore';
 import { paths } from '../core/paths';
+import { mergeCatalogFeed, sanitizeFeedEntry } from './catalogMerge';
+
+/** A feed bigger than this is refused (today's is well under 1 MB). */
+const MAX_FEED_BYTES = 10 * 1024 * 1024;
 
 function seed(): CatalogFile {
   const parsed = catalogFileSchema.safeParse(defaultCatalog);
@@ -23,6 +29,7 @@ function dedupe(entries: CatalogEntry[]): CatalogEntry[] {
 
 export class CatalogRepo extends EventEmitter {
   private file: CatalogFile;
+  private syncing: Promise<CatalogSyncResult> | null = null;
 
   constructor(private readonly onError: (message: string) => void) {
     super();
@@ -60,8 +67,14 @@ export class CatalogRepo extends EventEmitter {
     }
   }
 
-  private commit(entries: CatalogEntry[]): CatalogFile {
-    this.file = { version: 1, updatedAt: new Date().toISOString(), entries: dedupe(entries) };
+  private commit(entries: CatalogEntry[], changes: { feed?: CatalogFeedState; dismissed?: string[] } = {}): CatalogFile {
+    this.file = {
+      version: 1,
+      updatedAt: new Date().toISOString(),
+      ...((changes.feed ?? this.file.feed) ? { feed: changes.feed ?? this.file.feed } : {}),
+      dismissed: changes.dismissed ?? this.file.dismissed,
+      entries: dedupe(entries),
+    };
     void this.write(this.file);
     this.emit('changed', this.file);
     return this.file;
@@ -85,13 +98,72 @@ export class CatalogRepo extends EventEmitter {
   }
 
   remove(id: string): CatalogFile {
-    return this.commit(this.file.entries.filter((e) => e.id !== id));
+    const entry = this.find(id);
+    // A deleted feed entry stays deleted: sync does not bring it back.
+    const dismissed = entry?.origin === 'feed' && !this.file.dismissed.includes(id) ? [...this.file.dismissed, id] : this.file.dismissed;
+    return this.commit(
+      this.file.entries.filter((e) => e.id !== id),
+      { dismissed },
+    );
   }
 
   reload(): CatalogFile {
     this.file = this.loadOrSeed();
     this.emit('changed', this.file);
     return this.file;
+  }
+
+  /**
+   * Downloads the catalog feed and merges it in. Concurrent calls share one download.
+   * @param keepIds entries that tasks refer to (never removed).
+   */
+  sync(url: string, keepIds: Set<string>): Promise<CatalogSyncResult> {
+    this.syncing ??= this.doSync(url, keepIds).finally(() => {
+      this.syncing = null;
+    });
+    return this.syncing;
+  }
+
+  private async doSync(url: string, keepIds: Set<string>): Promise<CatalogSyncResult> {
+    const total = this.file.entries.length;
+    const fail = (message: string): CatalogSyncResult => ({ ok: false, message, added: 0, updated: 0, removed: 0, total });
+    if (!/^https:\/\//i.test(url)) return fail('The catalog feed URL must start with https://');
+    let text: string;
+    try {
+      const res = await net.fetch(url, { headers: { accept: 'application/json' }, cache: 'no-cache' });
+      if (res.status === 404) return fail('The catalog feed is not published at that address yet (HTTP 404)');
+      if (!res.ok) return fail(`The catalog feed answered HTTP ${res.status}`);
+      text = await res.text();
+    } catch (err) {
+      return fail(`Could not download the catalog feed (${err instanceof Error ? err.message : 'network error'})`);
+    }
+    if (text.length > MAX_FEED_BYTES) return fail('The catalog feed is too large');
+    let raw: unknown;
+    try {
+      raw = JSON.parse(text);
+    } catch {
+      return fail('The catalog feed is not valid JSON');
+    }
+    const parsed = catalogFeedSchema.safeParse(raw);
+    if (!parsed.success) return fail(`The catalog feed is invalid: ${firstIssue(parsed.error)}`);
+    const feed = parsed.data;
+    const merged = mergeCatalogFeed(this.file.entries, feed.entries.map(sanitizeFeedEntry), keepIds, new Set(this.file.dismissed));
+    const file = this.commit(merged.entries, {
+      feed: { url, syncedAt: new Date().toISOString(), generatedAt: feed.generatedAt, source: feed.source },
+    });
+    const parts = [
+      merged.added ? `${merged.added} new` : '',
+      merged.updated ? `${merged.updated} updated` : '',
+      merged.removed ? `${merged.removed} removed` : '',
+    ].filter(Boolean);
+    return {
+      ok: true,
+      message: `Catalog synced: ${parts.length ? parts.join(', ') : 'no changes'} (${file.entries.length} entries)`,
+      added: merged.added,
+      updated: merged.updated,
+      removed: merged.removed,
+      total: file.entries.length,
+    };
   }
 
   async importFrom(path: string, mode: 'merge' | 'replace'): Promise<CatalogImportResult> {

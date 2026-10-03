@@ -1,51 +1,161 @@
 {
   "version": 1,
   "updatedAt": "",
+  "dismissed": [],
   "entries": [
     {
-      "id": "30th-celebration-etb",
-      "name": "30th Celebration — Elite Trainer Box",
+      "id": "tcg-704143",
+      "name": "30th Celebration Elite Trainer Box",
       "category": "Elite Trainer Box",
       "set": "30th Celebration",
-      "tags": [
-        "30th Celebration",
-        "ETB"
-      ],
-      "imageUrl": "",
-      "msrp": null,
-      "notes": "Placeholder. Confirm the exact product name, then paste each retailer's product URL (or SKU/TCIN/ASIN) once the listing is live.",
+      "tags": [],
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/704143_200w.jpg",
+      "msrp": 49.99,
+      "msrpEstimated": false,
+      "notes": "",
+      "releaseDate": "2026-09-16",
+      "tcgplayerId": 704143,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/704143",
+      "market": {
+        "price": 155.33,
+        "low": null,
+        "change7d": null,
+        "change30d": null,
+        "updatedAt": "2026-10-03"
+      },
+      "score": 2.107,
       "retailers": {
         "target": {
-          "url": "",
+          "url": "https://www.target.com/p/pok-233-mon-trading-card-game-30th-celebration-elite-trainer-box/-/A-1010892076",
           "sku": ""
         },
         "bestbuy": {
-          "url": "",
+          "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-30th-celebration-elite-trainer-box/JJG2TL8XCJ/sku/13089535",
           "sku": ""
         },
         "amazon": {
-          "url": "",
+          "url": "https://www.amazon.com/dp/B0H78BB9TY",
           "sku": ""
         },
         "pokemoncenter": {
           "url": "",
           "sku": ""
         }
+      },
+      "origin": "feed",
+      "feedBase": {
+        "name": "30th Celebration Elite Trainer Box",
+        "category": "Elite Trainer Box",
+        "set": "30th Celebration",
+        "tags": [],
+        "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/704143_200w.jpg",
+        "msrp": 49.99,
+        "msrpEstimated": false,
+        "notes": "",
+        "retailers": {
+          "target": {
+            "url": "https://www.target.com/p/pok-233-mon-trading-card-game-30th-celebration-elite-trainer-box/-/A-1010892076",
+            "sku": ""
+          },
+          "bestbuy": {
+            "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-30th-celebration-elite-trainer-box/JJG2TL8XCJ/sku/13089535",
+            "sku": ""
+          },
+          "amazon": {
+            "url": "https://www.amazon.com/dp/B0H78BB9TY",
+            "sku": ""
+          },
+          "pokemoncenter": {
+            "url": "",
+            "sku": ""
+          }
+        }
       }
     },
     {
-      "id": "30th-celebration-pc-etb",
-      "name": "30th Celebration — Pokémon Center Elite Trainer Box",
+      "id": "tcg-704144",
+      "name": "30th Celebration Pokemon Center Elite Trainer Box",
       "category": "Pokémon Center Exclusive",
       "set": "30th Celebration",
-      "tags": [
-        "30th Celebration",
-        "ETB",
-        "Pokémon Center Exclusive"
-      ],
-      "imageUrl": "",
-      "msrp": null,
-      "notes": "Placeholder. Confirm the exact product name, then paste each retailer's product URL (or SKU/TCIN/ASIN) once the listing is live. Pokémon Center only.",
+      "tags": [],
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/704144_200w.jpg",
+      "msrp": 59.99,
+      "msrpEstimated": false,
+      "notes": "",
+      "releaseDate": "2026-09-16",
+      "tcgplayerId": 704144,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/704144",
+      "market": {
+        "price": 296.97,
+        "low": null,
+        "change7d": null,
+        "change30d": null,
+        "updatedAt": "2026-10-03"
+      },
+      "score": 3.95,
+      "retailers": {
+        "target": {
+          "url": "",
+          "sku": ""
+        },
+        "bestbuy": {
+          "url": "",
+          "sku": ""
+        },
+        "amazon": {
+          "url": "",
+          "sku": ""
+        },
+        "pokemoncenter": {
+          "url": "https://www.pokemoncenter.com/product/10-10447-111/pokemon-tcg-30th-celebration-pokemon-center-elite-trainer-box",
+          "sku": ""
+        }
+      },
+      "origin": "feed",
+      "feedBase": {
+        "name": "30th Celebration Pokemon Center Elite Trainer Box",
+        "category": "Pokémon Center Exclusive",
+        "set": "30th Celebration",
+        "tags": [],
+        "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/704144_200w.jpg",
+        "msrp": 59.99,
+        "msrpEstimated": false,
+        "notes": "",
+        "retailers": {
+          "target": {
+            "url": "",
+            "sku": ""
+          },
+          "bestbuy": {
+            "url": "",
+            "sku": ""
+          },
+          "amazon": {
+            "url": "",
+            "sku": ""
+          },
+          "pokemoncenter": {
+            "url": "https://www.pokemoncenter.com/product/10-10447-111/pokemon-tcg-30th-celebration-pokemon-center-elite-trainer-box",
+            "sku": ""
+          }
+        }
+      }
+    },
+    {
+      "id": "tcg-712104",
+      "name": "Delta Reign Pokemon Center Elite Trainer Box",
+      "category": "Pokémon Center Exclusive",
+      "set": "Delta Reign",
+      "tags": [],
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/712104_200w.jpg",
+      "msrp": 59.99,
+      "msrpEstimated": false,
+      "notes": "Pokémon Center pre-orders were not open yet on Oct 3, 2026.",
+      "releaseDate": "2026-11-06",
+      "tcgplayerId": 712104,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/712104",
+      "market": null,
+      "score": null,
       "retailers": {
         "target": {
           "url": "",
@@ -63,51 +173,115 @@
           "url": "",
           "sku": ""
         }
+      },
+      "origin": "feed",
+      "feedBase": {
+        "name": "Delta Reign Pokemon Center Elite Trainer Box",
+        "category": "Pokémon Center Exclusive",
+        "set": "Delta Reign",
+        "tags": [],
+        "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/712104_200w.jpg",
+        "msrp": 59.99,
+        "msrpEstimated": false,
+        "notes": "Pokémon Center pre-orders were not open yet on Oct 3, 2026.",
+        "retailers": {
+          "target": {
+            "url": "",
+            "sku": ""
+          },
+          "bestbuy": {
+            "url": "",
+            "sku": ""
+          },
+          "amazon": {
+            "url": "",
+            "sku": ""
+          },
+          "pokemoncenter": {
+            "url": "",
+            "sku": ""
+          }
+        }
       }
     },
     {
-      "id": "30th-celebration-booster-bundle",
-      "name": "30th Celebration — Booster Bundle",
+      "id": "seed-30th-celebration-booster-bundle",
+      "name": "30th Celebration Booster Bundle",
       "category": "Booster Bundle",
       "set": "30th Celebration",
-      "tags": [
-        "30th Celebration",
-        "Booster Bundle"
-      ],
+      "tags": [],
       "imageUrl": "",
-      "msrp": null,
-      "notes": "Placeholder. Confirm the exact product name, then paste each retailer's product URL (or SKU/TCIN/ASIN) once the listing is live.",
+      "msrp": 26.94,
+      "msrpEstimated": true,
+      "notes": "",
+      "releaseDate": "2026-09-16",
+      "tcgplayerId": null,
+      "tcgplayerUrl": "",
+      "market": null,
+      "score": null,
       "retailers": {
         "target": {
           "url": "",
           "sku": ""
         },
         "bestbuy": {
-          "url": "",
+          "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-30th-celebration-booster-bundle/JJG2TL8X2V",
           "sku": ""
         },
         "amazon": {
-          "url": "",
+          "url": "https://www.amazon.com/dp/B0H783FY5Z",
           "sku": ""
         },
         "pokemoncenter": {
           "url": "",
           "sku": ""
         }
+      },
+      "origin": "feed",
+      "feedBase": {
+        "name": "30th Celebration Booster Bundle",
+        "category": "Booster Bundle",
+        "set": "30th Celebration",
+        "tags": [],
+        "imageUrl": "",
+        "msrp": 26.94,
+        "msrpEstimated": true,
+        "notes": "",
+        "retailers": {
+          "target": {
+            "url": "",
+            "sku": ""
+          },
+          "bestbuy": {
+            "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-30th-celebration-booster-bundle/JJG2TL8X2V",
+            "sku": ""
+          },
+          "amazon": {
+            "url": "https://www.amazon.com/dp/B0H783FY5Z",
+            "sku": ""
+          },
+          "pokemoncenter": {
+            "url": "",
+            "sku": ""
+          }
+        }
       }
     },
     {
-      "id": "30th-celebration-collection",
-      "name": "30th Celebration — Collection Box",
+      "id": "seed-30th-celebration-binder-collection",
+      "name": "30th Celebration Binder Collection",
       "category": "Collection Box",
       "set": "30th Celebration",
-      "tags": [
-        "30th Celebration",
-        "Collection"
-      ],
+      "tags": [],
       "imageUrl": "",
-      "msrp": null,
-      "notes": "Placeholder. Confirm the exact product name, then paste each retailer's product URL (or SKU/TCIN/ASIN) once the listing is live.",
+      "msrp": 31.99,
+      "msrpEstimated": false,
+      "notes": "",
+      "releaseDate": "2026-09-16",
+      "tcgplayerId": null,
+      "tcgplayerUrl": "",
+      "market": null,
+      "score": null,
       "retailers": {
         "target": {
           "url": "",
@@ -118,26 +292,122 @@
           "sku": ""
         },
         "amazon": {
-          "url": "",
+          "url": "https://www.amazon.com/dp/B0H7818YHY",
           "sku": ""
         },
         "pokemoncenter": {
           "url": "",
           "sku": ""
         }
+      },
+      "origin": "feed",
+      "feedBase": {
+        "name": "30th Celebration Binder Collection",
+        "category": "Collection Box",
+        "set": "30th Celebration",
+        "tags": [],
+        "imageUrl": "",
+        "msrp": 31.99,
+        "msrpEstimated": false,
+        "notes": "",
+        "retailers": {
+          "target": {
+            "url": "",
+            "sku": ""
+          },
+          "bestbuy": {
+            "url": "",
+            "sku": ""
+          },
+          "amazon": {
+            "url": "https://www.amazon.com/dp/B0H7818YHY",
+            "sku": ""
+          },
+          "pokemoncenter": {
+            "url": "",
+            "sku": ""
+          }
+        }
       }
     },
     {
-      "id": "recent-set-1-etb",
-      "name": "Recent set #1 — Elite Trainer Box",
+      "id": "seed-ditto-premium-collection",
+      "name": "Ditto Premium Collection",
+      "category": "Collection Box",
+      "set": "30th Celebration",
+      "tags": [],
+      "imageUrl": "",
+      "msrp": null,
+      "msrpEstimated": false,
+      "notes": "",
+      "releaseDate": "",
+      "tcgplayerId": null,
+      "tcgplayerUrl": "",
+      "market": null,
+      "score": null,
+      "retailers": {
+        "target": {
+          "url": "",
+          "sku": ""
+        },
+        "bestbuy": {
+          "url": "",
+          "sku": ""
+        },
+        "amazon": {
+          "url": "https://www.amazon.com/dp/B0H7815T4Y",
+          "sku": ""
+        },
+        "pokemoncenter": {
+          "url": "",
+          "sku": ""
+        }
+      },
+      "origin": "feed",
+      "feedBase": {
+        "name": "Ditto Premium Collection",
+        "category": "Collection Box",
+        "set": "30th Celebration",
+        "tags": [],
+        "imageUrl": "",
+        "msrp": null,
+        "msrpEstimated": false,
+        "notes": "",
+        "retailers": {
+          "target": {
+            "url": "",
+            "sku": ""
+          },
+          "bestbuy": {
+            "url": "",
+            "sku": ""
+          },
+          "amazon": {
+            "url": "https://www.amazon.com/dp/B0H7815T4Y",
+            "sku": ""
+          },
+          "pokemoncenter": {
+            "url": "",
+            "sku": ""
+          }
+        }
+      }
+    },
+    {
+      "id": "seed-delta-reign-etb",
+      "name": "Delta Reign Elite Trainer Box",
       "category": "Elite Trainer Box",
-      "set": "",
-      "tags": [
-        "ETB"
-      ],
+      "set": "Delta Reign",
+      "tags": [],
       "imageUrl": "",
-      "msrp": null,
-      "notes": "Placeholder. Confirm the exact product name, then paste each retailer's product URL (or SKU/TCIN/ASIN) once the listing is live. Fill in the set name.",
+      "msrp": 49.99,
+      "msrpEstimated": false,
+      "notes": "",
+      "releaseDate": "2026-11-06",
+      "tcgplayerId": null,
+      "tcgplayerUrl": "",
+      "market": null,
+      "score": null,
       "retailers": {
         "target": {
           "url": "",
@@ -155,156 +425,34 @@
           "url": "",
           "sku": ""
         }
-      }
-    },
-    {
-      "id": "recent-set-1-pc-etb",
-      "name": "Recent set #1 — Pokémon Center Elite Trainer Box",
-      "category": "Pokémon Center Exclusive",
-      "set": "",
-      "tags": [
-        "ETB",
-        "Pokémon Center Exclusive"
-      ],
-      "imageUrl": "",
-      "msrp": null,
-      "notes": "Placeholder. Confirm the exact product name, then paste each retailer's product URL (or SKU/TCIN/ASIN) once the listing is live. Fill in the set name. Pokémon Center only.",
-      "retailers": {
-        "target": {
-          "url": "",
-          "sku": ""
-        },
-        "bestbuy": {
-          "url": "",
-          "sku": ""
-        },
-        "amazon": {
-          "url": "",
-          "sku": ""
-        },
-        "pokemoncenter": {
-          "url": "",
-          "sku": ""
-        }
-      }
-    },
-    {
-      "id": "recent-set-1-booster-bundle",
-      "name": "Recent set #1 — Booster Bundle",
-      "category": "Booster Bundle",
-      "set": "",
-      "tags": [
-        "Booster Bundle"
-      ],
-      "imageUrl": "",
-      "msrp": null,
-      "notes": "Placeholder. Confirm the exact product name, then paste each retailer's product URL (or SKU/TCIN/ASIN) once the listing is live. Fill in the set name.",
-      "retailers": {
-        "target": {
-          "url": "",
-          "sku": ""
-        },
-        "bestbuy": {
-          "url": "",
-          "sku": ""
-        },
-        "amazon": {
-          "url": "",
-          "sku": ""
-        },
-        "pokemoncenter": {
-          "url": "",
-          "sku": ""
-        }
-      }
-    },
-    {
-      "id": "recent-set-2-etb",
-      "name": "Recent set #2 — Elite Trainer Box",
-      "category": "Elite Trainer Box",
-      "set": "",
-      "tags": [
-        "ETB"
-      ],
-      "imageUrl": "",
-      "msrp": null,
-      "notes": "Placeholder. Confirm the exact product name, then paste each retailer's product URL (or SKU/TCIN/ASIN) once the listing is live. Fill in the set name.",
-      "retailers": {
-        "target": {
-          "url": "",
-          "sku": ""
-        },
-        "bestbuy": {
-          "url": "",
-          "sku": ""
-        },
-        "amazon": {
-          "url": "",
-          "sku": ""
-        },
-        "pokemoncenter": {
-          "url": "",
-          "sku": ""
-        }
-      }
-    },
-    {
-      "id": "recent-set-2-booster-bundle",
-      "name": "Recent set #2 — Booster Bundle",
-      "category": "Booster Bundle",
-      "set": "",
-      "tags": [
-        "Booster Bundle"
-      ],
-      "imageUrl": "",
-      "msrp": null,
-      "notes": "Placeholder. Confirm the exact product name, then paste each retailer's product URL (or SKU/TCIN/ASIN) once the listing is live. Fill in the set name.",
-      "retailers": {
-        "target": {
-          "url": "",
-          "sku": ""
-        },
-        "bestbuy": {
-          "url": "",
-          "sku": ""
-        },
-        "amazon": {
-          "url": "",
-          "sku": ""
-        },
-        "pokemoncenter": {
-          "url": "",
-          "sku": ""
-        }
-      }
-    },
-    {
-      "id": "pokemon-center-exclusive-1",
-      "name": "Pokémon Center Exclusive #1",
-      "category": "Pokémon Center Exclusive",
-      "set": "",
-      "tags": [
-        "Pokémon Center Exclusive"
-      ],
-      "imageUrl": "",
-      "msrp": null,
-      "notes": "Placeholder. Confirm the exact product name, then paste each retailer's product URL (or SKU/TCIN/ASIN) once the listing is live. Pokémon Center only.",
-      "retailers": {
-        "target": {
-          "url": "",
-          "sku": ""
-        },
-        "bestbuy": {
-          "url": "",
-          "sku": ""
-        },
-        "amazon": {
-          "url": "",
-          "sku": ""
-        },
-        "pokemoncenter": {
-          "url": "",
-          "sku": ""
+      },
+      "origin": "feed",
+      "feedBase": {
+        "name": "Delta Reign Elite Trainer Box",
+        "category": "Elite Trainer Box",
+        "set": "Delta Reign",
+        "tags": [],
+        "imageUrl": "",
+        "msrp": 49.99,
+        "msrpEstimated": false,
+        "notes": "",
+        "retailers": {
+          "target": {
+            "url": "",
+            "sku": ""
+          },
+          "bestbuy": {
+            "url": "",
+            "sku": ""
+          },
+          "amazon": {
+            "url": "",
+            "sku": ""
+          },
+          "pokemoncenter": {
+            "url": "",
+            "sku": ""
+          }
         }
       }
     }

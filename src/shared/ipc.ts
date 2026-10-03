@@ -13,6 +13,7 @@ import type {
   CatalogEntry,
   CatalogFile,
   CatalogImportResult,
+  CatalogSyncResult,
   LogEntry,
   Profile,
   ProfileInput,
@@ -83,6 +84,8 @@ export interface InvokeContract {
   'catalog:import': (mode: 'merge' | 'replace') => CatalogImportResult;
   'catalog:export': () => ActionResult;
   'catalog:reload': () => CatalogFile;
+  /** Downloads the catalog feed now and merges it in. */
+  'catalog:sync': () => CatalogSyncResult;
 
   'logs:recent': (limit: number) => LogEntry[];
   'logs:clear': () => ActionResult;
@@ -152,6 +155,7 @@ export const INVOKE_CHANNELS = {
   'catalog:import': true,
   'catalog:export': true,
   'catalog:reload': true,
+  'catalog:sync': true,
   'logs:recent': true,
   'logs:clear': true,
 } as const satisfies Record<InvokeChannel, true>;

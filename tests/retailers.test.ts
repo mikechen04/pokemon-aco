@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { detectRetailer, isRetailerUrl, parseProductInput, titleFromUrl } from '../src/shared/retailers';
+import { bestBuySkuFromHtml, detectRetailer, isRetailerUrl, parseProductInput, titleFromUrl } from '../src/shared/retailers';
 
 function productId(retailer: Parameters<typeof parseProductInput>[0], input: string): string | null {
   const parsed = parseProductInput(retailer, input);
@@ -27,6 +27,10 @@ describe('parseProductInput', () => {
     expect(productId('target', 'https://www.target.com/p/pokemon-etb/-/A-93954435?preselect=1#lnk')).toBe('93954435');
     expect(productId('target', 'https://www.target.com/p/pokemon/-/A-11111111?preselect=22222222')).toBe('22222222');
     expect(productId('target', '93954435')).toBe('93954435');
+    // Real 2026 listing with a 10-digit TCIN.
+    expect(productId('target', 'https://www.target.com/p/pok-233-mon-trading-card-game-30th-celebration-elite-trainer-box/-/A-1010892076')).toBe('1010892076');
+    expect(productId('pokemoncenter', 'https://www.pokemoncenter.com/product/10-10447-111/pokemon-tcg-30th-celebration-pokemon-center-elite-trainer-box')).toBe('10-10447-111');
+    expect(productId('amazon', 'https://www.amazon.com/dp/B0H78BB9TY')).toBe('B0H78BB9TY');
     expect(productId('target', 'https://www.target.com/c/toys')).toBeNull();
   });
 
@@ -35,6 +39,11 @@ describe('parseProductInput', () => {
     expect(productId('bestbuy', 'https://www.bestbuy.com/site/pokemon-etb/6606082.p')).toBe('6606082');
     expect(productId('bestbuy', 'https://www.bestbuy.com/product/pokemon/ABC123/sku/6606082')).toBe('6606082');
     expect(productId('bestbuy', '6606082')).toBe('6606082');
+    // 2026 links: 8-digit SKUs, and product-code links with no SKU at all.
+    expect(productId('bestbuy', 'https://www.bestbuy.com/product/pokemon-trading-card-game-30th-celebration-elite-trainer-box/JJG2TL8XCJ/sku/13089535')).toBe('13089535');
+    expect(productId('bestbuy', 'https://www.bestbuy.com/product/pokemon-trading-card-game-30th-celebration-booster-bundle/JJG2TL8X2V')).toBe('JJG2TL8X2V');
+    expect(productId('bestbuy', '13089535')).toBe('13089535');
+    expect(parseProductInput('bestbuy', 'https://www.bestbuy.com/product/pokemon-trading-card-game/SEARCHPAGE').ok).toBe(false);
   });
 
   it('reads an Amazon ASIN and normalizes the URL', () => {
@@ -64,5 +73,15 @@ describe('titleFromUrl', () => {
     expect(titleFromUrl('https://www.pokemoncenter.com/product/290-85584/pokemon-tcg-booster-bundle')).toBe('Pokemon Tcg Booster Bundle');
     expect(titleFromUrl('https://www.amazon.com/dp/B0ABCDEFGH')).toBeNull();
     expect(titleFromUrl('https://www.target.com/p/%E0%A4%A-bad-escape/-/A-1')).toBeTypeOf('string');
+  });
+});
+
+describe('bestBuySkuFromHtml', () => {
+  it('prefers the canonical link, then the SKU the page mentions most', () => {
+    expect(bestBuySkuFromHtml('<link rel="canonical" href="https://www.bestbuy.com/product/x/JJG2TL8X2V/sku/13089536">')).toBe('13089536');
+    const page = `<script>{"skuId":"13089536","price":26.94}</script><div data-sku-id="6606082"></div>
+      <script>window.__x={\\"skuId\\":\\"13089536\\"}</script><script>{"sku":"13089536"}</script>`;
+    expect(bestBuySkuFromHtml(page)).toBe('13089536');
+    expect(bestBuySkuFromHtml('<html>no sku here</html>')).toBeNull();
   });
 });

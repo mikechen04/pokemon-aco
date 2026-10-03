@@ -19,6 +19,9 @@ export const DEFAULT_NOTIFY_ON: NotifyOn = {
   failed: true,
 };
 
+/** The catalog feed published by this repo's catalog-feed workflow. */
+export const CATALOG_FEED_URL = 'https://raw.githubusercontent.com/mikechen04/pokemon-aco/HEAD/catalog/feed.json';
+
 export const DEFAULT_SETTINGS: Settings = {
   pollIntervalMs: 5000,
   requestTimeoutMs: 20_000,
@@ -38,6 +41,8 @@ export const DEFAULT_SETTINGS: Settings = {
   bestBuyApiKey: '',
   amazonSoldByAmazonOnly: true,
   autoUpdate: true,
+  catalogFeedUrl: CATALOG_FEED_URL,
+  catalogAutoSync: true,
 };
 
 export const CATALOG_CATEGORIES = [

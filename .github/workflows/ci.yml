@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    paths-ignore: ['**.md']
+    paths-ignore: ['**.md', 'catalog/feed.json', 'catalog/history.json']
   pull_request:
 
 jobs:

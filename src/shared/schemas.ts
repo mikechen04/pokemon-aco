@@ -184,6 +184,12 @@ export const settingsPatchSchema = z
       .regex(/^[A-Za-z0-9]{0,64}$/, 'Best Buy API keys are letters and digits only'),
     amazonSoldByAmazonOnly: z.boolean(),
     autoUpdate: z.boolean(),
+    catalogFeedUrl: z
+      .string()
+      .trim()
+      .max(2000)
+      .refine((v) => /^https:\/\/[^\s]+$/i.test(v), 'The catalog feed URL must start with https://'),
+    catalogAutoSync: z.boolean(),
   })
   .partial()
   .strict();
@@ -195,13 +201,27 @@ const catalogRefSchema = z.object({
 
 const emptyRef = { url: '', sku: '' };
 
-export const catalogEntrySchema = z.object({
-  id: z
-    .string()
-    .trim()
-    .min(1)
-    .max(100)
-    .regex(/^[a-z0-9][a-z0-9-]*$/, 'Use lowercase letters, digits and dashes for ids'),
+const catalogRetailersSchema = z
+  .object({
+    target: catalogRefSchema.default(emptyRef),
+    bestbuy: catalogRefSchema.default(emptyRef),
+    amazon: catalogRefSchema.default(emptyRef),
+    pokemoncenter: catalogRefSchema.default(emptyRef),
+  })
+  .default({ target: emptyRef, bestbuy: emptyRef, amazon: emptyRef, pokemoncenter: emptyRef });
+
+const price = z.number().min(0).max(100_000);
+const change = z.number().min(-1).max(1000);
+
+const catalogMarketSchema = z.object({
+  price: price.nullable().default(null),
+  low: price.nullable().default(null),
+  change7d: change.nullable().default(null),
+  change30d: change.nullable().default(null),
+  updatedAt: z.string().max(40).default(''),
+});
+
+const catalogEditableFields = {
   name: requiredText('Name', 160),
   category: safeText(60).default('Other'),
   set: safeText(80).default(''),
@@ -212,22 +232,63 @@ export const catalogEntrySchema = z.object({
     .max(2000)
     .refine((v) => v === '' || /^https:\/\//i.test(v), 'Image URL must start with https://')
     .default(''),
-  msrp: z.number().min(0).max(100_000).nullable().default(null),
+  msrp: price.nullable().default(null),
+  msrpEstimated: z.boolean().default(false),
   notes: safeText(1000).default(''),
-  retailers: z
-    .object({
-      target: catalogRefSchema.default(emptyRef),
-      bestbuy: catalogRefSchema.default(emptyRef),
-      amazon: catalogRefSchema.default(emptyRef),
-      pokemoncenter: catalogRefSchema.default(emptyRef),
-    })
-    .default({ target: emptyRef, bestbuy: emptyRef, amazon: emptyRef, pokemoncenter: emptyRef }),
+  retailers: catalogRetailersSchema,
+};
+
+const catalogFeedEntryShape = {
+  id: z
+    .string()
+    .trim()
+    .min(1)
+    .max(100)
+    .regex(/^[a-z0-9][a-z0-9-]*$/, 'Use lowercase letters, digits and dashes for ids'),
+  ...catalogEditableFields,
+  releaseDate: z
+    .string()
+    .trim()
+    .regex(/^(?:\d{4}-\d{2}-\d{2})?$/, 'Release date must look like 2026-11-06')
+    .default(''),
+  tcgplayerId: z.number().int().positive().nullable().default(null),
+  tcgplayerUrl: z
+    .string()
+    .trim()
+    .max(2000)
+    .refine((v) => v === '' || /^https:\/\/(?:www\.)?tcgplayer\.com\//i.test(v), 'TCGplayer links must be on tcgplayer.com')
+    .default(''),
+  market: catalogMarketSchema.nullable().default(null),
+  score: z.number().min(-1000).max(1000).nullable().default(null),
+};
+
+export const catalogEntrySchema = z.object({
+  ...catalogFeedEntryShape,
+  origin: z.enum(['user', 'feed']).default('user'),
+  feedBase: z.object(catalogEditableFields).optional(),
 });
 
 export const catalogFileSchema = z.object({
   version: z.literal(1).default(1),
   updatedAt: z.string().max(64).default(''),
+  feed: z
+    .object({
+      url: z.string().max(2000),
+      syncedAt: z.string().max(64),
+      generatedAt: z.string().max(64),
+      source: z.string().max(500).default(''),
+    })
+    .optional(),
+  dismissed: z.array(z.string().max(100)).max(5000).default([]),
   entries: z.array(catalogEntrySchema).max(5000),
+});
+
+/** catalog/feed.json as published by the catalog-feed workflow. */
+export const catalogFeedSchema = z.object({
+  version: z.literal(1),
+  generatedAt: z.string().min(1).max(64),
+  source: z.string().max(500).default(''),
+  entries: z.array(z.object(catalogFeedEntryShape)).max(3000),
 });
 
 /** Checks that each filled-in retailer URL/SKU actually parses for that retailer. */

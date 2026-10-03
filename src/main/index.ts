@@ -1,7 +1,7 @@
 // App entry: wires storage, the task engine, IPC and the main window together.
 import { app, BrowserWindow, dialog, Menu, nativeImage, safeStorage } from 'electron';
 import iconDataUrl from '../../build/icon.png';
-import type { Profile, Task } from '../shared/types';
+import type { Profile, Settings, Task } from '../shared/types';
 import { logBus } from './core/logger';
 import { Notifier } from './core/notifier';
 import { paths } from './core/paths';
@@ -85,6 +85,12 @@ async function start(): Promise<void> {
   });
   const accountWindows = new AccountWindows(accounts, sessions, modules, (accountId) => void keeper.check(accountId));
   const updater = new Updater({ getSettings, busy: () => manager.list().some((t) => manager.isRunning(t.id)) });
+  const syncCatalog = async () => {
+    const keep = new Set(tasks.list().flatMap((t) => (t.catalogEntryId ? [t.catalogEntryId] : [])));
+    const result = await catalog.sync(settings.get().catalogFeedUrl, keep);
+    logBus.log({ level: result.ok ? 'info' : 'warn', message: result.message });
+    return result;
+  };
 
   const services = {
     mainWindow: () => mainWindow,
@@ -101,6 +107,7 @@ async function start(): Promise<void> {
     accountWindows,
     notifier,
     updater,
+    syncCatalog,
   };
   registerIpc(services);
   wireEvents(services);
@@ -114,6 +121,18 @@ async function start(): Promise<void> {
 
   mainWindow = createMainWindow(icon);
   updater.start();
+  // Catalog feed: shortly after start, then every 6 hours (the feed is rebuilt once a day).
+  const autoSync = () => {
+    if (settings.get().catalogAutoSync) void syncCatalog();
+  };
+  const catalogTimers = [setTimeout(autoSync, 8000), setInterval(autoSync, 6 * 60 * 60 * 1000)];
+  let feedSettings = `${settings.get().catalogAutoSync}|${settings.get().catalogFeedUrl}`;
+  settings.on('changed', (next: Settings) => {
+    // Sync right away when auto-sync is turned on or the feed URL changes.
+    const current = `${next.catalogAutoSync}|${next.catalogFeedUrl}`;
+    if (current !== feedSettings) autoSync();
+    feedSettings = current;
+  });
   mainWindow.on('close', (event) => {
     const running = manager.list().filter((t) => manager.isRunning(t.id)).length;
     if (running === 0 || !mainWindow) return;
@@ -146,6 +165,7 @@ async function start(): Promise<void> {
       }
       keeper.stop();
       updater.stop();
+      for (const timer of catalogTimers) clearTimeout(timer);
       accountWindows.closeAll();
       for (const store of [settings, tasks, profiles, cards, accounts]) store.flush();
       logBus.flushSync();

@@ -7,7 +7,7 @@
 //   Checkout: bestbuy.com's own fast-track checkout page in the hidden window.
 import { searchText, type KeywordQuery } from '../../shared/keywords';
 import { parsePrice } from '../../shared/money';
-import { canonicalProductUrl } from '../../shared/retailers';
+import { BESTBUY_SKU, bestBuySkuFromHtml, canonicalProductUrl } from '../../shared/retailers';
 import { NeedsBrowserError, OutOfStockError, PauseError, RetailerError, sleep } from '../engine/errors';
 import { looksOutOfStock } from '../engine/guards';
 import type { HttpResponse } from '../engine/http';
@@ -64,6 +64,25 @@ function jsonHeaders(referer: string): Record<string, string> {
 const OFFICIAL_FIELDS = 'sku,name,salePrice,onlineAvailability,url,image';
 
 export function createBestBuy(cfg: () => BestBuyConfig): RetailerModule {
+  /** Product code (from /product/<name>/<CODE> links) -> numeric SKU. */
+  const skuByCode = new Map<string, string>();
+
+  /** The product with its numeric SKU. Links that only carry a product code are looked up once. */
+  async function withSku(ctx: SessionContext, product: ProductTarget): Promise<ProductTarget> {
+    if (BESTBUY_SKU.test(product.productId)) return product;
+    let sku = skuByCode.get(product.productId);
+    if (!sku) {
+      const res = await ctx.http.get(product.url, { signal: ctx.signal, headers: { accept: 'text/html' } });
+      assertHttp(res, 'Best Buy product page');
+      if (res.status >= 400) throw new RetailerError(`Best Buy product page answered HTTP ${res.status}`);
+      const found = bestBuySkuFromHtml(res.text);
+      if (!found) throw new RetailerError('Could not find the SKU on this Best Buy product page. Use a link that contains /sku/1234567 or skuId=.');
+      skuByCode.set(product.productId, found);
+      sku = found;
+    }
+    return { ...product, productId: sku };
+  }
+
   async function stockFromOfficialApi(ctx: MonitorContext, product: ProductTarget, apiKey: string): Promise<StockResult> {
     const c = cfg();
     const url = `${c.officialApiUrl}/${product.productId}.json?apiKey=${encodeURIComponent(apiKey)}&show=${OFFICIAL_FIELDS}&format=json`;
@@ -113,7 +132,8 @@ export function createBestBuy(cfg: () => BestBuyConfig): RetailerModule {
     };
   }
 
-  async function checkStock(ctx: MonitorContext, product: ProductTarget): Promise<StockResult> {
+  async function checkStock(ctx: MonitorContext, target: ProductTarget): Promise<StockResult> {
+    const product = await withSku(ctx, target);
     const apiKey = ctx.settings.bestBuyApiKey;
     return apiKey ? stockFromOfficialApi(ctx, product, apiKey) : stockFromSite(ctx, product);
   }
@@ -153,7 +173,7 @@ export function createBestBuy(cfg: () => BestBuyConfig): RetailerModule {
     const hits = new Map<string, SearchHit>();
     for (const item of root.querySelectorAll('[data-sku-id]')) {
       const sku = item.getAttribute('data-sku-id') ?? '';
-      if (!/^\d{6,8}$/.test(sku) || hits.has(sku)) continue;
+      if (!BESTBUY_SKU.test(sku) || hits.has(sku)) continue;
       const title = textOf(item, ['.sku-title a', 'h4 a', 'h2 a', 'a[href*="skuId="]']);
       if (!title) continue;
       const priceText = textOf(item, ['.priceView-customer-price span', '[data-testid="customer-price"] span', '.priceView-hero-price span']);
@@ -270,7 +290,8 @@ export function createBestBuy(cfg: () => BestBuyConfig): RetailerModule {
     return { quantity: 1, via: 'browser', detail: 'product page', ...(stock.price !== undefined ? { unitPrice: stock.price } : {}) };
   }
 
-  async function addToCart(ctx: TaskContext, product: ProductTarget, stock: StockResult): Promise<CartResult> {
+  async function addToCart(ctx: TaskContext, target: ProductTarget, stock: StockResult): Promise<CartResult> {
+    const product = await withSku(ctx, target);
     try {
       return await addToCartHttp(ctx, product, stock);
     } catch (err) {

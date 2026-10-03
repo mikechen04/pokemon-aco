@@ -19,7 +19,7 @@ import {
   taskInputSchema,
 } from '../shared/schemas';
 import type { EventChannel, EventContract } from '../shared/ipc';
-import type { Profile, ProfileInput, ProxyTestResult, Settings, Task, TaskInput } from '../shared/types';
+import type { CatalogSyncResult, Profile, ProfileInput, ProxyTestResult, Settings, Task, TaskInput } from '../shared/types';
 import { logBus } from './core/logger';
 import type { Notifier } from './core/notifier';
 import { paths } from './core/paths';
@@ -52,6 +52,8 @@ export interface AppServices {
   accountWindows: AccountWindows;
   notifier: Notifier;
   updater: Updater;
+  /** Downloads the catalog feed and merges it in (keeps entries that tasks use). */
+  syncCatalog: () => Promise<CatalogSyncResult>;
 }
 
 function validate<T>(schema: z.ZodType<T>, value: unknown): T {
@@ -106,7 +108,8 @@ export function registerIpc(services: AppServices): void {
   });
 
   handle('app:openProductUrl', async (url: string) => {
-    if (typeof url !== 'string' || !/^https:\/\//i.test(url) || !isRetailerUrl(url)) throw new Error('Only retailer product links can be opened');
+    const allowed = typeof url === 'string' && /^https:\/\//i.test(url) && (isRetailerUrl(url) || /^https:\/\/(?:www\.)?tcgplayer\.com\//i.test(url));
+    if (!allowed) throw new Error('Only store and TCGplayer product links can be opened');
     await shell.openExternal(url);
     return { ok: true, message: 'Opened in your browser' };
   });
@@ -378,6 +381,7 @@ export function registerIpc(services: AppServices): void {
   handle('catalog:upsert', (entry) => catalog.upsert(validate(catalogEntrySchema, entry)));
   handle('catalog:remove', (id) => catalog.remove(id));
   handle('catalog:reload', () => catalog.reload());
+  handle('catalog:sync', () => services.syncCatalog());
   handle('catalog:import', async (mode) => {
     const win = services.mainWindow();
     const options = { title: 'Import catalog JSON', properties: ['openFile' as const], filters: [{ name: 'JSON', extensions: ['json'] }] };

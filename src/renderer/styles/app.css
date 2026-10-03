@@ -1032,6 +1032,65 @@ table.grid td.actions {
   flex-wrap: wrap;
   align-items: center;
 }
+.item-card .title .hot {
+  margin-left: 6px;
+  vertical-align: 1px;
+  font-size: 10.5px;
+  padding: 1px 6px;
+}
+.price-line {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  justify-content: space-between;
+  gap: 4px 10px;
+  padding: 7px 10px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  font-variant-numeric: tabular-nums;
+}
+.price-line > div {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.price-line .k {
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-faint);
+}
+.price-line .v {
+  font-size: 12.5px;
+  font-weight: 550;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  white-space: nowrap;
+}
+.price-line .v.up {
+  color: var(--ok);
+}
+.price-line .v.down {
+  color: var(--danger);
+}
+.check-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 34px;
+  padding: 0 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-strong);
+  background: var(--bg-elev);
+  color: var(--text-dim);
+  font-size: 13px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.check-chip input {
+  accent-color: var(--accent);
+}
 .item-card .foot {
   margin-top: auto;
   display: flex;

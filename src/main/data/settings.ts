@@ -34,9 +34,10 @@ function normalizeSettings(raw: unknown): Settings {
     'showAutomationWindows',
     'amazonSoldByAmazonOnly',
     'autoUpdate',
+    'catalogAutoSync',
   ] as const;
   for (const key of booleans) if (typeof source[key] === 'boolean') out[key] = source[key];
-  const strings = ['proxies', 'webhookUrl', 'bestBuyApiKey'] as const;
+  const strings = ['proxies', 'webhookUrl', 'bestBuyApiKey', 'catalogFeedUrl'] as const;
   for (const key of strings) if (typeof source[key] === 'string') out[key] = source[key];
   const notify = (source.notifyOn ?? {}) as Record<string, unknown>;
   for (const key of Object.keys(out.notifyOn) as Array<keyof Settings['notifyOn']>) {

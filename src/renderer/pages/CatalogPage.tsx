@@ -1,5 +1,6 @@
-import { BookOpen, Download, FileJson, Pencil, Plus, RefreshCw, Search, Trash2, Upload, Zap } from 'lucide-react';
+import { BookOpen, CloudDownload, Download, ExternalLink, FileJson, Flame, Pencil, Plus, RefreshCw, Search, Trash2, TrendingDown, TrendingUp, Upload, Zap } from 'lucide-react';
 import { useMemo, useState } from 'react';
+import { CATALOG_SORTS, catalogMargin, formatChange, hasStoreLink, isHot, sortCatalog, type CatalogSort } from '../../shared/catalog';
 import { CATALOG_CATEGORIES } from '../../shared/constants';
 import { formatUsd } from '../../shared/money';
 import { parseProductInput, RETAILER_LIST, RETAILERS } from '../../shared/retailers';
@@ -26,20 +27,87 @@ function hasLink(entry: CatalogEntry, id: RetailerId): boolean {
   return Boolean(entry.retailers[id].url || entry.retailers[id].sku);
 }
 
+function timeAgo(iso: string): string {
+  const ms = Date.now() - Date.parse(iso);
+  if (!Number.isFinite(ms)) return 'unknown';
+  const minutes = Math.round(ms / 60_000);
+  if (minutes < 2) return 'just now';
+  if (minutes < 90) return `${minutes} min ago`;
+  const hours = Math.round(minutes / 60);
+  return hours < 36 ? `${hours} h ago` : `${Math.round(hours / 24)} days ago`;
+}
+
+function formatDay(day: string): string {
+  const date = new Date(`${day}T12:00:00`);
+  return Number.isNaN(date.getTime()) ? day : date.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
+}
+
+function PriceLine({ entry }: { entry: CatalogEntry }) {
+  const margin = catalogMargin(entry);
+  const change = entry.market?.change7d ?? null;
+  if (!entry.market?.price && !entry.msrp) return null;
+  return (
+    <div className="price-line">
+      <div>
+        <span className="k">MSRP</span>
+        <span className="v" title={entry.msrpEstimated ? 'Usual retail price for this kind of product' : undefined}>
+          {entry.msrp ? `${entry.msrpEstimated ? '≈' : ''}${formatUsd(entry.msrp)}` : '—'}
+        </span>
+      </div>
+      <div>
+        <span className="k">Market</span>
+        <span className="v">{formatUsd(entry.market?.price)}</span>
+      </div>
+      <div>
+        <span className="k">Margin</span>
+        <span className={`v ${margin ? (margin.amount >= 0 ? 'up' : 'down') : ''}`}>
+          {margin ? `${margin.amount >= 0 ? '+' : '−'}${formatUsd(Math.abs(margin.amount))} (${formatChange(margin.pct)})` : '—'}
+        </span>
+      </div>
+      <div>
+        <span className="k">7 days</span>
+        <span className={`v ${change === null ? '' : change >= 0 ? 'up' : 'down'}`}>
+          {change === null ? '—' : (
+            <>
+              {change >= 0 ? <TrendingUp size={12} /> : <TrendingDown size={12} />} {formatChange(change)}
+            </>
+          )}
+        </span>
+      </div>
+    </div>
+  );
+}
+
 export function CatalogPage() {
   const catalog = useApp((s) => s.catalog);
+  const settings = useApp((s) => s.settings);
   const requestTaskDraft = useApp((s) => s.requestTaskDraft);
   const [query, setQuery] = useState('');
   const [category, setCategory] = useState('all');
+  const [sort, setSort] = useState<CatalogSort>('hot');
+  const [linkedOnly, setLinkedOnly] = useState(false);
+  const [syncing, setSyncing] = useState(false);
   const [editing, setEditing] = useState<CatalogEntry | 'new' | null>(null);
   const entries = catalog?.entries ?? [];
+  const feed = catalog?.feed;
 
   const categories = useMemo(() => [...new Set(entries.map((e) => e.category))].sort(), [entries]);
-  const visible = entries.filter((e) => {
-    if (category !== 'all' && e.category !== category) return false;
+  const visible = useMemo(() => {
     const q = query.trim().toLowerCase();
-    return !q || `${e.name} ${e.set} ${e.category} ${e.tags.join(' ')} ${e.notes}`.toLowerCase().includes(q);
-  });
+    const filtered = entries.filter((e) => {
+      if (category !== 'all' && e.category !== category) return false;
+      if (linkedOnly && !hasStoreLink(e)) return false;
+      return !q || `${e.name} ${e.set} ${e.category} ${e.tags.join(' ')} ${e.notes}`.toLowerCase().includes(q);
+    });
+    return sortCatalog(filtered, sort);
+  }, [entries, category, linkedOnly, query, sort]);
+
+  const syncNow = async () => {
+    setSyncing(true);
+    const result = await act(call('catalog:sync'));
+    setSyncing(false);
+    if (result) useApp.getState().toast(result.ok ? 'success' : 'warn', result.message);
+  };
 
   const importCatalog = async (mode: 'merge' | 'replace') => {
     if (mode === 'replace') {
@@ -51,7 +119,8 @@ export function CatalogPage() {
   };
 
   const remove = async (entry: CatalogEntry) => {
-    const ok = await confirm({ title: `Delete "${entry.name}"?`, message: 'Tasks created from it keep working.', confirmLabel: 'Delete', danger: true });
+    const message = entry.origin === 'feed' ? 'Tasks created from it keep working, and sync will not add it back.' : 'Tasks created from it keep working.';
+    const ok = await confirm({ title: `Delete "${entry.name}"?`, message, confirmLabel: 'Delete', danger: true });
     if (ok) await act(call('catalog:remove', entry.id), 'Entry deleted');
   };
 
@@ -59,9 +128,12 @@ export function CatalogPage() {
     <>
       <PageHeader
         title="Catalog"
-        subtitle="Your index of products to pick from when making tasks. Stored as an editable catalog.json."
+        subtitle="Pokémon TCG products to make tasks from, with resale prices. Kept up to date automatically."
         actions={
           <>
+            <Button onClick={() => void syncNow()} disabled={syncing}>
+              <CloudDownload size={15} /> {syncing ? 'Syncing…' : 'Sync now'}
+            </Button>
             <Button variant="primary" onClick={() => setEditing('new')}>
               <Plus size={16} /> Add entry
             </Button>
@@ -78,8 +150,17 @@ export function CatalogPage() {
         <div className="banner pink">
           <BookOpen size={18} color="var(--pink)" />
           <div className="grow">
-            Entries ship as placeholders with no SKUs or links. Fill in each store’s product URL (or SKU / TCIN / ASIN) when a
-            listing goes live, then use <b>Create task</b>.
+            {feed ? (
+              <>
+                Synced {timeAgo(feed.syncedAt)} · prices from {timeAgo(feed.generatedAt)} ({feed.source || 'catalog feed'}).
+              </>
+            ) : settings?.catalogAutoSync ? (
+              <>Not synced yet. The catalog downloads current products and TCGplayer prices shortly after the app starts.</>
+            ) : (
+              <>Automatic catalog sync is off (Settings). Press Sync now to download current products and prices.</>
+            )}{' '}
+            Margin is the TCGplayer market price minus MSRP (≈ marks a usual price for the product type). Store links come from
+            the feed when known; add your own with <b>Edit</b>. Sync keeps your changes.
           </div>
         </div>
         <div className="toolbar">
@@ -95,6 +176,16 @@ export function CatalogPage() {
               </option>
             ))}
           </select>
+          <select className="select" style={{ width: 170 }} value={sort} onChange={(e) => setSort(e.target.value as CatalogSort)} aria-label="Sort">
+            {(Object.keys(CATALOG_SORTS) as CatalogSort[]).map((key) => (
+              <option key={key} value={key}>
+                {CATALOG_SORTS[key]}
+              </option>
+            ))}
+          </select>
+          <label className="check-chip">
+            <input type="checkbox" checked={linkedOnly} onChange={(e) => setLinkedOnly(e.target.checked)} /> Has store links
+          </label>
           <div className="spacer" />
           <Button small onClick={() => void act(call('app:openPath', 'catalog'))}>
             <FileJson size={14} /> Open catalog.json
@@ -109,30 +200,49 @@ export function CatalogPage() {
         {entries.length === 0 ? (
           <div className="card">
             <EmptyState icon={<BookOpen size={22} />} title="The catalog is empty">
-              <Button variant="primary" onClick={() => setEditing('new')}>
-                <Plus size={16} /> Add entry
-              </Button>
+              <div>Sync to download current products and prices, or add an entry by hand.</div>
+              <div style={{ display: 'flex', gap: 8 }}>
+                <Button onClick={() => void syncNow()} disabled={syncing}>
+                  <CloudDownload size={15} /> Sync now
+                </Button>
+                <Button variant="primary" onClick={() => setEditing('new')}>
+                  <Plus size={16} /> Add entry
+                </Button>
+              </div>
             </EmptyState>
+          </div>
+        ) : visible.length === 0 ? (
+          <div className="card">
+            <EmptyState icon={<Search size={22} />} title="Nothing matches these filters" />
           </div>
         ) : (
           <div className="card-grid">
             {visible.map((entry) => {
               const linked = RETAILER_IDS.filter((id) => hasLink(entry, id));
+              const upcoming = entry.releaseDate && entry.releaseDate > new Date().toISOString().slice(0, 10);
               return (
                 <div key={entry.id} className="item-card">
                   <div className="top">
-                    <div className="thumb" style={{ width: 46, height: 46 }}>
-                      {entry.imageUrl ? <img src={entry.imageUrl} alt="" /> : <BookOpen size={18} />}
+                    <div className="thumb" style={{ width: 54, height: 54 }}>
+                      {entry.imageUrl ? <img src={entry.imageUrl} alt="" loading="lazy" referrerPolicy="no-referrer" /> : <BookOpen size={18} />}
                     </div>
                     <div style={{ flex: 1, minWidth: 0 }}>
-                      <div className="title">{entry.name}</div>
+                      <div className="title">
+                        {entry.name}
+                        {isHot(entry) ? (
+                          <span className="badge pink hot" title="Resells for 50%+ over retail, or rose 15%+ this week">
+                            <Flame size={11} /> Hot
+                          </span>
+                        ) : null}
+                      </div>
                       <div className="meta">
                         {entry.category}
                         {entry.set ? ` · ${entry.set}` : ''}
-                        {entry.msrp ? ` · MSRP ${formatUsd(entry.msrp)}` : ''}
+                        {entry.releaseDate ? ` · ${upcoming ? 'releases' : 'released'} ${formatDay(entry.releaseDate)}` : ''}
                       </div>
                     </div>
                   </div>
+                  <PriceLine entry={entry} />
                   <div className="row">
                     {RETAILER_LIST.map((r) => (
                       <span
@@ -157,7 +267,13 @@ export function CatalogPage() {
                     <Button small onClick={() => setEditing(entry)}>
                       <Pencil size={13} /> Edit
                     </Button>
+                    {entry.tcgplayerUrl ? (
+                      <IconButton label="TCGplayer prices" onClick={() => void act(call('app:openProductUrl', entry.tcgplayerUrl))}>
+                        <ExternalLink size={14} />
+                      </IconButton>
+                    ) : null}
                     <div style={{ flex: 1 }} />
+                    {entry.origin === 'feed' ? <span className="faint" style={{ fontSize: 11.5 }}>auto</span> : null}
                     <IconButton label="Delete" onClick={() => void remove(entry)}>
                       <Trash2 size={14} />
                     </IconButton>
@@ -182,7 +298,14 @@ function blankEntry(): CatalogEntry {
     tags: [],
     imageUrl: '',
     msrp: null,
+    msrpEstimated: false,
     notes: '',
+    releaseDate: '',
+    tcgplayerId: null,
+    tcgplayerUrl: '',
+    market: null,
+    score: null,
+    origin: 'user',
     retailers: {
       target: { url: '', sku: '' },
       bestbuy: { url: '', sku: '' },
@@ -207,6 +330,7 @@ function CatalogForm({ entry, existingIds, onClose }: { entry: CatalogEntry | nu
       const base = id;
       for (let n = 2; existingIds.includes(id); n++) id = `${base}-${n}`;
     }
+    const nextMsrp = msrp.trim() ? Number(msrp) : null;
     const candidate: CatalogEntry = {
       ...draft,
       id,
@@ -214,7 +338,9 @@ function CatalogForm({ entry, existingIds, onClose }: { entry: CatalogEntry | nu
         .split(',')
         .map((t) => t.trim())
         .filter(Boolean),
-      msrp: msrp.trim() ? Number(msrp) : null,
+      msrp: nextMsrp,
+      // A price typed in by hand is a confirmed one.
+      msrpEstimated: nextMsrp !== null && nextMsrp === draft.msrp ? draft.msrpEstimated : false,
     };
     const check = catalogEntrySchema.safeParse(candidate);
     if (!check.success) return setError(firstIssue(check.error));
@@ -232,7 +358,15 @@ function CatalogForm({ entry, existingIds, onClose }: { entry: CatalogEntry | nu
       onClose={onClose}
       footer={
         <>
-          <div className="grow">{error ? <span className="danger-text">{error}</span> : 'Only use links and SKUs you copied from the store.'}</div>
+          <div className="grow">
+            {error ? (
+              <span className="danger-text">{error}</span>
+            ) : entry?.origin === 'feed' ? (
+              'From the catalog feed. Whatever you change here is kept when it syncs.'
+            ) : (
+              'Only use links and SKUs you copied from the store.'
+            )}
+          </div>
           <Button onClick={onClose}>Cancel</Button>
           <Button variant="primary" onClick={() => void save()}>
             Save entry

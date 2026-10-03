@@ -216,6 +216,10 @@ export interface Settings {
   amazonSoldByAmazonOnly: boolean;
   /** Download new versions from GitHub Releases on their own (installed when the app quits). */
   autoUpdate: boolean;
+  /** Where the catalog feed (catalog/feed.json) is downloaded from. */
+  catalogFeedUrl: string;
+  /** Sync the catalog from the feed at start and every few hours. */
+  catalogAutoSync: boolean;
 }
 
 export type SettingsPatch = Partial<Omit<Settings, 'notifyOn'>> & { notifyOn?: Partial<NotifyOn> };
@@ -223,6 +227,19 @@ export type SettingsPatch = Partial<Omit<Settings, 'notifyOn'>> & { notifyOn?: P
 export interface CatalogRetailerRef {
   url: string;
   sku: string;
+}
+
+/** Resale market data for a catalog entry (TCGplayer, via the catalog feed). */
+export interface CatalogMarket {
+  /** TCGplayer market price (what it has recently sold for), USD. */
+  price: number | null;
+  /** Lowest current listing, USD. */
+  low: number | null;
+  /** Market price change over 7 and 30 days, as a fraction (0.12 = +12%). */
+  change7d: number | null;
+  change30d: number | null;
+  /** Date of the prices, YYYY-MM-DD. */
+  updatedAt: string;
 }
 
 export interface CatalogEntry {
@@ -233,14 +250,57 @@ export interface CatalogEntry {
   tags: string[];
   imageUrl: string;
   msrp: number | null;
+  /** True when `msrp` is the usual retail price for this kind of product rather than a confirmed one. */
+  msrpEstimated: boolean;
   notes: string;
+  /** YYYY-MM-DD, or '' when unknown. */
+  releaseDate: string;
+  tcgplayerId: number | null;
+  tcgplayerUrl: string;
+  market: CatalogMarket | null;
+  /** Feed ranking: higher means a bigger resale margin and a rising price. */
+  score: number | null;
   retailers: Record<RetailerId, CatalogRetailerRef>;
+  /** 'feed' entries are added and kept current by catalog sync; 'user' entries are yours. */
+  origin: 'user' | 'feed';
+  /** What the feed last said for the editable fields, so sync can tell your edits apart. */
+  feedBase?: CatalogFeedBase;
+}
+
+export type CatalogFeedBase = Pick<CatalogEntry, 'name' | 'category' | 'set' | 'tags' | 'imageUrl' | 'msrp' | 'msrpEstimated' | 'notes' | 'retailers'>;
+
+export interface CatalogFeedState {
+  url: string;
+  /** When this app last synced, and when the feed itself was generated (ISO). */
+  syncedAt: string;
+  generatedAt: string;
+  source: string;
 }
 
 export interface CatalogFile {
   version: 1;
   updatedAt: string;
+  feed?: CatalogFeedState;
+  /** Feed entries the user deleted; sync does not bring them back. */
+  dismissed: string[];
   entries: CatalogEntry[];
+}
+
+/** catalog/feed.json, regenerated daily by the catalog-feed workflow. */
+export interface CatalogFeed {
+  version: 1;
+  generatedAt: string;
+  source: string;
+  entries: Array<Omit<CatalogEntry, 'origin' | 'feedBase'>>;
+}
+
+export interface CatalogSyncResult {
+  ok: boolean;
+  message: string;
+  added: number;
+  updated: number;
+  removed: number;
+  total: number;
 }
 
 export type LogLevel = 'info' | 'success' | 'warn' | 'error';

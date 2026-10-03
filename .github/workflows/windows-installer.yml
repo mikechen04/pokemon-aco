@@ -9,7 +9,7 @@ on:
     # With only `tags` listed GitHub would skip branch pushes, so list both.
     branches: ['**']
     tags: ['v*']
-    paths-ignore: ['**.md']
+    paths-ignore: ['**.md', 'catalog/feed.json', 'catalog/history.json']
   workflow_dispatch:
 
 concurrency:

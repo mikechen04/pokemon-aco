@@ -11,6 +11,7 @@ Built with Electron + TypeScript + React. It packages as a normal Windows instal
 ## What it does
 
 - **Tasks** from a product URL, a SKU/TCIN/ASIN, keywords (`pokemon, elite trainer box, -sleeves`) or a **catalog** entry.
+- **A catalog that fills itself**: current Pokémon TCG sealed products with **TCGplayer market prices, margin over retail, 7-day trend** and store links. It is rebuilt daily on GitHub and synced by the app, and sorting by **Hottest** puts the biggest flips first.
 - **Background monitoring** without touching your mouse or keyboard. Tasks on the same product share one stock check per interval.
 - **Automatic checkout** the moment stock appears: add to cart, then on the store's own checkout page it verifies **card last 4, ship-to address and subtotal** before placing the order.
 - **Stored cards (optional)**: save a full card (number, expiry, security code, billing address) on a profile. Fresh accounts with nothing saved still check out: the app fills the shipping form, adds the card and answers security-code prompts on the store's checkout page.
@@ -92,9 +93,38 @@ On Linux without a keyring, start with `ACO_ALLOW_WEAK_ENCRYPTION=1 npm run dev`
    - **Store the full card here**: number, expiry and security code (encrypted, see below). Good for virtual cards and for fresh accounts with nothing saved.
 2. **Accounts**: your store logins (or **Bulk add**: one `email:password` per line). Press **Sign in** once per account to get past 2FA. That session is kept and reused.
 3. **On each store account** (optional with a stored card): save the card and shipping address you want used. The app selects a saved card by its last 4. With a stored card it adds the card at checkout when the account has none.
-4. **Catalog**: the shipped entries (30th Celebration, recent sets, Pokémon Center exclusives, ETBs, booster bundles) are **placeholders with no SKUs or links**. Paste each store's product URL (or SKU/TCIN/ASIN) when listings go live, or import a JSON file.
+4. **Catalog**: nothing to type. It syncs itself (see [Catalog feed](#catalog-feed-prices-margins-and-store-links)). Add a store link to any entry that lacks one with **Edit**. Sync keeps your edits.
 5. **Settings (optional)**: Discord webhook URL, a free **Best Buy developer API key** (recommended for Best Buy keyword search), proxies.
 6. Run a task in **dry run** first. When it reports "card, ZIP and subtotal verified", turn dry run off (sidebar toggle). With a stored card, a dry run can save the address and card on the store account (that is part of the store's checkout), but it never places the order.
+
+## Catalog feed (prices, margins and store links)
+
+`catalog/feed.json` is rebuilt every day by the **Catalog feed** workflow (`.github/workflows/catalog-feed.yml`, 21:17 UTC). The app downloads it shortly after it starts and every 6 hours. You can also press **Catalog → Sync now**.
+
+| What | Where it comes from |
+| --- | --- |
+| Products, images, release dates | TCGplayer's Pokémon catalog, via the free daily mirror at [tcgcsv.com](https://tcgcsv.com). Sealed products from sets released in the last two years, plus upcoming ones; no single cards, cases or code cards. |
+| Market price, lowest listing | TCGplayer prices, via tcgcsv.com |
+| 7- and 30-day change | `catalog/history.json`, the daily market prices the workflow records |
+| MSRP | `catalog/sources/msrp.json`: confirmed prices per product, else the usual price for that product type (shown with ≈) |
+| Store links | `catalog/sources/links.json` (checked by hand). With a `BESTBUY_API_KEY` repo secret (free from developer.bestbuy.com), Best Buy's official API is searched too. Target's product search is tried best-effort. Links found by search say so in the entry's notes. |
+
+- **Margin** = market price − MSRP.
+- **Hottest** ranks by margin % plus twice the weekly price change.
+- **Hot** badge: resells for 50%+ over retail, or rose 15%+ in a week.
+- The feed keeps up to 250 products: everything with store links or not out yet, then the best scores.
+
+**Sync rules:**
+
+- New products are added, and prices refresh.
+- Fields you edited (a name, an MSRP, a store link) are kept.
+- A product you delete stays deleted.
+- A product the feed drops is removed only if you never edited it and no task uses it.
+- Entries you add yourself are never touched.
+
+**Why not Collectr or PriceCharting?** Collectr has no public API. PriceCharting's API needs a paid subscription. TCGplayer closed its own API to new developers, and tcgcsv.com publishes the same TCGplayer data openly.
+
+To build the feed yourself: `npm run catalog:feed`. It writes `catalog/feed.json` and `catalog/history.json`. To use another feed, change **Settings → Catalog feed → Feed URL**.
 
 ## How a task runs
 
@@ -208,6 +238,10 @@ Only keys that exist in `DEFAULTS`, with values of the same type, are applied. S
   They were **not** tested against live drops. Store sites change often; expect to adjust an endpoint or selector through `retailer-overrides.json` now and then.
 - Stores run bot protection. Because this app never evades it, some attempts will be paused for you instead of completing on their own. That trade-off is intentional.
 - Best Buy and some Target sessions can't be confirmed signed-in over plain HTTP. Their sign-in is checked in the window before the drop.
+- **Catalog data:**
+  - Store links exist only for some products: hand-checked ones, plus what the store searches find.
+  - An MSRP marked ≈ is the usual price for the product type, not a confirmed one.
+  - Market prices are TCGplayer's, so they follow TCGplayer sales rather than eBay or local prices.
 
 ---
 
@@ -215,8 +249,9 @@ Only keys that exist in `DEFAULTS`, with values of the same type, are applied. S
 
 ```
 build/                 icon.ico / icon.png (generated by scripts/make-icon.mjs)
-catalog/               default-catalog.json (placeholders, bundled into the app)
-scripts/               build, dev runner, esbuild config, icon generator
+catalog/               feed.json (rebuilt daily), history.json (daily prices), sources/ (MSRPs,
+                       hand-checked links), default-catalog.json (first-run seed)
+scripts/               build, dev runner, esbuild config, icon generator, catalog/ (feed builder)
 src/shared/            types, IPC contract, zod schemas, URL/keyword/proxy/price parsing
 src/main/
   core/                encrypted JSON storage, DPAPI, redaction, log bus, notifications
@@ -229,7 +264,7 @@ src/main/
 src/preload/           the allow-listed bridge between UI and main process
 src/renderer/          React UI: Tasks, Profiles, Accounts, Catalog, Updates, Settings
 tests/                 unit tests for the pure logic
-.github/workflows/     CI (Linux), the Windows installer build and release publishing
+.github/workflows/     CI (Linux), the Windows installer build and release publishing, daily catalog feed
 ```
 
 **Adding a store:** implement `RetailerModule` (`src/main/retailers/types.ts`), add its id to `RETAILER_IDS` and its metadata to `src/shared/retailers.ts`, then register it in `src/main/retailers/registry.ts`.
