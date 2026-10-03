@@ -88,6 +88,8 @@ export function CatalogPage() {
   const [linkedOnly, setLinkedOnly] = useState(false);
   const [syncing, setSyncing] = useState(false);
   const [editing, setEditing] = useState<CatalogEntry | 'new' | null>(null);
+  // Images that failed to load (offline, or the CDN refused) show the placeholder icon instead.
+  const [brokenImages, setBrokenImages] = useState<Set<string>>(() => new Set());
   const entries = catalog?.entries ?? [];
   const feed = catalog?.feed;
 
@@ -225,7 +227,17 @@ export function CatalogPage() {
                 <div key={entry.id} className="item-card">
                   <div className="top">
                     <div className="thumb" style={{ width: 54, height: 54 }}>
-                      {entry.imageUrl ? <img src={entry.imageUrl} alt="" loading="lazy" referrerPolicy="no-referrer" /> : <BookOpen size={18} />}
+                      {entry.imageUrl && !brokenImages.has(entry.imageUrl) ? (
+                        <img
+                          src={entry.imageUrl}
+                          alt=""
+                          loading="lazy"
+                          referrerPolicy="no-referrer"
+                          onError={() => setBrokenImages((prev) => new Set(prev).add(entry.imageUrl))}
+                        />
+                      ) : (
+                        <BookOpen size={18} />
+                      )}
                     </div>
                     <div style={{ flex: 1, minWidth: 0 }}>
                       <div className="title">
