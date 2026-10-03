@@ -5,8 +5,10 @@ name: Windows installer
 # attaches the installer to a GitHub Release.
 on:
   push:
-    paths-ignore: ['**.md']
+    # With only `tags` listed GitHub would skip branch pushes, so list both.
+    branches: ['**']
     tags: ['v*']
+    paths-ignore: ['**.md']
   workflow_dispatch:
 
 concurrency:
