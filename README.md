@@ -1,0 +1,194 @@
+# Pokemon ACO
+
+A Windows desktop app that watches Pokémon TCG products at **Target, Best Buy, Amazon and Pokémon Center** and checks out automatically when they come in stock, using each store's normal purchase flow and the payment method already saved on your store account.
+
+Built with Electron + TypeScript + React. It packages as a normal Windows installer (`.exe`) you can share.
+
+> Not affiliated with or endorsed by The Pokémon Company, Nintendo, Target, Best Buy, Amazon or Pokémon Center. Using automation may be against a store's terms of use; that is your call. Store purchase limits (per customer or household) still apply.
+
+---
+
+## What it does
+
+- **Tasks** from a product URL, a SKU/TCIN/ASIN, keywords (`pokemon, elite trainer box, -sleeves`) or a **catalog** entry.
+- **Background monitoring** without touching your mouse or keyboard. Tasks on the same product share one stock check per interval.
+- **Automatic checkout** the moment stock appears: add to cart, then on the store's own checkout page it verifies **card last 4, ship-to address and subtotal** before placing the order.
+- **Multi-account**: bulk-add the store accounts you own, then one "New task" creates one task per account. They all try to check out in parallel. An optional **"stop after N orders"** limit keeps the group from over-buying.
+- **Pokémon Center waiting room**: the task joins the line in its own window, waits (it never skips or reloads), and continues when the queue passes. You get a notification while the queue is what's holding it up.
+- **Live updates** per task, desktop notifications and an optional **Discord webhook**.
+- **Safety limits**: max price per task, max quantity (global cap), **dry run on by default**, a global **kill switch**, and **auto-stop** after repeated failures.
+
+## What it deliberately does not do
+
+- No CAPTCHA solving, no TLS or browser fingerprint spoofing, no user-agent changes, no anti-bot sensor generation, no queue skipping, and no switching proxies to dodge a block.
+- When a store shows a **CAPTCHA, bot challenge, block or 2FA prompt**, the task **pauses** and tells you. You can open that task's window, handle it yourself, and press Start. If you finish the order by hand in that window, the app detects the confirmation page and marks the task checked out.
+- It **never asks for, stores or sends card numbers or security codes (CVV)**. If a store asks for card details, the task pauses and you finish in the window.
+- It does not create store accounts. It only uses accounts you add.
+
+---
+
+## Install on Windows
+
+**Option A: download the installer (no setup).** Every push builds the installer on GitHub Actions:
+
+1. Open the repo on GitHub → **Actions** → **Windows installer** → the latest green run.
+2. Download the **Pokemon-ACO-Setup** artifact, unzip it, and run `Pokemon-ACO-Setup-1.0.0.exe`.
+3. Pushing a tag like `v1.0.0` also attaches the installer to a GitHub **Release**, which is the easiest way to share it.
+
+**Option B: build it yourself.**
+
+1. Install **Node.js 22 LTS** from nodejs.org.
+2. In the project folder:
+   ```bash
+   npm ci
+   npm run dist:win
+   ```
+3. The installer is at `release/Pokemon-ACO-Setup-1.0.0.exe`.
+
+The installer is not code-signed, so Windows SmartScreen will warn on first run: click **More info → Run anyway**. To sign it, give electron-builder a certificate (`CSC_LINK` / `CSC_KEY_PASSWORD`).
+
+## Run in development
+
+```bash
+npm ci
+npm run dev        # UI hot-reloads; main process restarts on change
+npm run typecheck  # TypeScript, main + UI
+npm test           # unit tests (vitest)
+npm run build      # production bundle in dist/
+npm start          # run the production bundle
+```
+
+On Linux without a keyring, start with `ACO_ALLOW_WEAK_ENCRYPTION=1 npm run dev` (weak, for development only). Windows always uses DPAPI.
+
+---
+
+## What you need to fill in
+
+1. **Profiles**: shipping address, plus the **last 4 digits** of the card saved on your store accounts.
+2. **Accounts**: your store logins (or **Bulk add**: one `email:password` per line). Press **Sign in** once per account to get past 2FA. That session is kept and reused.
+3. **On each store account** (in your normal browser): save the card and shipping address you want used. The app selects the saved card by its last 4. It cannot add one.
+4. **Catalog**: the shipped entries (30th Celebration, recent sets, Pokémon Center exclusives, ETBs, booster bundles) are **placeholders with no SKUs or links**. Paste each store's product URL (or SKU/TCIN/ASIN) when listings go live, or import a JSON file.
+5. **Settings (optional)**: Discord webhook URL, a free **Best Buy developer API key** (recommended for Best Buy keyword search), proxies.
+6. Run a task in **dry run** first. When it reports "card, ZIP and subtotal verified", turn dry run off (sidebar toggle).
+
+## How a task runs
+
+```
+Start → check sign-in → prepare (warm session, check cart) → monitor stock
+      → in stock and ≤ max price → (waiting room? wait in it) → add to cart
+      → checkout page: card last 4 ✓  ship-to ZIP + street ✓  subtotal ≤ max × qty ✓
+      → dry run: stop here      live: place order → confirmation + order number
+```
+
+| Status | Meaning |
+| --- | --- |
+| Idle | Not running |
+| Monitoring | Checking stock every few seconds |
+| In stock | Found it; waiting for a checkout slot or adding to cart |
+| In queue | A waiting room is holding the task; it waits its turn |
+| Carted | In the cart (also the final state of a dry run) |
+| Checking out | On the checkout page |
+| Checked out | Order placed |
+| Paused | Needs you: challenge, sign-in, CVV, or a check that did not pass |
+| Failed | Stopped: payment declined, setup problem, or too many failures in a row |
+
+## Multi-account tasks (groups)
+
+1. **Accounts → Bulk add**: pick the store, optionally a default profile, then paste `email:password` lines (or load a .txt/.csv). Everything after the first `:` is the password, so passwords may contain `:` or `,`. Duplicates and logins already saved are skipped.
+2. **Tasks → New task**: tick several accounts (**All**, **None** or **First N**). You get one task per account in one group.
+   - **Use each account's default profile**: each account checks out with its own saved card and address.
+   - **Copies per account**: usually 1.
+   - **Stop group after N orders**: the limit is checked right before each order is submitted, so accounts running in parallel cannot overshoot it. When it's reached, the rest of the group stops.
+3. Use the group filter on the Tasks tab to start or stop a whole group.
+
+Each account has its own isolated browser profile, cookies and (optional) proxy. One account being challenged or blocked doesn't affect the others.
+
+## How each store is handled
+
+HTTP is used wherever the store's flow allows it. A hidden browser window, with the account's own isolated profile, is used where the flow needs the store's page.
+
+| Store | Stock check | Keyword search | Add to cart | Checkout | Queue |
+| --- | --- | --- | --- | --- | --- |
+| Target | redsky JSON API (HTTP) | redsky search (HTTP) | Cart API (HTTP); product page if needed | target.com checkout page | — |
+| Best Buy | Official Products API with your key; otherwise the button-state API (HTTP) | Official API with key; otherwise search page | Cart API (HTTP) | Fast-track checkout page | "Please Wait" add-to-cart queue is waited out, not skipped |
+| Amazon | Product page (HTTP), incl. who sells it | Search page (HTTP) | **Buy Now** in the window (only this item, cart untouched) | Buy Now panel or checkout page | — |
+| Pokémon Center | Product page structured data (HTTP) | Search page (HTTP) | Product page in the window | Cart → checkout pages | Waiting room joined per account and watched until it passes |
+
+**Amazon:** "Only buy when sold by Amazon.com" is on by default, so marked-up third-party listings are skipped.
+
+## Speed
+
+- **Stock checks:** shared per product, with backoff and `Retry-After` respected.
+- **Warm sessions:** each running account's session is pinged every few minutes, so sign-in doesn't happen at drop time.
+- **Before the drop:** the cart contents and sign-in are checked up front.
+- **Parallel tasks:** run on async I/O with a global concurrency cap on checkouts.
+- **Hidden windows:** they skip images and are opened only when needed.
+
+## Safety and privacy
+
+- **Credentials:** accounts, profiles, tasks and settings are encrypted on disk with **Windows DPAPI** (Electron `safeStorage`). Accounts refuse to save if OS encryption is unavailable.
+- **Passwords:** never sent to the UI, never logged. Every log line and notification goes through redaction (passwords, tokens, cookies, card-like numbers, emails).
+- **Discord messages:** show no emails, passwords or full addresses. Profile names and order numbers are hidden behind spoiler tags.
+- **Free-text fields:** reject anything that looks like a full card number.
+- **Windows and IPC:** store windows are sandboxed and can't open pop-ups or downloads. The app's own UI uses context isolation, a strict Content-Security-Policy, and a validated, allow-listed IPC bridge.
+- **After "Place order" is clicked:** any uncertainty pauses the task. It never retries, so it can't order twice.
+
+## When a store changes its site
+
+Endpoints, the Target web key and page selectors live in a `DEFAULTS` object at the top of each file in `src/main/retailers/`. To change one without rebuilding, edit **Settings → Open retailer-overrides.json**, for example:
+
+```json
+{
+  "target": { "placeOrderText": "^(place your order|submit order)$" },
+  "bestbuy": { "checkoutUrl": "https://www.bestbuy.com/checkout/r/fast-track" }
+}
+```
+
+Only keys that exist in `DEFAULTS`, with values of the same type, are applied. Stop and start tasks afterwards.
+
+## Troubleshooting
+
+- **Paused: CAPTCHA / bot challenge / blocked**: wait a while, or click the window icon on the task, handle it there, then press Start. The app won't try to get around it.
+- **Paused: security code / card number requested**: finish the order in the task's window. The app notices the confirmation page and marks the task checked out.
+- **Signed out / 2FA**: Accounts → **Sign in** opens that account's window with the login filled in. Finish 2FA and close the window.
+- **Pokémon Center keyword tasks find nothing**: the search page may be rendered in the browser only. Use product URLs for Pokémon Center.
+- **Where is my data?** `%APPDATA%\Pokemon ACO\`
+  - `data\` – encrypted settings, tasks, profiles, accounts
+  - `catalog.json` – editable catalog
+  - `retailer-overrides.json` – store overrides
+  - `logs\` – 14 days of logs
+
+## Honest limitations
+
+- The store flows were written from their public web pages and APIs. The whole engine was tested end to end against a local mock store: stock change, cart, guarded checkout, dry run, a live order, a group limit with parallel accounts, a block pausing a task, and the kill switch. They were **not** tested against live drops. Store sites change often; expect to adjust an endpoint or selector through `retailer-overrides.json` now and then.
+- Stores run bot protection. Because this app never evades it, some attempts will be paused for you instead of completing on their own. That trade-off is intentional.
+- Best Buy and some Target sessions can't be confirmed signed-in over plain HTTP. Their sign-in is checked in the window before the drop.
+
+---
+
+## Project structure
+
+```
+build/                 icon.ico / icon.png (generated by scripts/make-icon.mjs)
+catalog/               default-catalog.json (placeholders, bundled into the app)
+scripts/               build, dev runner, esbuild config, icon generator
+src/shared/            types, IPC contract, zod schemas, URL/keyword/proxy/price parsing
+src/main/
+  core/                encrypted JSON storage, DPAPI, redaction, log bus, notifications
+  data/                settings, tasks, profiles, accounts, catalog, overrides
+  engine/              sessions, HTTP client, hidden browser, detection, guards,
+                       stock monitor, task runner, task manager, keep-alive
+  retailers/           target, bestbuy, amazon, pokemoncenter + shared flows
+  ipc.ts index.ts      IPC handlers and app lifecycle
+src/preload/           the allow-listed bridge between UI and main process
+src/renderer/          React UI: Tasks, Profiles, Accounts, Catalog, Updates, Settings
+tests/                 unit tests for the pure logic
+.github/workflows/     CI (Linux) and the Windows installer build
+```
+
+**Adding a store:** implement `RetailerModule` (`src/main/retailers/types.ts`), add its id to `RETAILER_IDS` and its metadata to `src/shared/retailers.ts`, then register it in `src/main/retailers/registry.ts`.
+
+## Credits
+
+- **Font:** [Lexend](https://github.com/googlefonts/lexend), SIL Open Font License 1.1, bundled in `src/renderer/assets/fonts/`.
+- **Icons:** [Lucide](https://lucide.dev), ISC.

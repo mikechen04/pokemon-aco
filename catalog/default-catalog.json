@@ -1,0 +1,312 @@
+{
+  "version": 1,
+  "updatedAt": "",
+  "entries": [
+    {
+      "id": "30th-celebration-etb",
+      "name": "30th Celebration — Elite Trainer Box",
+      "category": "Elite Trainer Box",
+      "set": "30th Celebration",
+      "tags": [
+        "30th Celebration",
+        "ETB"
+      ],
+      "imageUrl": "",
+      "msrp": null,
+      "notes": "Placeholder. Confirm the exact product name, then paste each retailer's product URL (or SKU/TCIN/ASIN) once the listing is live.",
+      "retailers": {
+        "target": {
+          "url": "",
+          "sku": ""
+        },
+        "bestbuy": {
+          "url": "",
+          "sku": ""
+        },
+        "amazon": {
+          "url": "",
+          "sku": ""
+        },
+        "pokemoncenter": {
+          "url": "",
+          "sku": ""
+        }
+      }
+    },
+    {
+      "id": "30th-celebration-pc-etb",
+      "name": "30th Celebration — Pokémon Center Elite Trainer Box",
+      "category": "Pokémon Center Exclusive",
+      "set": "30th Celebration",
+      "tags": [
+        "30th Celebration",
+        "ETB",
+        "Pokémon Center Exclusive"
+      ],
+      "imageUrl": "",
+      "msrp": null,
+      "notes": "Placeholder. Confirm the exact product name, then paste each retailer's product URL (or SKU/TCIN/ASIN) once the listing is live. Pokémon Center only.",
+      "retailers": {
+        "target": {
+          "url": "",
+          "sku": ""
+        },
+        "bestbuy": {
+          "url": "",
+          "sku": ""
+        },
+        "amazon": {
+          "url": "",
+          "sku": ""
+        },
+        "pokemoncenter": {
+          "url": "",
+          "sku": ""
+        }
+      }
+    },
+    {
+      "id": "30th-celebration-booster-bundle",
+      "name": "30th Celebration — Booster Bundle",
+      "category": "Booster Bundle",
+      "set": "30th Celebration",
+      "tags": [
+        "30th Celebration",
+        "Booster Bundle"
+      ],
+      "imageUrl": "",
+      "msrp": null,
+      "notes": "Placeholder. Confirm the exact product name, then paste each retailer's product URL (or SKU/TCIN/ASIN) once the listing is live.",
+      "retailers": {
+        "target": {
+          "url": "",
+          "sku": ""
+        },
+        "bestbuy": {
+          "url": "",
+          "sku": ""
+        },
+        "amazon": {
+          "url": "",
+          "sku": ""
+        },
+        "pokemoncenter": {
+          "url": "",
+          "sku": ""
+        }
+      }
+    },
+    {
+      "id": "30th-celebration-collection",
+      "name": "30th Celebration — Collection Box",
+      "category": "Collection Box",
+      "set": "30th Celebration",
+      "tags": [
+        "30th Celebration",
+        "Collection"
+      ],
+      "imageUrl": "",
+      "msrp": null,
+      "notes": "Placeholder. Confirm the exact product name, then paste each retailer's product URL (or SKU/TCIN/ASIN) once the listing is live.",
+      "retailers": {
+        "target": {
+          "url": "",
+          "sku": ""
+        },
+        "bestbuy": {
+          "url": "",
+          "sku": ""
+        },
+        "amazon": {
+          "url": "",
+          "sku": ""
+        },
+        "pokemoncenter": {
+          "url": "",
+          "sku": ""
+        }
+      }
+    },
+    {
+      "id": "recent-set-1-etb",
+      "name": "Recent set #1 — Elite Trainer Box",
+      "category": "Elite Trainer Box",
+      "set": "",
+      "tags": [
+        "ETB"
+      ],
+      "imageUrl": "",
+      "msrp": null,
+      "notes": "Placeholder. Confirm the exact product name, then paste each retailer's product URL (or SKU/TCIN/ASIN) once the listing is live. Fill in the set name.",
+      "retailers": {
+        "target": {
+          "url": "",
+          "sku": ""
+        },
+        "bestbuy": {
+          "url": "",
+          "sku": ""
+        },
+        "amazon": {
+          "url": "",
+          "sku": ""
+        },
+        "pokemoncenter": {
+          "url": "",
+          "sku": ""
+        }
+      }
+    },
+    {
+      "id": "recent-set-1-pc-etb",
+      "name": "Recent set #1 — Pokémon Center Elite Trainer Box",
+      "category": "Pokémon Center Exclusive",
+      "set": "",
+      "tags": [
+        "ETB",
+        "Pokémon Center Exclusive"
+      ],
+      "imageUrl": "",
+      "msrp": null,
+      "notes": "Placeholder. Confirm the exact product name, then paste each retailer's product URL (or SKU/TCIN/ASIN) once the listing is live. Fill in the set name. Pokémon Center only.",
+      "retailers": {
+        "target": {
+          "url": "",
+          "sku": ""
+        },
+        "bestbuy": {
+          "url": "",
+          "sku": ""
+        },
+        "amazon": {
+          "url": "",
+          "sku": ""
+        },
+        "pokemoncenter": {
+          "url": "",
+          "sku": ""
+        }
+      }
+    },
+    {
+      "id": "recent-set-1-booster-bundle",
+      "name": "Recent set #1 — Booster Bundle",
+      "category": "Booster Bundle",
+      "set": "",
+      "tags": [
+        "Booster Bundle"
+      ],
+      "imageUrl": "",
+      "msrp": null,
+      "notes": "Placeholder. Confirm the exact product name, then paste each retailer's product URL (or SKU/TCIN/ASIN) once the listing is live. Fill in the set name.",
+      "retailers": {
+        "target": {
+          "url": "",
+          "sku": ""
+        },
+        "bestbuy": {
+          "url": "",
+          "sku": ""
+        },
+        "amazon": {
+          "url": "",
+          "sku": ""
+        },
+        "pokemoncenter": {
+          "url": "",
+          "sku": ""
+        }
+      }
+    },
+    {
+      "id": "recent-set-2-etb",
+      "name": "Recent set #2 — Elite Trainer Box",
+      "category": "Elite Trainer Box",
+      "set": "",
+      "tags": [
+        "ETB"
+      ],
+      "imageUrl": "",
+      "msrp": null,
+      "notes": "Placeholder. Confirm the exact product name, then paste each retailer's product URL (or SKU/TCIN/ASIN) once the listing is live. Fill in the set name.",
+      "retailers": {
+        "target": {
+          "url": "",
+          "sku": ""
+        },
+        "bestbuy": {
+          "url": "",
+          "sku": ""
+        },
+        "amazon": {
+          "url": "",
+          "sku": ""
+        },
+        "pokemoncenter": {
+          "url": "",
+          "sku": ""
+        }
+      }
+    },
+    {
+      "id": "recent-set-2-booster-bundle",
+      "name": "Recent set #2 — Booster Bundle",
+      "category": "Booster Bundle",
+      "set": "",
+      "tags": [
+        "Booster Bundle"
+      ],
+      "imageUrl": "",
+      "msrp": null,
+      "notes": "Placeholder. Confirm the exact product name, then paste each retailer's product URL (or SKU/TCIN/ASIN) once the listing is live. Fill in the set name.",
+      "retailers": {
+        "target": {
+          "url": "",
+          "sku": ""
+        },
+        "bestbuy": {
+          "url": "",
+          "sku": ""
+        },
+        "amazon": {
+          "url": "",
+          "sku": ""
+        },
+        "pokemoncenter": {
+          "url": "",
+          "sku": ""
+        }
+      }
+    },
+    {
+      "id": "pokemon-center-exclusive-1",
+      "name": "Pokémon Center Exclusive #1",
+      "category": "Pokémon Center Exclusive",
+      "set": "",
+      "tags": [
+        "Pokémon Center Exclusive"
+      ],
+      "imageUrl": "",
+      "msrp": null,
+      "notes": "Placeholder. Confirm the exact product name, then paste each retailer's product URL (or SKU/TCIN/ASIN) once the listing is live. Pokémon Center only.",
+      "retailers": {
+        "target": {
+          "url": "",
+          "sku": ""
+        },
+        "bestbuy": {
+          "url": "",
+          "sku": ""
+        },
+        "amazon": {
+          "url": "",
+          "sku": ""
+        },
+        "pokemoncenter": {
+          "url": "",
+          "sku": ""
+        }
+      }
+    }
+  ]
+}

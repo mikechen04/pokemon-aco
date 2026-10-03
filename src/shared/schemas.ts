@@ -1,0 +1,237 @@
+// Validation for everything that crosses from the UI into the main process,
+// plus catalog files imported from disk.
+import { z } from 'zod';
+import { isValidLogin } from './accountLines';
+import { DISCORD_WEBHOOK_PATTERN, LIMITS, US_STATES } from './constants';
+import { parseKeywords } from './keywords';
+import { parseProxyList } from './proxies';
+import { parseProductInput } from './retailers';
+import { RETAILER_IDS, type CatalogEntry, type RetailerId } from './types';
+
+function luhnValid(digits: string): boolean {
+  let sum = 0;
+  let double = false;
+  for (let i = digits.length - 1; i >= 0; i--) {
+    let d = Number(digits[i]);
+    if (double) {
+      d *= 2;
+      if (d > 9) d -= 9;
+    }
+    sum += d;
+    double = !double;
+  }
+  return sum % 10 === 0;
+}
+
+/**
+ * True when the text contains something shaped like a payment card number
+ * (13-19 digits, optionally grouped with spaces or dashes, passing the Luhn check).
+ * The app must never collect card numbers, so free-text fields reject these.
+ */
+export function looksLikeCardNumber(text: string): boolean {
+  const candidates = text.match(/\d(?:[ -]?\d){12,18}/g) ?? [];
+  return candidates.some((c) => {
+    const digits = c.replace(/[ -]/g, '');
+    return digits.length >= 13 && digits.length <= 19 && luhnValid(digits);
+  });
+}
+
+const NO_CARD = 'Do not enter card numbers here. The app only uses the last 4 digits.';
+const safeText = (max: number) =>
+  z
+    .string()
+    .trim()
+    .max(max, `Must be ${max} characters or fewer`)
+    .refine((v) => !looksLikeCardNumber(v), NO_CARD);
+const requiredText = (label: string, max: number) => safeText(max).pipe(z.string().min(1, `${label} is required`));
+
+export const retailerIdSchema = z.enum(RETAILER_IDS);
+
+export const addressSchema = z.object({
+  firstName: requiredText('First name', 60),
+  lastName: requiredText('Last name', 60),
+  address1: requiredText('Address', 120),
+  address2: safeText(120),
+  city: requiredText('City', 60),
+  state: z.enum(US_STATES, 'Pick a US state'),
+  zip: z
+    .string()
+    .trim()
+    .regex(/^\d{5}(?:-\d{4})?$/, 'ZIP must be 5 digits (or ZIP+4)'),
+  phone: z
+    .string()
+    .trim()
+    .regex(/^[0-9()+\-.\s]{7,20}$/, 'Enter a valid phone number'),
+});
+
+export const profileInputSchema = z.object({
+  name: requiredText('Profile name', 60),
+  shipping: addressSchema,
+  billingSameAsShipping: z.boolean(),
+  billing: addressSchema,
+  cardLast4: z
+    .string()
+    .trim()
+    .regex(/^\d{4}$/, 'Enter exactly the last 4 digits of the saved card'),
+  cardLabel: safeText(40),
+});
+
+export const accountInputSchema = z.object({
+  retailer: retailerIdSchema,
+  label: requiredText('Label', 60),
+  email: z
+    .string()
+    .trim()
+    .refine(isValidLogin, 'Enter the account’s email address (or phone number for Amazon)'),
+  password: z.string().max(256).optional(),
+  twoFactorNote: safeText(200).optional(),
+  profileId: z.string().max(100).optional(),
+});
+
+export const bulkAccountSchema = z.object({
+  retailer: retailerIdSchema,
+  text: z.string().min(1, 'Paste at least one account').max(500_000),
+  profileId: z.string().max(100).optional(),
+  labelPrefix: safeText(40).optional(),
+});
+
+export const taskInputSchema = z
+  .object({
+    retailer: retailerIdSchema,
+    mode: z.enum(['url', 'keyword']),
+    input: z.string().trim().min(1, 'Enter a product URL, SKU or keywords').max(2000),
+    catalogEntryId: z.string().max(100).optional(),
+    label: safeText(120).optional(),
+    profileId: z.string().min(1, 'Pick a profile'),
+    accountId: z.string().min(1, 'Pick an account'),
+    quantity: z.number().int().min(1, 'Quantity must be at least 1').max(LIMITS.maxQuantityPerTask.max),
+    maxPrice: z
+      .number()
+      .min(LIMITS.maxPrice.min, 'Set a max price per item')
+      .max(LIMITS.maxPrice.max),
+  })
+  .superRefine((task, ctx) => {
+    if (task.mode === 'url') {
+      const parsed = parseProductInput(task.retailer, task.input);
+      if (!parsed.ok) ctx.addIssue({ code: 'custom', message: parsed.error, path: ['input'] });
+    } else if (parseKeywords(task.input).positive.length === 0) {
+      ctx.addIssue({ code: 'custom', message: 'Add at least one keyword that must match', path: ['input'] });
+    }
+  });
+
+export const taskCreateSchema = z.object({
+  input: taskInputSchema,
+  accountIds: z.array(z.string().min(1).max(100)).min(1, 'Pick at least one account').max(500),
+  useAccountProfiles: z.boolean(),
+  copies: z.number().int().min(1).max(20),
+  groupName: safeText(60),
+  groupGoal: z.number().int().min(1).max(1000).nullable(),
+});
+
+const intIn = (range: { min: number; max: number }) => z.number().int().min(range.min).max(range.max);
+
+export const settingsPatchSchema = z
+  .object({
+    pollIntervalMs: intIn(LIMITS.pollIntervalMs),
+    requestTimeoutMs: intIn(LIMITS.requestTimeoutMs),
+    maxConcurrency: intIn(LIMITS.maxConcurrency),
+    maxQuantityPerTask: intIn(LIMITS.maxQuantityPerTask),
+    maxConsecutiveFailures: intIn(LIMITS.maxConsecutiveFailures),
+    sessionKeepAliveMinutes: intIn(LIMITS.sessionKeepAliveMinutes),
+    dryRun: z.boolean(),
+    killSwitch: z.boolean(),
+    proxies: z
+      .string()
+      .max(200_000)
+      .refine(
+        (v) => parseProxyList(v).invalid.length === 0,
+        'Some proxy lines are invalid. Use host:port, host:port:user:pass or http://user:pass@host:port',
+      ),
+    webhookUrl: z
+      .string()
+      .trim()
+      .refine((v) => v === '' || DISCORD_WEBHOOK_PATTERN.test(v), 'Must be a Discord webhook URL'),
+    desktopNotifications: z.boolean(),
+    notifyOn: z
+      .object({
+        inStock: z.boolean(),
+        queue: z.boolean(),
+        carted: z.boolean(),
+        checkedOut: z.boolean(),
+        paused: z.boolean(),
+        failed: z.boolean(),
+      })
+      .partial(),
+    blockImagesInBackground: z.boolean(),
+    showAutomationWindows: z.boolean(),
+    bestBuyApiKey: z
+      .string()
+      .trim()
+      .regex(/^[A-Za-z0-9]{0,64}$/, 'Best Buy API keys are letters and digits only'),
+    amazonSoldByAmazonOnly: z.boolean(),
+  })
+  .partial()
+  .strict();
+
+const catalogRefSchema = z.object({
+  url: z.string().trim().max(2000).default(''),
+  sku: z.string().trim().max(100).default(''),
+});
+
+const emptyRef = { url: '', sku: '' };
+
+export const catalogEntrySchema = z.object({
+  id: z
+    .string()
+    .trim()
+    .min(1)
+    .max(100)
+    .regex(/^[a-z0-9][a-z0-9-]*$/, 'Use lowercase letters, digits and dashes for ids'),
+  name: requiredText('Name', 160),
+  category: safeText(60).default('Other'),
+  set: safeText(80).default(''),
+  tags: z.array(safeText(40)).max(30).default([]),
+  imageUrl: z
+    .string()
+    .trim()
+    .max(2000)
+    .refine((v) => v === '' || /^https:\/\//i.test(v), 'Image URL must start with https://')
+    .default(''),
+  msrp: z.number().min(0).max(100_000).nullable().default(null),
+  notes: safeText(1000).default(''),
+  retailers: z
+    .object({
+      target: catalogRefSchema.default(emptyRef),
+      bestbuy: catalogRefSchema.default(emptyRef),
+      amazon: catalogRefSchema.default(emptyRef),
+      pokemoncenter: catalogRefSchema.default(emptyRef),
+    })
+    .default({ target: emptyRef, bestbuy: emptyRef, amazon: emptyRef, pokemoncenter: emptyRef }),
+});
+
+export const catalogFileSchema = z.object({
+  version: z.literal(1).default(1),
+  updatedAt: z.string().max(64).default(''),
+  entries: z.array(catalogEntrySchema).max(5000),
+});
+
+/** Checks that each filled-in retailer URL/SKU actually parses for that retailer. */
+export function catalogEntryProblems(entry: CatalogEntry): string[] {
+  const problems: string[] = [];
+  for (const id of RETAILER_IDS) {
+    const ref = entry.retailers[id];
+    const value = ref.url || ref.sku;
+    if (!value) continue;
+    const parsed = parseProductInput(id as RetailerId, value);
+    if (!parsed.ok) problems.push(`${id}: ${parsed.error}`);
+  }
+  return problems;
+}
+
+/** First validation problem as a short human sentence. */
+export function firstIssue(error: z.ZodError): string {
+  const issue = error.issues[0];
+  if (!issue) return 'Invalid input';
+  const path = issue.path.filter((p) => typeof p === 'string' || typeof p === 'number').join('.');
+  return path ? `${path}: ${issue.message}` : issue.message;
+}

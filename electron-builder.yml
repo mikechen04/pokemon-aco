@@ -1,0 +1,37 @@
+appId: com.mikechen04.pokemonaco
+productName: Pokemon ACO
+copyright: Copyright (c) 2026 mikechen04
+
+directories:
+  output: release
+  buildResources: build
+
+# Everything is bundled into dist/ by esbuild and Vite, so no node_modules ship.
+files:
+  - dist/**/*
+  - package.json
+  - "!**/*.map"
+
+asar: true
+npmRebuild: false
+# No auto-update server: installers are shared by hand or via GitHub Releases.
+publish: null
+
+win:
+  target:
+    - target: nsis
+      arch:
+        - x64
+  icon: build/icon.ico
+  artifactName: Pokemon-ACO-Setup-${version}.${ext}
+
+nsis:
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: always
+  createStartMenuShortcut: true
+  shortcutName: Pokemon ACO
+  uninstallDisplayName: Pokemon ACO
+  # Keep tasks, profiles and encrypted accounts if the user uninstalls/reinstalls.
+  deleteAppDataOnUninstall: false
