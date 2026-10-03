@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { isLegacyPlaceholder, mergeCatalogFeed, sanitizeFeedEntry, untouched } from '../src/main/data/catalogMerge';
-import { catalogEntrySchema, catalogFeedSchema, catalogFileSchema } from '../src/shared/schemas';
+import { catalogEntrySchema, catalogFeedEntrySchema, catalogFeedSchema, catalogFileSchema } from '../src/shared/schemas';
 import type { CatalogEntry, CatalogFeed } from '../src/shared/types';
 
 type FeedEntry = CatalogFeed['entries'][number];
@@ -109,10 +109,11 @@ describe('catalog schemas', () => {
     expect(old.entries[0]).toMatchObject({ origin: 'user', market: null, msrpEstimated: false, releaseDate: '', tcgplayerId: null });
   });
 
-  it('accepts the feed format and rejects foreign links', () => {
-    const feed = { version: 1, generatedAt: '2026-10-03T21:17:00Z', source: 'test', entries: [feedEntry('tcg-1')] };
+  it('accepts the feed format and rejects foreign links line by line', () => {
+    const feed = { version: 1, generatedAt: '2026-10-03T21:17:00Z', source: 'test', entries: [feedEntry('tcg-1'), { id: 'broken' }] };
     expect(catalogFeedSchema.safeParse(feed).success).toBe(true);
-    const bad = { ...feed, entries: [feedEntry('tcg-1', { tcgplayerUrl: 'https://evil.example/product/1' })] };
-    expect(catalogFeedSchema.safeParse(bad).success).toBe(false);
+    expect(catalogFeedEntrySchema.safeParse(feedEntry('tcg-1')).success).toBe(true);
+    expect(catalogFeedEntrySchema.safeParse(feedEntry('tcg-1', { tcgplayerUrl: 'https://evil.example/product/1' })).success).toBe(false);
+    expect(catalogFeedEntrySchema.safeParse({ id: 'broken' }).success).toBe(false);
   });
 });

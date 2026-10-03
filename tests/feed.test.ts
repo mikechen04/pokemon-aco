@@ -6,8 +6,12 @@ import {
   changeSince,
   classify,
   curatedLinksFor,
+  isMiscGroup,
   isSealed,
+  isSetGroup,
   pruneHistory,
+  recentIdThreshold,
+  scoreOf,
   resultsOf,
   selectEntries,
   type CuratedLink,
@@ -16,7 +20,7 @@ import {
   type TcgProduct,
 } from '../scripts/catalog/feedLib';
 import { mergeCatalogFeed } from '../src/main/data/catalogMerge';
-import { catalogEntryProblems, catalogFeedSchema, catalogFileSchema } from '../src/shared/schemas';
+import { catalogEntryProblems, catalogFeedEntrySchema, catalogFileSchema } from '../src/shared/schemas';
 
 const msrp = JSON.parse(readFileSync('catalog/sources/msrp.json', 'utf8')) as MsrpSource;
 const links = (JSON.parse(readFileSync('catalog/sources/links.json', 'utf8')) as { links: CuratedLink[] }).links;
@@ -33,6 +37,37 @@ describe('catalog feed builder', () => {
     expect(isSealed(card)).toBe(false);
     expect(isSealed({ ...etb, name: '30th Celebration Elite Trainer Box Case' })).toBe(false);
     expect(isSealed({ ...etb, name: 'Code Card - 30th Celebration Booster Pack' })).toBe(false);
+    // Seen in the first live run: distributor displays, TCGplayer-made sets, club-store exclusives.
+    for (const name of [
+      'Delta Reign Booster Pack Art Bundle [Set of 4]',
+      '30th Celebration Mini Tin Display',
+      'Ascended Heroes Booster Bundle Display',
+      'Costco Ascended Heroes Mini Tins 5-Pack',
+      'Fusion Strike Elite Trainer Box & 6 Bonus Cards (Sam\'s Club)',
+      'Prismatic Evolutions Sleeved Booster Display',
+      'V Battle Deck Display [Venusaur V/Blastoise V]',
+      'Trainer Battle Deck - Misty of Cerulean City Gym (JP Pokemon Center Exclusive)',
+    ]) {
+      expect(isSealed({ ...etb, name })).toBe(false);
+    }
+    for (const name of ['Surging Sparks Booster Display Box', 'Prismatic Evolutions Booster Bundle', 'Destined Rivals 3 Pack Blister [Kangaskhan]']) {
+      expect(isSealed({ ...etb, name })).toBe(true);
+    }
+  });
+
+  it('takes regular sets, and products in no set only when they are new', () => {
+    const g = (name: string) => ({ groupId: 1, name, publishedOn: '2026-01-01' });
+    expect(isSetGroup(g('SV08: Surging Sparks'))).toBe(true);
+    expect(isSetGroup(g('ME: 30th Celebration'))).toBe(true);
+    expect(isSetGroup(g('SV: Prismatic Evolutions'))).toBe(true);
+    expect(isSetGroup(g('SV: Scarlet & Violet Promo Cards'))).toBe(false);
+    expect(isSetGroup(g('EX Trainer Kit 1: Latias & Latios'))).toBe(false);
+    expect(isSetGroup(g('POP Series 5'))).toBe(false);
+    expect(isSetGroup(g('Miscellaneous Cards & Products'))).toBe(false);
+    expect(isMiscGroup(g('Miscellaneous Cards & Products'))).toBe(true);
+    const ids = Array.from({ length: 100 }, (_, i) => 600_000 + i * 1000);
+    expect(recentIdThreshold([1, ...ids])).toBe(604_000);
+    expect(recentIdThreshold([])).toBe(Number.POSITIVE_INFINITY);
   });
 
   it('knows product types and their usual retail price', () => {
@@ -41,6 +76,14 @@ describe('catalog feed builder', () => {
     expect(classify('Surging Sparks Booster Box', msrp).msrp).toBe(161.64);
     expect(classify('Mini Tin [Pikachu]', msrp).category).toBe('Tin');
     expect(classify('Ditto Premium Collection', msrp)).toEqual({ category: 'Collection Box', msrp: null });
+    // Seen in the first live run: the item type must be what the product is, not what it contains.
+    expect(classify('Delta Reign Pokemon Center Elite Trainer Box (Exclusive)', msrp).msrp).toBe(59.99);
+    expect(classify('30th Celebration Mini Tin [Moltres]', msrp)).toEqual({ category: 'Tin', msrp: 9.99 });
+    expect(classify('Destined Rivals 3 Pack Blister [Kangaskhan]', msrp).msrp).toBe(14.99);
+    expect(classify('Pokemon TCG: Twin Mini Portfolio & Booster Packs [Mega Mewtwo & Guzzlord]', msrp)).toEqual({ category: 'Collection Box', msrp: null });
+    expect(classify("2 Booster Packs & Latios Collector's Pin", msrp)).toEqual({ category: 'Collection Box', msrp: null });
+    expect(classify('Premium Poster Collection: Mega Lucario', msrp).msrp).toBeNull();
+    expect(classify('League Battle Deck [Mega Greninja ex]', msrp).msrp).toBe(29.99);
   });
 
   it('builds an entry with margin, links, release date and price changes', () => {
@@ -50,9 +93,9 @@ describe('catalog feed builder', () => {
     expect(entry.market).toMatchObject({ price: 154, low: 149, change7d: 0.1, change30d: 0.54 });
     expect(entry.retailers.target.url).toContain('A-1010892076');
     expect(entry.retailers.bestbuy.url).toContain('13089535');
-    expect(entry.score).toBeGreaterThan(2);
+    expect(entry.score).toBeCloseTo(Math.log2(154 / 49.99) + Math.log2(1 + (154 - 49.99) / 25) + 0.2, 2);
     // The entry must be valid for the app, links included.
-    expect(catalogFeedSchema.safeParse({ version: 1, generatedAt: 'x', entries: [entry] }).success).toBe(true);
+    expect(catalogFeedEntrySchema.safeParse(entry).success).toBe(true);
     expect(catalogEntryProblems({ ...entry, origin: 'feed' })).toEqual([]);
   });
 
@@ -80,6 +123,16 @@ describe('catalog feed builder', () => {
     expect(bestStoreMatch('Surging Sparks Pokemon Center Elite Trainer Box', 'Surging Sparks', 59.99, hits)?.id).toBe('2');
     expect(bestStoreMatch('Surging Sparks Elite Trainer Box', 'Surging Sparks', 49.99, [{ ...hits[0]!, price: 4.99 }])).toBeNull();
     expect(bestStoreMatch('Elite Trainer Box', 'Prismatic Evolutions', 49.99, hits)).toBeNull();
+  });
+
+  it('ranks dollar profit as well as percentage', () => {
+    const etbScore = scoreOf(155, 49.99, null, false); // +$105, +210%
+    const tinScore = scoreOf(45, 9.99, null, false); // +$35, +350%
+    const pcEtbScore = scoreOf(531, 59.99, null, false);
+    expect(pcEtbScore).toBeGreaterThan(etbScore);
+    expect(etbScore).toBeGreaterThan(tinScore);
+    expect(scoreOf(null, 49.99, 0.2, true)).toBeCloseTo(0.65, 3);
+    expect(scoreOf(40, 49.99, null, false)).toBeLessThan(0);
   });
 
   it('keeps linked and upcoming products, then the best scores', () => {

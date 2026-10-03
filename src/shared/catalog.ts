@@ -19,10 +19,21 @@ export function hasStoreLink(entry: CatalogEntry): boolean {
   return RETAILER_IDS.some((id) => Boolean(entry.retailers[id].url || entry.retailers[id].sku));
 }
 
-/** A product counts as hot when it resells for at least 50% over retail, or its price jumped 15%+ in a week. */
-export function isHot(entry: CatalogEntry): boolean {
+/** The score that puts an entry in the top 15% of the catalog ("Hot"). */
+export function hotThreshold(entries: CatalogEntry[]): number {
+  const scores = entries.flatMap((e) => (e.score === null ? [] : [e.score])).sort((a, b) => b - a);
+  if (scores.length === 0) return Number.POSITIVE_INFINITY;
+  return scores[Math.max(0, Math.ceil(scores.length * 0.15) - 1)]!;
+}
+
+/**
+ * Hot: in the top 15% of the catalog by score while reselling at least 50% over retail, or a
+ * price that rose 15%+ in a week.
+ */
+export function isHot(entry: CatalogEntry, threshold: number): boolean {
   const margin = catalogMargin(entry);
-  return (margin !== null && margin.pct >= 0.5) || (entry.market?.change7d ?? 0) >= 0.15;
+  const top = entry.score !== null && entry.score >= threshold && margin !== null && margin.pct >= 0.5;
+  return top || (entry.market?.change7d ?? 0) >= 0.15;
 }
 
 export const CATALOG_SORTS = {

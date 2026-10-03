@@ -283,12 +283,18 @@ export const catalogFileSchema = z.object({
   entries: z.array(catalogEntrySchema).max(5000),
 });
 
-/** catalog/feed.json as published by the catalog-feed workflow. */
+/** One product line of catalog/feed.json. */
+export const catalogFeedEntrySchema = z.object(catalogFeedEntryShape);
+
+/**
+ * catalog/feed.json as published by the catalog-feed workflow. Entries are checked one by one
+ * (catalogFeedEntrySchema) so a single odd line cannot block a whole sync.
+ */
 export const catalogFeedSchema = z.object({
   version: z.literal(1),
   generatedAt: z.string().min(1).max(64),
   source: z.string().max(500).default(''),
-  entries: z.array(z.object(catalogFeedEntryShape)).max(3000),
+  entries: z.array(z.unknown()).max(3000),
 });
 
 /** Checks that each filled-in retailer URL/SKU actually parses for that retailer. */

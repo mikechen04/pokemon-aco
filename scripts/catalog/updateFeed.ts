@@ -10,10 +10,14 @@
 // Run with `npm run catalog:feed` (GitHub Actions runs it daily; see .github/workflows/catalog-feed.yml).
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { catalogEntryProblems, catalogFeedEntrySchema, firstIssue } from '../../src/shared/schemas';
 import {
   bestStoreMatch,
   buildEntry,
+  isMiscGroup,
   isSealed,
+  isSetGroup,
+  recentIdThreshold,
   requiredWords,
   pruneHistory,
   resultsOf,
@@ -38,6 +42,9 @@ const RECENT_DAYS = 730;
 const MAX_STORE_SEARCHES = 60;
 const USER_AGENT = 'pokemon-aco-catalog-feed/1.0 (+https://github.com/mikechen04/pokemon-aco)';
 const TARGET_KEY = '9f36aeafbe60771e321a7cc95a78140772ab3e96';
+/** Any Target store works for search; prices can differ slightly by store. */
+const TARGET_STORE = '3991';
+const VISITOR_ID = Array.from({ length: 32 }, () => '0123456789ABCDEF'[Math.floor(Math.random() * 16)]).join('');
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -82,7 +89,19 @@ async function searchBestBuy(apiKey: string, words: string[]): Promise<StoreHit[
 /** Target's product search, the one target.com uses. Often refused from cloud servers; that is fine. */
 async function searchTarget(words: string[]): Promise<StoreHit[]> {
   const keyword = `pokemon ${words.join(' ')}`;
-  const params = new URLSearchParams({ key: TARGET_KEY, channel: 'WEB', count: '24', default_purchasability_filter: 'false', keyword, offset: '0', page: `/s/${keyword}`, platform: 'desktop' });
+  const params = new URLSearchParams({
+    key: TARGET_KEY,
+    channel: 'WEB',
+    count: '24',
+    default_purchasability_filter: 'false',
+    keyword,
+    offset: '0',
+    page: `/s/${keyword}`,
+    platform: 'desktop',
+    pricing_store_id: TARGET_STORE,
+    store_ids: TARGET_STORE,
+    visitor_id: VISITOR_ID,
+  });
   const body = await getJson(`https://redsky.target.com/redsky_aggregations/v1/web/plp_search_v2?${params}`, { origin: 'https://www.target.com', referer: 'https://www.target.com/' }, 1);
   const products = ((body as { data?: { search?: { products?: unknown[] } } } | null)?.data?.search?.products ?? []) as Array<{
     tcin?: string;
@@ -149,44 +168,64 @@ async function main(): Promise<void> {
 
   const groups = resultsOf<TcgGroup>(await getJson(`${TCGCSV}/${POKEMON}/groups`));
   if (groups.length === 0) throw new Error('tcgcsv.com returned no Pokémon groups');
-  const recent = groups.filter((g) => {
+  const sets = groups.filter((g) => {
     const published = g.publishedOn?.slice(0, 10) ?? '';
-    return published !== '' && daysBetween(published, today) <= RECENT_DAYS;
+    return isSetGroup(g) && published !== '' && daysBetween(published, today) <= RECENT_DAYS;
   });
-  console.log(`${groups.length} Pokémon groups on TCGplayer, ${recent.length} released in the last ${RECENT_DAYS} days or upcoming`);
+  const misc = groups.filter(isMiscGroup);
+  console.log(`${groups.length} Pokémon groups on TCGplayer: ${sets.length} sets from the last ${RECENT_DAYS} days or upcoming, ${misc.length} miscellaneous`);
+
+  const load = async (group: TcgGroup) => {
+    const products = resultsOf<TcgProduct>(await getJson(`${TCGCSV}/${POKEMON}/${group.groupId}/products`)).filter(isSealed);
+    const pricesById = new Map<number, TcgPrice[]>();
+    for (const price of resultsOf<TcgPrice>(await getJson(`${TCGCSV}/${POKEMON}/${group.groupId}/prices`))) {
+      pricesById.set(price.productId, [...(pricesById.get(price.productId) ?? []), price]);
+    }
+    await sleep(250);
+    return { group, products, pricesById };
+  };
+  const loadedSets = [];
+  for (const group of sets) loadedSets.push(await load(group));
+  const threshold = recentIdThreshold(loadedSets.flatMap((s) => s.products.map((p) => p.productId)));
+  const loadedMisc = [];
+  for (const group of misc) {
+    const loaded = await load(group);
+    loadedMisc.push({ ...loaded, products: loaded.products.filter((p) => p.productId >= threshold) });
+  }
 
   const entries: FeedEntry[] = [];
-  for (const group of recent) {
-    const [productsBody, pricesBody] = [await getJson(`${TCGCSV}/${POKEMON}/${group.groupId}/products`), await getJson(`${TCGCSV}/${POKEMON}/${group.groupId}/prices`)];
-    const prices = resultsOf<TcgPrice>(pricesBody);
-    const pricesById = new Map<number, TcgPrice[]>();
-    for (const price of prices) pricesById.set(price.productId, [...(pricesById.get(price.productId) ?? []), price]);
-    const sealed = resultsOf<TcgProduct>(productsBody).filter(isSealed);
-    for (const product of sealed) {
+  for (const { group, products, pricesById } of [...loadedSets, ...loadedMisc]) {
+    for (const product of products) {
       entries.push(buildEntry({ product, group, prices: pricesById.get(product.productId) ?? [], msrp, links, history, today }));
     }
-    console.log(`  ${group.name}: ${sealed.length} sealed products`);
-    await sleep(250);
+    console.log(`  ${group.name}: ${products.length} sealed products`);
   }
   if (entries.length === 0) throw new Error('No sealed products found; not replacing the feed');
 
   const selected = selectEntries(entries, today, MAX_ENTRIES);
   await discoverLinks(selected, today);
   pruneHistory(history, today);
+  // Publish only what the app accepts: every entry valid, every store link parseable.
+  for (const entry of selected) {
+    const check = catalogFeedEntrySchema.safeParse(entry);
+    if (!check.success) console.warn(`Invalid entry ${entry.id} (${firstIssue(check.error)}); the app will skip it`);
+    for (const problem of catalogEntryProblems({ ...entry, origin: 'feed' })) console.warn(`${entry.id}: ${problem}`);
+  }
+  const valid = selected.filter((entry) => catalogFeedEntrySchema.safeParse(entry).success);
 
   const feed = {
     version: 1 as const,
     generatedAt: new Date().toISOString(),
     source: 'TCGplayer prices via tcgcsv.com',
-    entries: selected,
+    entries: valid,
   };
   writeJson(join(CATALOG, 'feed.json'), feed);
   writeJson(join(CATALOG, 'history.json'), history);
 
-  const linked = selected.filter((e) => Object.values(e.retailers).some((r) => r.url || r.sku)).length;
-  console.log(`\nWrote ${selected.length} entries (${linked} with store links) from ${entries.length} sealed products.`);
+  const linked = valid.filter((e) => Object.values(e.retailers).some((r) => r.url || r.sku)).length;
+  console.log(`\nWrote ${valid.length} entries (${linked} with store links) from ${entries.length} sealed products.`);
   console.log('Top 15 by score:');
-  for (const e of selected.slice(0, 15)) {
+  for (const e of valid.slice(0, 15)) {
     const margin = e.market?.price != null && e.msrp ? `${(((e.market.price - e.msrp) / e.msrp) * 100).toFixed(0)}%` : '—';
     console.log(`  ${String(e.score ?? '—').padStart(6)}  $${String(e.market?.price ?? '—').padStart(7)}  msrp ${e.msrpEstimated ? '≈' : ' '}$${e.msrp ?? '—'}  margin ${margin.padStart(5)}  ${e.name}`);
   }

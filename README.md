@@ -110,8 +110,8 @@ On Linux without a keyring, start with `ACO_ALLOW_WEAK_ENCRYPTION=1 npm run dev`
 | Store links | `catalog/sources/links.json` (checked by hand). With a `BESTBUY_API_KEY` repo secret (free from developer.bestbuy.com), Best Buy's official API is searched too. Target's product search is tried best-effort. Links found by search say so in the entry's notes. |
 
 - **Margin** = market price − MSRP.
-- **Hottest** ranks by margin % plus twice the weekly price change.
-- **Hot** badge: resells for 50%+ over retail, or rose 15%+ in a week.
+- **Hottest** ranks by margin, counted both as a percentage and in dollars (each on a log scale, so a $50 box reselling for $155 beats a $10 tin at $45), plus the weekly price change.
+- **Hot** badge: in the top 15% by that ranking while reselling 50%+ over retail, or up 15%+ in a week.
 - The feed keeps up to 250 products: everything with store links or not out yet, then the best scores.
 
 **Sync rules:**

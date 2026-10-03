@@ -33,8 +33,11 @@ export interface TcgPrice {
 export interface MsrpSource {
   /** Confirmed retail prices by TCGplayer product id. */
   known: Record<string, number>;
-  /** Product types, first match wins: regex source matched against the product name. */
-  types: Array<{ match: string; category: string; msrp: number | null }>;
+  /**
+   * Product types, first match wins: regex source matched against the product name. With `end`,
+   * the name must end with it (bracketed notes aside), so a bundle containing the item does not match.
+   */
+  types: Array<{ match: string; end?: boolean; category: string; msrp: number | null }>;
 }
 
 /** One line of catalog/sources/links.json: store links checked by hand. */
@@ -65,17 +68,45 @@ export function resultsOf<T>(body: unknown): T[] {
 }
 
 const CARD_FIELDS = new Set(['number', 'rarity', 'cardtype', 'hp', 'stage']);
-const NOT_RETAIL = /\bcode cards?\b|\bcase\b|\bdigital\b|\bjumbo\b|\bsingle card\b|\bart card\b/i;
+/** Not a single retail item: cases and displays for distributors, code cards, TCGplayer-made sets of packs. */
+const NOT_RETAIL =
+  /\bcode cards?\b|\bcase\b|\bdigital\b|\bjumbo\b|\bsingle card\b|\bart card\b|\b(?:bundles?|tins?|blisters?|collections?|sleeved boosters?|packs?|boxes|decks?) display\b|\bart bundle\b|\bset of \d+\b|\bbundle of\b|\blot\b|\d+[- ]pack (?:of )?mini tins?|mini tins? \(?\d+[- ]pack|\bjp\b|japanese/i;
+/** Exclusives of stores this app does not shop at. */
+const OTHER_STORES = /\bcostco\b|\bsam'?s club\b|\bbj'?s\b|\bwalmart\b|\bgamestop\b|\bmeijer\b|\bkroger\b|\bdollar general\b|\bfive below\b|\bwalgreens\b|\bcvs\b/i;
 
-/** Sealed product (not a single card), of a kind sold at retail (not a distributor case or code card). */
+/** Sealed product (not a single card), sold one at a time at the stores this app supports. */
 export function isSealed(product: TcgProduct): boolean {
   if ((product.extendedData ?? []).some((d) => CARD_FIELDS.has(d.name.toLowerCase().replace(/[\s_]+/g, '')))) return false;
-  return !NOT_RETAIL.test(product.name);
+  return !NOT_RETAIL.test(product.name) && !OTHER_STORES.test(product.name);
 }
+
+/** A regular expansion's group ("SV08: Surging Sparks", "ME: 30th Celebration"), not promos or kits. */
+export function isSetGroup(group: TcgGroup): boolean {
+  return /^[A-Z]{1,4}\d{0,3}[a-z]?:\s/.test(group.name) && !/promo|energ(?:y|ies)|trainer kit|jumbo/i.test(group.name);
+}
+
+/** "Miscellaneous Cards & Products": collections, tins and boxes that belong to no set. */
+export function isMiscGroup(group: TcgGroup): boolean {
+  return /miscellaneous/i.test(group.name);
+}
+
+/**
+ * TCGplayer product ids grow over time. Products in no set count as recent when their id is at
+ * least the low end (5th percentile) of the ids in recent sets.
+ */
+export function recentIdThreshold(ids: number[]): number {
+  if (ids.length === 0) return Number.POSITIVE_INFINITY;
+  const sorted = [...ids].sort((a, b) => a - b);
+  return sorted[Math.floor(sorted.length * 0.05)] ?? sorted[0]!;
+}
+
+/** Trailing notes such as "[Pikachu]" or "(Exclusive)". */
+const TRAILING_NOTES = String.raw`(?:\s*(?:\[[^\]]*\]|\([^)]*\)))*\s*$`;
 
 export function classify(name: string, source: MsrpSource): { category: string; msrp: number | null } {
   for (const type of source.types) {
-    if (new RegExp(type.match, 'i').test(name)) return { category: type.category, msrp: type.msrp };
+    const pattern = type.end ? `(?:${type.match})${TRAILING_NOTES}` : type.match;
+    if (new RegExp(pattern, 'i').test(name)) return { category: type.category, msrp: type.msrp };
   }
   return { category: 'Other', msrp: null };
 }
@@ -129,11 +160,17 @@ export function pruneHistory(history: PriceHistory, today: string, keepDays = 40
 }
 
 /**
- * Ranking: resale margin over retail, plus twice the weekly price change, plus a little for
- * products that are not out yet. Unknown parts count as zero.
+ * Ranking for "Hottest": the resale margin as a percentage and in dollars, each on a log scale
+ * (doubling the money counts 1; $25 of profit counts 1, $75 counts 2), so cheap hyped items and
+ * pricey ones both rank and a thinly traded outlier cannot swamp the list. Plus twice the weekly
+ * price change, plus a little for products not out yet. Unknown parts count as zero.
  */
-export function scoreOf(marginPct: number | null, change7d: number | null, upcoming: boolean): number {
-  const margin = marginPct === null ? 0 : Math.max(-1, Math.min(marginPct, 10));
+export function scoreOf(price: number | null, msrp: number | null, change7d: number | null, upcoming: boolean): number {
+  let margin = 0;
+  if (price !== null && msrp) {
+    const pct = (price - msrp) / msrp;
+    margin = Math.log2(1 + Math.max(-0.99, pct)) + Math.log2(1 + Math.max(0, price - msrp) / 25);
+  }
   const momentum = change7d === null ? 0 : Math.max(-0.5, Math.min(change7d, 2));
   return Math.round((margin + 2 * momentum + (upcoming ? 0.25 : 0)) * 1000) / 1000;
 }
@@ -231,7 +268,6 @@ export function buildEntry({ product, group, prices, msrp, links, history, today
   const upcoming = releaseDate > today;
   const change7d = changeSince(history, product.productId, today, 7);
   const change30d = changeSince(history, product.productId, today, 30);
-  const marginPct = price !== null && retail ? (price - retail) / retail : null;
   const market: CatalogMarket | null = price === null && low === null ? null : { price, low, change7d, change30d, updatedAt: today };
   const retailers = emptyRetailers();
   for (const [id, url] of Object.entries(curatedLinksFor(product, links)) as Array<[RetailerId, string]>) retailers[id] = { url, sku: '' };
@@ -250,7 +286,7 @@ export function buildEntry({ product, group, prices, msrp, links, history, today
     tcgplayerId: product.productId,
     tcgplayerUrl,
     market,
-    score: price === null && !upcoming ? null : scoreOf(marginPct, change7d, upcoming),
+    score: price === null && !upcoming ? null : scoreOf(price, retail ?? null, change7d, upcoming),
     retailers,
   };
 }

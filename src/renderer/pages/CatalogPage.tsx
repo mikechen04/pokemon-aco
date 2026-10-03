@@ -1,6 +1,6 @@
 import { BookOpen, CloudDownload, Download, ExternalLink, FileJson, Flame, Pencil, Plus, RefreshCw, Search, Trash2, TrendingDown, TrendingUp, Upload, Zap } from 'lucide-react';
 import { useMemo, useState } from 'react';
-import { CATALOG_SORTS, catalogMargin, formatChange, hasStoreLink, isHot, sortCatalog, type CatalogSort } from '../../shared/catalog';
+import { CATALOG_SORTS, catalogMargin, formatChange, hasStoreLink, hotThreshold, isHot, sortCatalog, type CatalogSort } from '../../shared/catalog';
 import { CATALOG_CATEGORIES } from '../../shared/constants';
 import { formatUsd } from '../../shared/money';
 import { parseProductInput, RETAILER_LIST, RETAILERS } from '../../shared/retailers';
@@ -92,6 +92,7 @@ export function CatalogPage() {
   const feed = catalog?.feed;
 
   const categories = useMemo(() => [...new Set(entries.map((e) => e.category))].sort(), [entries]);
+  const hotScore = useMemo(() => hotThreshold(entries), [entries]);
   const visible = useMemo(() => {
     const q = query.trim().toLowerCase();
     const filtered = entries.filter((e) => {
@@ -229,8 +230,8 @@ export function CatalogPage() {
                     <div style={{ flex: 1, minWidth: 0 }}>
                       <div className="title">
                         {entry.name}
-                        {isHot(entry) ? (
-                          <span className="badge pink hot" title="Resells for 50%+ over retail, or rose 15%+ this week">
+                        {isHot(entry, hotScore) ? (
+                          <span className="badge pink hot" title="Top 15% of the catalog by resale margin and price trend, or up 15%+ this week">
                             <Flame size={11} /> Hot
                           </span>
                         ) : null}

@@ -6,7 +6,7 @@ import { existsSync, readFileSync, renameSync } from 'node:fs';
 import { readFile } from 'node:fs/promises';
 import { net } from 'electron';
 import defaultCatalog from '../../../catalog/default-catalog.json';
-import { catalogFeedSchema, catalogFileSchema, firstIssue } from '../../shared/schemas';
+import { catalogFeedEntrySchema, catalogFeedSchema, catalogFileSchema, firstIssue } from '../../shared/schemas';
 import type { CatalogEntry, CatalogFeedState, CatalogFile, CatalogImportResult, CatalogSyncResult } from '../../shared/types';
 import { writeFileAtomic } from '../core/fileStore';
 import { paths } from '../core/paths';
@@ -147,7 +147,13 @@ export class CatalogRepo extends EventEmitter {
     const parsed = catalogFeedSchema.safeParse(raw);
     if (!parsed.success) return fail(`The catalog feed is invalid: ${firstIssue(parsed.error)}`);
     const feed = parsed.data;
-    const merged = mergeCatalogFeed(this.file.entries, feed.entries.map(sanitizeFeedEntry), keepIds, new Set(this.file.dismissed));
+    const entries = feed.entries.flatMap((item) => {
+      const entry = catalogFeedEntrySchema.safeParse(item);
+      return entry.success ? [sanitizeFeedEntry(entry.data)] : [];
+    });
+    if (entries.length === 0 && feed.entries.length > 0) return fail('None of the catalog feed entries could be read');
+    const skipped = feed.entries.length - entries.length;
+    const merged = mergeCatalogFeed(this.file.entries, entries, keepIds, new Set(this.file.dismissed));
     const file = this.commit(merged.entries, {
       feed: { url, syncedAt: new Date().toISOString(), generatedAt: feed.generatedAt, source: feed.source },
     });
@@ -155,6 +161,7 @@ export class CatalogRepo extends EventEmitter {
       merged.added ? `${merged.added} new` : '',
       merged.updated ? `${merged.updated} updated` : '',
       merged.removed ? `${merged.removed} removed` : '',
+      skipped ? `${skipped} unreadable line(s) skipped` : '',
     ].filter(Boolean);
     return {
       ok: true,
