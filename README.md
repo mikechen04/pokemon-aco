@@ -62,6 +62,8 @@ npm version patch            # or minor / major: bumps package.json and creates 
 git push --follow-tags       # pushes the commit and the v<version> tag
 ```
 
+Or bump `version` in `package.json`, push, and run **Actions → Windows installer → Run workflow** with **Publish a GitHub Release** ticked. The workflow then creates the `v<version>` tag itself.
+
 The **Windows installer** workflow then:
 
 1. Checks that the tag matches `package.json`.
