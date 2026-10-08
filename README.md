@@ -16,6 +16,9 @@ Built with Electron + TypeScript + React. It packages as a normal Windows instal
 - **Automatic checkout** the moment stock appears: add to cart, then on the store's own checkout page it verifies **card last 4, ship-to address and subtotal** before placing the order.
 - **Stored cards (optional)**: save a full card (number, expiry, security code, billing address) on a profile. Fresh accounts with nothing saved still check out: the app fills the shipping form, adds the card and answers security-code prompts on the store's checkout page.
 - **Multi-account**: bulk-add the store accounts you own, then one "New task" creates one task per account. They all try to check out in parallel. An optional **"stop after N orders"** limit keeps the group from over-buying.
+- **Scheduled drops**: a task can start at a set time (it starts 2 minutes early to sign in) and stop at another. **Keep buying** places up to N orders, a **budget** caps what one task spends, and **per-account item limits** (Target: 2 of an item) stop an account before the store would cancel the order.
+- **Drop reader**: paste a release or restock post (Discord, X, Instagram) and Claude finds the products, store and start time, then fills in the task form for you to check. Draws, in-store sales and stores the app doesn't support are flagged instead.
+- **Create accounts**: for each of your emails, a store window opens on the sign-up page with the form filled in. You submit it and enter the store's code; the account is saved already signed in.
 - **Pokémon Center waiting room**: the task joins the line in its own window, waits (it never skips or reloads), and continues when the queue passes. You get a notification while the queue is what's holding it up.
 - **Live updates** per task, desktop notifications and an optional **Discord webhook**.
 - **Safety limits**: max price per task, max quantity (global cap), **dry run on by default**, a global **kill switch**, and **auto-stop** after repeated failures.
@@ -25,7 +28,7 @@ Built with Electron + TypeScript + React. It packages as a normal Windows instal
 - No CAPTCHA solving, no TLS or browser fingerprint spoofing, no user-agent changes, no anti-bot sensor generation, no queue skipping, and no switching proxies to dodge a block.
 - When a store shows a **CAPTCHA, bot challenge, block or 2FA prompt**, the task **pauses** and tells you. You can open that task's window, handle it yourself, and press Start. If you finish the order by hand in that window, the app detects the confirmation page and marks the task checked out.
 - Card data is **never sent anywhere except the store's own checkout page** (and the card processor's secure fields embedded in it). A full card is only stored if you add one to a profile. Without one, a store asking for card details pauses the task and you finish in the window.
-- It does not create store accounts. It only uses accounts you add.
+- It doesn't create store accounts by itself. **Create accounts** fills in the sign-up form; you submit it and enter the code the store sends. It never makes up emails or phone numbers.
 
 ---
 
@@ -148,6 +151,7 @@ Start → check sign-in → prepare (warm session, check cart) → monitor stock
 
 | Status | Meaning |
 | --- | --- |
+| Scheduled | Waiting for its start time |
 | Idle | Not running |
 | Monitoring | Checking stock every few seconds |
 | In stock | Found it; waiting for a checkout slot or adding to cart |
@@ -168,6 +172,49 @@ Start → check sign-in → prepare (warm session, check cart) → monitor stock
 3. Use the group filter on the Tasks tab to start or stop a whole group.
 
 Each account has its own isolated browser profile, cookies and (optional) proxy. One account being challenged or blocked doesn't affect the others.
+
+## Scheduling, keep buying and budgets
+
+In the task form, under **Schedule and spending**:
+
+- **Start at:** the task starts on its own, 2 minutes early so sign-in and setup are done before the drop. If the app was closed at the start time, it still starts within 30 minutes; after that it's marked "Missed its start time".
+- **Stop at:** the task stops on its own, whether or not it bought anything.
+- **Orders to place:** more than 1 keeps the task buying. After each order it goes back to watching for the next one.
+- **Budget:** the order total on the review page (tax included when the store shows it) is checked before "Place order". An order that would go over the budget is not placed, and the task ends.
+- **Per-account item limits** (Settings → Safety): Target cancels orders past 2 of one item per account, so each Target account stops once the app has bought 2 of that item in the last 30 days, across all tasks. Other stores default to no limit; set one if a store announces it. Orders you place by hand outside the app aren't counted, and a store may also limit by address or card.
+
+## Drop reader (paste a post)
+
+1. **Settings → Drop reader:** paste an Anthropic API key (from console.anthropic.com). It's stored encrypted and never logged.
+2. **Tasks → Paste drop:** paste the post and click **Read post**.
+3. Each product shows its store, sale type and start time. **Set up task** opens the normal task form, filled in:
+   - the product link and label
+   - start at the drop time, stop 2 hours later
+   - keep buying up to the store's per-account limit
+   - max price from the MSRP
+   
+   Pick the accounts and click Create.
+
+Some posts can't become a task, and the app says why: draws and raffles (enter those yourself), in-store-only sales, and stores the app doesn't support (Walmart, GameStop, ...). When your catalog has the same product at a supported store, **Watch at Target** (or another store) sets up a task there instead.
+
+How it works:
+
+- It uses Claude (`claude-opus-5-5`) with a fixed JSON format.
+- **Server-side fallbacks are on**: if Claude declines a post, Anthropic retries it on a fallback model in the same request.
+- Links in the post are followed (short links such as howl.link) so Claude sees where they lead. Only public web addresses are opened.
+- A product link Claude returns is used only if it was really in the post or on the linked page.
+- A time without a time zone, or one in the past, is not scheduled.
+- A read usually costs a few cents of your API credit. The post text, link titles and likely catalog matches are sent to Anthropic; nothing else is.
+
+## Creating store accounts
+
+**Accounts → Create accounts:** pick the store and a profile (for name and phone), then paste one email per line. Passwords are generated per account (16 characters), or you can use one password for all.
+
+1. One email at a time, a store window opens on the sign-up page in a new isolated profile. Email, password, first and last name, and phone are filled in. Only empty boxes are filled, so anything you type stays.
+2. You click the store's **Create account** button and enter any code the store emails or texts you.
+3. Click **Done, save account**. The app checks the session and saves the account encrypted. It keeps the session, so the account starts out signed in. **Skip** moves to the next email; closing the window counts as Skip unless the account was already made.
+
+Emails already saved for that store are skipped. Use addresses you can open (for example Gmail `+` aliases or your own domain), because stores send a verification code. The app never solves CAPTCHAs or skips a verification step. Store terms usually allow one account per person, and orders that break purchase limits can be cancelled. The sign-up page for each store is `signUpUrl` in `retailer-overrides.json` if a store moves it.
 
 ## How each store is handled
 
@@ -198,6 +245,7 @@ HTTP is used wherever the store's flow allows it. A hidden browser window, with 
   - **Never shown back.** The number and security code never reach the app's UI: after saving you only see the brand, last 4, expiry and name.
   - **Never logged.** The number is masked in every log line and notification.
   - **One place only.** They're typed only into the store's checkout page. Deleting a profile (or switching it back to "Saved on the store account") deletes its card.
+- **Anthropic API key:** stored encrypted with the other settings, redacted from logs, and sent only to the Anthropic API.
 - **Passwords:** never sent to the UI, never logged. Every log line and notification goes through redaction (passwords, tokens, cookies, card-like numbers, emails).
 - **Discord messages:** show no emails, passwords or full addresses. Profile names and order numbers are hidden behind spoiler tags.
 - **Free-text fields:** reject anything that looks like a full card number (cards go only in the stored-card fields).
@@ -239,6 +287,9 @@ Only keys that exist in `DEFAULTS`, with values of the same type, are applied. S
 
   They were **not** tested against live drops. Store sites change often; expect to adjust an endpoint or selector through `retailer-overrides.json` now and then.
 - Stores run bot protection. Because this app never evades it, some attempts will be paused for you instead of completing on their own. That trade-off is intentional.
+- **Drop reader:** Claude can misread a post (a time zone, a product name). That is why every task goes through the form for you to check. Some short-link sites or stores block the link lookup, and then Claude only has the post text.
+- **Create accounts:** the filling was tested against a mock sign-up page, not each store's live form. If a field stays empty, type it in; if a store moves its sign-up page, set `signUpUrl` in `retailer-overrides.json`.
+- **Purchase limits:** the per-account count only knows orders placed through the app.
 - Best Buy and some Target sessions can't be confirmed signed-in over plain HTTP. Their sign-in is checked in the window before the drop.
 - **Catalog data:**
   - Store links exist only for some products: hand-checked ones, plus what the store searches find.
@@ -250,17 +301,19 @@ Only keys that exist in `DEFAULTS`, with values of the same type, are applied. S
 ## Project structure
 
 ```
-build/                 icon.ico / icon.png (generated by scripts/make-icon.mjs)
+build/                 icon.ico / icon.png, the PA logo (generated by scripts/make-icon.mjs)
 catalog/               feed.json (rebuilt daily), history.json (daily prices), sources/ (MSRPs,
                        hand-checked links), default-catalog.json (first-run seed)
 scripts/               build, dev runner, esbuild config, icon generator, catalog/ (feed builder)
 src/shared/            types, IPC contract, zod schemas, URL/keyword/proxy/price parsing
 src/main/
   core/                encrypted JSON storage, DPAPI, redaction, log bus, notifications
-  data/                settings, tasks, profiles, accounts, catalog, overrides
+  data/                settings, tasks, profiles, accounts, catalog, overrides, purchase ledger
   engine/              sessions, HTTP client, hidden browser, detection, guards,
-                       stock monitor, task runner, task manager, keep-alive
+                       stock monitor, task runner, task manager, keep-alive,
+                       spending (budgets, keep buying), signup (assisted account creation)
   retailers/           target, bestbuy, amazon, pokemoncenter + shared flows
+  drops.ts             drop reader: link lookup, Claude call, checks on its answer
   ipc.ts index.ts      IPC handlers and app lifecycle
   updater.ts           auto-update from GitHub Releases (installed Windows app only)
 src/preload/           the allow-listed bridge between UI and main process
