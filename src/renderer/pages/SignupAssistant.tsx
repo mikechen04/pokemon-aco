@@ -1,5 +1,5 @@
 import { CheckCircle2, CircleDashed, ExternalLink, MinusCircle, UserPlus } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type ReactElement } from 'react';
 import { RETAILER_LIST, RETAILERS } from '../../shared/retailers';
 import { firstIssue, signupRequestSchema } from '../../shared/schemas';
 import type { RetailerId, SignupItemStatus, SignupJobView, SignupRequest } from '../../shared/types';
@@ -7,7 +7,7 @@ import { call, subscribe } from '../api';
 import { Button, Field, Modal, Toggle } from '../components/ui';
 import { act, useApp } from '../store';
 
-const STATUS_ICON: Record<SignupItemStatus, JSX.Element> = {
+const STATUS_ICON: Record<SignupItemStatus, ReactElement> = {
   waiting: <CircleDashed size={15} color="var(--text-faint)" />,
   open: <ExternalLink size={15} color="var(--accent)" />,
   saved: <CheckCircle2 size={15} color="var(--ok)" />,
