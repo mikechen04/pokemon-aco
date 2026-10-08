@@ -1,33 +1,35 @@
 // Generates build/icon.ico (16-256 px) and build/icon.png (512 px) with no external tools.
-// The logo is drawn procedurally: a navy rounded square holding a tilted blue-to-pink
-// trading card with a white lightning bolt. Run with `npm run icons`.
+// The logo is the "PA" monogram: a pink P and a light-blue A with a white check, on a light
+// gray rounded square. A white outline around the A keeps a gap where the letters touch.
+// Every stroke is a round-capped line or arc, drawn with signed distances. The same shapes
+// are in the Logo component (src/renderer/components/ui.tsx). Run with `npm run icons`.
 import { mkdir, writeFile } from 'node:fs/promises';
 import { deflateSync } from 'node:zlib';
 
-const NAVY_TOP = [26, 34, 54];
-const NAVY_BOTTOM = [11, 15, 25];
-const BLUE = [143, 211, 255];
-const PINK = [255, 179, 217];
+const BACKGROUND = [238, 240, 244];
+const PINK = [255, 148, 180];
+const BLUE = [106, 174, 235];
 const WHITE = [255, 255, 255];
 
-const CARD = { cx: 0.5, cy: 0.52, hw: 0.25, hh: 0.33, r: 0.07, angle: (-8 * Math.PI) / 180 };
-const BOLT = [
-  [0.555, 0.25],
-  [0.635, 0.25],
-  [0.545, 0.46],
-  [0.645, 0.46],
-  [0.435, 0.79],
-  [0.485, 0.55],
-  [0.375, 0.55],
+// Coordinates are in a 100 x 100 box, like the SVG viewBox.
+const LETTER_WIDTH = 15;
+const GAP_WIDTH = 22;
+const CHECK_WIDTH = 3.2;
+const P_LINES = [
+  [22, 76, 22, 26],
+  [22, 26, 35, 26],
+  [35, 54, 22, 54],
 ];
-
-const lerp = (a, b, t) => a + (b - a) * t;
-const mix = (c1, c2, t) => c1.map((v, i) => lerp(v, c2[i], t));
-const clamp01 = (t) => Math.min(1, Math.max(0, t));
-const smoothstep = (e0, e1, x) => {
-  const t = clamp01((x - e0) / (e1 - e0));
-  return t * t * (3 - 2 * t);
-};
+const P_BOWL = { cx: 35, cy: 40, r: 14 };
+const A_LINES = [
+  [48, 76, 64, 26],
+  [64, 26, 80, 76],
+  [55, 63, 73, 63],
+];
+const CHECK_LINES = [
+  [60, 32, 63.5, 35.5],
+  [63.5, 35.5, 70, 28.5],
+];
 
 /** Signed distance to a rounded rectangle centred at (cx, cy). Negative inside. */
 function roundedRectSdf(px, py, cx, cy, hw, hh, r) {
@@ -37,15 +39,21 @@ function roundedRectSdf(px, py, cx, cy, hw, hh, r) {
   return outside + Math.min(Math.max(qx, qy), 0) - r;
 }
 
-function insidePolygon(px, py, points) {
-  let inside = false;
-  for (let i = 0, j = points.length - 1; i < points.length; j = i++) {
-    const [xi, yi] = points[i];
-    const [xj, yj] = points[j];
-    if (yi > py !== yj > py && px < ((xj - xi) * (py - yi)) / (yj - yi) + xi) inside = !inside;
-  }
-  return inside;
+/** Distance from a point to a line segment. */
+function segmentDistance(px, py, [x1, y1, x2, y2]) {
+  const dx = x2 - x1;
+  const dy = y2 - y1;
+  const t = Math.min(1, Math.max(0, ((px - x1) * dx + (py - y1) * dy) / (dx * dx + dy * dy)));
+  return Math.hypot(px - (x1 + dx * t), py - (y1 + dy * t));
 }
+
+/** Distance to the right half of a circle (the P's bowl). */
+function bowlDistance(px, py, { cx, cy, r }) {
+  if (px >= cx) return Math.abs(Math.hypot(px - cx, py - cy) - r);
+  return Math.min(Math.hypot(px - cx, py - (cy - r)), Math.hypot(px - cx, py - (cy + r)));
+}
+
+const nearest = (px, py, lines) => Math.min(...lines.map((line) => segmentDistance(px, py, line)));
 
 /** Source-over composite of a straight-alpha color onto a premultiplied accumulator. */
 function over(acc, color, alpha) {
@@ -56,27 +64,18 @@ function over(acc, color, alpha) {
   acc[3] = alpha + acc[3] * inv;
 }
 
-function shade(px, py) {
+function shade(u, v) {
   const acc = [0, 0, 0, 0];
-  if (roundedRectSdf(px, py, 0.5, 0.5, 0.5, 0.5, 0.22) > 0) return acc;
-  over(acc, mix(NAVY_TOP, NAVY_BOTTOM, py), 1);
-
-  // Undo the card rotation so the card and bolt can be tested in their upright frame.
-  const cos = Math.cos(-CARD.angle);
-  const sin = Math.sin(-CARD.angle);
-  const dx = px - CARD.cx;
-  const dy = py - CARD.cy;
-  const lx = CARD.cx + dx * cos - dy * sin;
-  const ly = CARD.cy + dx * sin + dy * cos;
-
-  const shadow = roundedRectSdf(lx - 0.015, ly - 0.03, CARD.cx, CARD.cy, CARD.hw, CARD.hh, CARD.r);
-  over(acc, [0, 0, 0], 0.4 * (1 - smoothstep(-0.03, 0.06, shadow)));
-
-  if (roundedRectSdf(lx, ly, CARD.cx, CARD.cy, CARD.hw, CARD.hh, CARD.r) <= 0) {
-    const t = clamp01((lx - (CARD.cx - CARD.hw) + (ly - (CARD.cy - CARD.hh))) / (2 * (CARD.hw + CARD.hh)));
-    over(acc, mix(BLUE, PINK, t), 1);
-    if (insidePolygon(lx, ly, BOLT)) over(acc, WHITE, 1);
-  }
+  if (roundedRectSdf(u, v, 0.5, 0.5, 0.5, 0.5, 0.22) > 0) return acc;
+  over(acc, BACKGROUND, 1);
+  const px = u * 100;
+  const py = v * 100;
+  const p = Math.min(nearest(px, py, P_LINES), bowlDistance(px, py, P_BOWL));
+  if (p <= LETTER_WIDTH / 2) over(acc, PINK, 1);
+  const a = nearest(px, py, A_LINES);
+  if (a <= GAP_WIDTH / 2) over(acc, WHITE, 1);
+  if (a <= LETTER_WIDTH / 2) over(acc, BLUE, 1);
+  if (nearest(px, py, CHECK_LINES) <= CHECK_WIDTH / 2) over(acc, WHITE, 1);
   return acc;
 }
 

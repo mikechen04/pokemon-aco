@@ -248,24 +248,17 @@ export function EmptyState({ icon, title, children }: { icon: ReactNode; title: 
   );
 }
 
-/** Same artwork as build/icon.png: a tilted blue-to-pink card with a lightning bolt. */
+/** Same artwork as build/icon.png (scripts/make-icon.mjs): the "PA" monogram. */
 export function Logo({ size = 34 }: { size?: number }) {
+  const a = 'M48 76L64 26L80 76M55 63h18';
   return (
     <svg width={size} height={size} viewBox="0 0 100 100" aria-hidden="true">
-      <defs>
-        <linearGradient id="aco-card" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#8fd3ff" />
-          <stop offset="1" stopColor="#ffb3d9" />
-        </linearGradient>
-        <linearGradient id="aco-bg" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#1a2236" />
-          <stop offset="1" stopColor="#0b0f19" />
-        </linearGradient>
-      </defs>
-      <rect x="0" y="0" width="100" height="100" rx="22" fill="url(#aco-bg)" />
-      <g transform="rotate(-8 50 52)">
-        <rect x="25" y="19" width="50" height="66" rx="7" fill="url(#aco-card)" />
-        <polygon points="55.5,25 63.5,25 54.5,46 64.5,46 43.5,79 48.5,55 37.5,55" fill="#ffffff" />
+      <rect width="100" height="100" rx="22" fill="#eef0f4" />
+      <g fill="none" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M22 76V26h13a14 14 0 0 1 0 28H22" stroke="#ff94b4" strokeWidth="15" />
+        <path d={a} stroke="#ffffff" strokeWidth="22" />
+        <path d={a} stroke="#6aaeeb" strokeWidth="15" />
+        <path d="M60 32l3.5 3.5l6.5-7" stroke="#ffffff" strokeWidth="3.2" />
       </g>
     </svg>
   );
