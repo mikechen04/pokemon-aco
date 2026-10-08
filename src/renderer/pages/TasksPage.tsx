@@ -10,6 +10,7 @@ import {
   Play,
   Plus,
   Search,
+  Sparkles,
   Square,
   Trash2,
 } from 'lucide-react';
@@ -19,22 +20,12 @@ import { RETAILER_LIST, titleFromUrl } from '../../shared/retailers';
 import { TASK_STATES, type TaskState, type TaskView } from '../../shared/types';
 import { call } from '../api';
 import { PageHeader, setDryRun } from '../App';
-import { Button, confirm, EmptyState, IconButton, RetailerBadge, STATUS_LABELS, StatusPill } from '../components/ui';
+import { Button, confirm, EmptyState, formatWhen, IconButton, RetailerBadge, STATUS_LABELS, StatusPill } from '../components/ui';
 import { act, useApp } from '../store';
+import { DropReader } from './DropReader';
 import { TaskForm } from './TaskForm';
 
 type FormState = { mode: 'create'; catalogEntryId?: string } | { mode: 'edit'; task: TaskView } | null;
-
-/** "Today 9:00 AM", "Tomorrow 9:00 AM" or "Oct 9, 9:00 AM". */
-export function formatWhen(at: number): string {
-  const date = new Date(at);
-  const time = date.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' });
-  const day = (d: Date) => d.toDateString();
-  const tomorrow = new Date(Date.now() + 86_400_000);
-  if (day(date) === day(new Date())) return `Today ${time}`;
-  if (day(date) === day(tomorrow)) return `Tomorrow ${time}`;
-  return `${date.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}, ${time}`;
-}
 
 const IN_FLIGHT = new Set<TaskState>(['in_stock', 'queued', 'carted', 'checking_out']);
 
@@ -48,6 +39,7 @@ export function TasksPage() {
   const setTab = useApp((s) => s.setTab);
 
   const [form, setForm] = useState<FormState>(null);
+  const [dropReader, setDropReader] = useState(false);
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [retailer, setRetailer] = useState('all');
   const [status, setStatus] = useState('all');
@@ -131,6 +123,9 @@ export function TasksPage() {
           <>
             <Button variant="primary" onClick={() => setForm({ mode: 'create' })}>
               <Plus size={16} /> New task
+            </Button>
+            <Button onClick={() => setDropReader(true)} title="Paste a release or restock post and let Claude set up the tasks">
+              <Sparkles size={15} /> Paste drop
             </Button>
             <Button onClick={() => void act(call('tasks:startAll')).then((r) => r && useApp.getState().toast(r.ok ? 'success' : 'warn', r.message))}>
               <Play size={15} /> Start all
@@ -357,6 +352,7 @@ export function TasksPage() {
           onClose={() => setForm(null)}
         />
       ) : null}
+      {dropReader ? <DropReader onClose={() => setDropReader(false)} /> : null}
     </>
   );
 }

@@ -14,6 +14,7 @@ import type {
   CatalogFile,
   CatalogImportResult,
   CatalogSyncResult,
+  DropAnalysis,
   LogEntry,
   Profile,
   ProfileInput,
@@ -87,6 +88,9 @@ export interface InvokeContract {
   /** Downloads the catalog feed now and merges it in. */
   'catalog:sync': () => CatalogSyncResult;
 
+  /** Reads a pasted drop announcement with Claude and proposes tasks (nothing is created). */
+  'drops:analyze': (text: string) => DropAnalysis;
+
   'logs:recent': (limit: number) => LogEntry[];
   'logs:clear': () => ActionResult;
 }
@@ -156,6 +160,7 @@ export const INVOKE_CHANNELS = {
   'catalog:export': true,
   'catalog:reload': true,
   'catalog:sync': true,
+  'drops:analyze': true,
   'logs:recent': true,
   'logs:clear': true,
 } as const satisfies Record<InvokeChannel, true>;

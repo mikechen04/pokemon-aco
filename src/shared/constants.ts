@@ -7,6 +7,11 @@ export const SCHEDULE_LEAD_MS = 2 * 60_000;
 /** A scheduled start missed by more than this (app closed) is not made up. */
 export const SCHEDULE_GRACE_MS = 30 * 60_000;
 
+/** The Claude model that reads pasted drop announcements. */
+export const DROP_READER_MODEL = 'claude-opus-5-5';
+/** Longest drop post the reader accepts, in characters. */
+export const DROP_TEXT_MAX = 6000;
+
 export const LIMITS = {
   pollIntervalMs: { min: 2000, max: 600_000 },
   requestTimeoutMs: { min: 5000, max: 120_000 },

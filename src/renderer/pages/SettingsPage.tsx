@@ -1,6 +1,6 @@
-import { Bell, BookOpen, Download, FileJson, FolderOpen, Gauge, Globe, OctagonX, RefreshCw, Send, ShieldCheck, Store } from 'lucide-react';
+import { Bell, BookOpen, Download, FileJson, FolderOpen, Gauge, Globe, OctagonX, RefreshCw, Send, ShieldCheck, Sparkles, Store } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
-import { CATALOG_FEED_URL, DEFAULT_NOTIFY_ON, LIMITS } from '../../shared/constants';
+import { CATALOG_FEED_URL, DEFAULT_NOTIFY_ON, DROP_READER_MODEL, LIMITS } from '../../shared/constants';
 import { parseProxyList } from '../../shared/proxies';
 import { RETAILER_LIST } from '../../shared/retailers';
 import { firstIssue, settingsPatchSchema } from '../../shared/schemas';
@@ -285,6 +285,28 @@ export function SettingsPage() {
                 Fix a changed endpoint or selector without rebuilding.
               </span>
             </div>
+          </div>
+
+          <div className="card card-pad">
+            <h2>
+              <Sparkles size={16} style={{ verticalAlign: -2, marginRight: 6 }} color="var(--accent)" />
+              Drop reader
+            </h2>
+            <p className="hint">
+              Tasks → Paste drop: paste a release or restock post and Claude ({DROP_READER_MODEL}) finds the products, store and start
+              time, then fills in the task form for you to check. Uses your own Anthropic API key; a read costs a few cents. If Claude
+              declines a post, Anthropic retries it on a fallback model automatically.
+            </p>
+            <Field label="Anthropic API key" help="From console.anthropic.com → API keys. Stored encrypted, never logged.">
+              <input
+                className="input"
+                type={showSecret ? 'text' : 'password'}
+                value={draft.anthropicApiKey}
+                onChange={(e) => set('anthropicApiKey', e.target.value.trim())}
+                placeholder="sk-ant-…"
+                autoComplete="off"
+              />
+            </Field>
           </div>
 
           <div className="card card-pad">

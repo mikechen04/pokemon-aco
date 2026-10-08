@@ -344,6 +344,44 @@ export interface CatalogSyncResult {
   total: number;
 }
 
+export const DROP_SALE_TYPES = ['online_sale', 'draw_or_raffle', 'in_store_only', 'queue', 'unknown'] as const;
+export type DropSaleType = (typeof DROP_SALE_TYPES)[number];
+
+/** One product release Claude found in a pasted announcement, checked against what the app supports. */
+export interface DropProposal {
+  id: string;
+  productName: string;
+  /** The store as announced, e.g. "Walmart". */
+  storeName: string;
+  /** The supported store it is sold at, or null (Walmart, GameStop, ...). */
+  retailer: RetailerId | null;
+  saleType: DropSaleType;
+  /** When sales open (epoch ms), or null when the post gives no usable time. */
+  startsAt: number | null;
+  /** The time as the post wrote it, e.g. "tomorrow at 9 AM PDT". */
+  timeText: string;
+  /** A product link that parses for `retailer`, or '' when there is none yet. */
+  url: string;
+  catalogEntryId: string | null;
+  /** Retail price: the catalog's, else the one in the post. */
+  msrp: number | null;
+  /** Why the app can't make a buying task for it, or null when it can. */
+  blocker: string | null;
+  /** Supported stores the catalog has a link for, besides `retailer`. */
+  alternatives: { retailer: RetailerId; url: string }[];
+  notes: string;
+}
+
+export interface DropAnalysis {
+  summary: string;
+  drops: DropProposal[];
+  warnings: string[];
+  /** The model that answered (a fallback model when the first one declined). */
+  model: string;
+  inputTokens: number;
+  outputTokens: number;
+}
+
 export type LogLevel = 'info' | 'success' | 'warn' | 'error';
 
 export interface LogEntry {

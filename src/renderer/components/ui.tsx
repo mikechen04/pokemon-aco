@@ -193,6 +193,17 @@ export function ConfirmHost() {
   );
 }
 
+/** "Today 9:00 AM", "Tomorrow 9:00 AM" or "Oct 9, 9:00 AM". */
+export function formatWhen(at: number): string {
+  const date = new Date(at);
+  const time = date.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' });
+  const day = (d: Date) => d.toDateString();
+  const tomorrow = new Date(Date.now() + 86_400_000);
+  if (day(date) === day(new Date())) return `Today ${time}`;
+  if (day(date) === day(tomorrow)) return `Tomorrow ${time}`;
+  return `${date.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}, ${time}`;
+}
+
 export const STATUS_LABELS: Record<TaskState, string> = {
   scheduled: 'Scheduled',
   idle: 'Idle',

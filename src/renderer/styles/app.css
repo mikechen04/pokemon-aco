@@ -586,6 +586,63 @@ table.grid td.actions {
 .danger-text {
   color: var(--danger);
 }
+.ok-text {
+  color: var(--ok);
+  font-size: 12.5px;
+  white-space: nowrap;
+}
+
+/* ---------- drop reader ---------- */
+.drop-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.drop-card {
+  border: 1px solid var(--border-strong);
+  background: var(--panel-2);
+  border-radius: 10px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.drop-card.blocked {
+  background: var(--panel);
+}
+.drop-head {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+.drop-name {
+  font-weight: 600;
+}
+.drop-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  margin-top: 4px;
+  font-size: 12.5px;
+}
+.drop-url {
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.drop-blocker {
+  color: var(--warn);
+  font-size: 12.5px;
+}
+.drop-alts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  font-size: 12.5px;
+}
 
 /* ---------- badges ---------- */
 .badge {

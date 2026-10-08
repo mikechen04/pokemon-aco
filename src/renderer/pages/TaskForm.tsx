@@ -18,6 +18,19 @@ function toLocalInput(at: number): string {
   return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
 }
 
+/** Starting values for a new task, e.g. from a pasted drop. */
+export interface TaskPreset {
+  retailer: RetailerId;
+  input: string;
+  label: string;
+  catalogEntryId?: string;
+  startAt?: number;
+  stopAt?: number;
+  maxPrice?: number;
+  maxOrders?: number;
+  source?: string;
+}
+
 const SESSION_LABELS: Record<AccountPublic['session'], { text: string; cls: string }> = {
   unknown: { text: 'Not checked', cls: '' },
   checking: { text: 'Checking', cls: 'accent' },
@@ -26,7 +39,19 @@ const SESSION_LABELS: Record<AccountPublic['session'], { text: string; cls: stri
   needs_attention: { text: 'Needs you', cls: 'danger' },
 };
 
-export function TaskForm({ task, catalogEntryId, onClose }: { task?: TaskView; catalogEntryId?: string; onClose: () => void }) {
+export function TaskForm({
+  task,
+  catalogEntryId,
+  preset,
+  onSaved,
+  onClose,
+}: {
+  task?: TaskView;
+  catalogEntryId?: string;
+  preset?: TaskPreset;
+  onSaved?: () => void;
+  onClose: () => void;
+}) {
   const profiles = useApp((s) => s.profiles);
   const accounts = useApp((s) => s.accounts);
   const catalog = useApp((s) => s.catalog);
@@ -35,24 +60,31 @@ export function TaskForm({ task, catalogEntryId, onClose }: { task?: TaskView; c
   const editing = Boolean(task);
   const maxQuantity = settings?.maxQuantityPerTask ?? 2;
 
-  const [source, setSource] = useState<Source>(task ? (task.mode === 'keyword' ? 'keyword' : task.catalogEntryId ? 'catalog' : 'url') : catalogEntryId ? 'catalog' : 'url');
-  const [retailer, setRetailer] = useState<RetailerId>(task?.retailer ?? 'target');
-  const [input, setInput] = useState(task?.input ?? '');
-  const [entryId, setEntryId] = useState(task?.catalogEntryId ?? catalogEntryId ?? '');
+  // A preset whose link is its catalog entry's link opens on that entry, so the task stays tied to it.
+  const presetEntry = preset?.catalogEntryId ? catalog?.entries.find((e) => e.id === preset.catalogEntryId) : undefined;
+  const presetOnEntry = Boolean(preset && presetEntry && [presetEntry.retailers[preset.retailer].url, presetEntry.retailers[preset.retailer].sku].includes(preset.input));
+  const [source, setSource] = useState<Source>(
+    task ? (task.mode === 'keyword' ? 'keyword' : task.catalogEntryId ? 'catalog' : 'url') : catalogEntryId || presetOnEntry ? 'catalog' : 'url',
+  );
+  const [retailer, setRetailer] = useState<RetailerId>(task?.retailer ?? preset?.retailer ?? 'target');
+  const [input, setInput] = useState(task?.input ?? preset?.input ?? '');
+  const [entryId, setEntryId] = useState(task?.catalogEntryId ?? catalogEntryId ?? (presetOnEntry ? (preset?.catalogEntryId ?? '') : ''));
   const [entrySearch, setEntrySearch] = useState('');
-  const [label, setLabel] = useState(task?.label ?? '');
+  const [label, setLabel] = useState(task?.label ?? preset?.label ?? '');
   const [accountIds, setAccountIds] = useState<string[]>(task ? [task.accountId] : []);
   const [profileId, setProfileId] = useState(task?.profileId ?? profiles[0]?.id ?? '');
   const [useAccountProfiles, setUseAccountProfiles] = useState(true);
   const [quantity, setQuantity] = useState(String(task?.quantity ?? 1));
-  const [maxPrice, setMaxPrice] = useState(task ? String(task.maxPrice) : '');
+  const [maxPrice, setMaxPrice] = useState(task ? String(task.maxPrice) : preset?.maxPrice ? String(preset.maxPrice) : '');
   const [copies, setCopies] = useState('1');
   const [firstN, setFirstN] = useState('5');
   const [groupName, setGroupName] = useState('');
   const [groupGoal, setGroupGoal] = useState('');
-  const [startAt, setStartAt] = useState(task?.startAt ? toLocalInput(task.startAt) : '');
-  const [stopAt, setStopAt] = useState(task?.stopAt ? toLocalInput(task.stopAt) : '');
-  const [maxOrders, setMaxOrders] = useState(String(task?.maxOrders ?? 1));
+  const initialStart = task?.startAt ?? preset?.startAt;
+  const initialStop = task?.stopAt ?? preset?.stopAt;
+  const [startAt, setStartAt] = useState(initialStart ? toLocalInput(initialStart) : '');
+  const [stopAt, setStopAt] = useState(initialStop ? toLocalInput(initialStop) : '');
+  const [maxOrders, setMaxOrders] = useState(String(task?.maxOrders ?? preset?.maxOrders ?? 1));
   const [budget, setBudget] = useState(task?.budget !== undefined ? String(task.budget) : '');
   const [error, setError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
@@ -118,6 +150,7 @@ export function TaskForm({ task, catalogEntryId, onClose }: { task?: TaskView; c
     const stop = stopAt ? new Date(stopAt).getTime() : undefined;
     if (start !== undefined && start < Date.now() - 60_000) return setError('The start time is in the past. Clear it to start by hand.');
     const orders = Number.parseInt(maxOrders, 10) || 1;
+    const savedSource = task?.source || preset?.source;
     const draft: TaskInput = {
       retailer,
       mode: source === 'keyword' ? 'keyword' : 'url',
@@ -132,7 +165,7 @@ export function TaskForm({ task, catalogEntryId, onClose }: { task?: TaskView; c
       ...(stop !== undefined ? { stopAt: stop } : {}),
       ...(orders > 1 ? { maxOrders: orders } : {}),
       ...(budget.trim() ? { budget: Number.parseFloat(budget) } : {}),
-      ...(task?.source ? { source: task.source } : {}),
+      ...(savedSource ? { source: savedSource } : {}),
     };
     const check = taskInputSchema.safeParse(draft);
     if (!check.success) return setError(firstIssue(check.error));
@@ -158,7 +191,10 @@ export function TaskForm({ task, catalogEntryId, onClose }: { task?: TaskView; c
           (created) => (created.length === 1 ? 'Task created' : `Created ${created.length} tasks`),
         );
     setSaving(false);
-    if (result) onClose();
+    if (result) {
+      onSaved?.();
+      onClose();
+    }
   };
 
   const filteredEntries = entries.filter((e) => `${e.name} ${e.set} ${e.category} ${e.tags.join(' ')}`.toLowerCase().includes(entrySearch.trim().toLowerCase()));

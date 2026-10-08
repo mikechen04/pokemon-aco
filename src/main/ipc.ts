@@ -20,6 +20,8 @@ import {
 } from '../shared/schemas';
 import type { EventChannel, EventContract } from '../shared/ipc';
 import type { CatalogSyncResult, Profile, ProfileInput, ProxyTestResult, Settings, Task, TaskInput } from '../shared/types';
+import { DROP_TEXT_MAX } from '../shared/constants';
+import { analyzeDrop, claudeClient } from './drops';
 import { logBus } from './core/logger';
 import type { Notifier } from './core/notifier';
 import { paths } from './core/paths';
@@ -420,6 +422,27 @@ export function registerIpc(services: AppServices): void {
   });
 
   // ---- logs ----
+  // ---- drop reader ----
+  handle('drops:analyze', async (text) => {
+    const post = typeof text === 'string' ? text.trim() : '';
+    if (!post) throw new Error('Paste a drop announcement first');
+    if (post.length > DROP_TEXT_MAX) throw new Error(`That is too long; paste at most ${DROP_TEXT_MAX} characters`);
+    const apiKey = settings.get().anthropicApiKey;
+    if (!apiKey) throw new Error('Add an Anthropic API key in Settings → Drop reader first');
+    const analysis = await analyzeDrop(post, {
+      client: claudeClient(apiKey),
+      fetch: (url, init) => fetch(url, init),
+      catalog: catalog.get().entries,
+      now: Date.now(),
+      timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+    });
+    const usable = analysis.drops.filter((d) => !d.blocker).length;
+    logBus.info(
+      `Drop reader found ${analysis.drops.length} product(s), ${usable} the app can buy (${analysis.model}, ${analysis.inputTokens} in / ${analysis.outputTokens} out tokens)`,
+    );
+    return analysis;
+  });
+
   handle('logs:recent', (limit) => logBus.recent(typeof limit === 'number' ? limit : 1000));
   handle('logs:clear', () => {
     logBus.clear();
