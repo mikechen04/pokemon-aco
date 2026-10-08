@@ -21,6 +21,8 @@ import type {
   ProxyTestResult,
   RetailerId,
   Settings,
+  SignupJobView,
+  SignupRequest,
   SettingsPatch,
   Task,
   TaskCreateRequest,
@@ -79,6 +81,14 @@ export interface InvokeContract {
   'accounts:checkAll': (retailer: RetailerId | null) => ActionResult;
   'accounts:clearSession': (id: string) => ActionResult;
 
+  /** Assisted sign-up: opens a filled-in store window per email, one at a time. */
+  'signup:start': (request: SignupRequest) => SignupJobView;
+  'signup:status': () => SignupJobView | null;
+  /** The user finished the current sign-up. `force` saves it even when sign-in can't be confirmed. */
+  'signup:done': (force: boolean) => ActionResult;
+  'signup:skip': () => ActionResult;
+  'signup:cancel': () => ActionResult;
+
   'catalog:get': () => CatalogFile;
   'catalog:upsert': (entry: CatalogEntry) => CatalogFile;
   'catalog:remove': (id: string) => CatalogFile;
@@ -107,6 +117,7 @@ export interface EventContract {
   'profiles:changed': Profile[];
   'catalog:changed': CatalogFile;
   'appUpdate:status': AppUpdateStatus;
+  'signup:changed': SignupJobView | null;
   toast: Toast;
 }
 
@@ -153,6 +164,11 @@ export const INVOKE_CHANNELS = {
   'accounts:checkSession': true,
   'accounts:checkAll': true,
   'accounts:clearSession': true,
+  'signup:start': true,
+  'signup:status': true,
+  'signup:done': true,
+  'signup:skip': true,
+  'signup:cancel': true,
   'catalog:get': true,
   'catalog:upsert': true,
   'catalog:remove': true,
@@ -176,6 +192,7 @@ export const EVENT_CHANNELS = {
   'profiles:changed': true,
   'catalog:changed': true,
   'appUpdate:status': true,
+  'signup:changed': true,
   toast: true,
 } as const satisfies Record<EventChannel, true>;
 

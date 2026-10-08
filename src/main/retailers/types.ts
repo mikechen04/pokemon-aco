@@ -102,6 +102,8 @@ export interface RetailerModule {
   monitorScope: 'shared' | 'account';
   homeUrl: string;
   signInUrl: string;
+  /** Where new accounts are made (the sign-up form, or a page that links to it). */
+  signUpUrl: string;
   checkStock(ctx: MonitorContext, product: ProductTarget): Promise<StockResult>;
   search(ctx: MonitorContext, query: KeywordQuery): Promise<SearchHit[]>;
   /** true = signed in, false = signed out, null = could not tell. */

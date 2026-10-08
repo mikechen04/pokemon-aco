@@ -109,6 +109,22 @@ export const bulkAccountSchema = z.object({
   labelPrefix: safeText(40).optional(),
 });
 
+export const signupRequestSchema = z
+  .object({
+    retailer: retailerIdSchema,
+    emails: z.string().min(1, 'Add at least one email').max(20_000),
+    profileId: z.string().min(1, 'Pick a profile for the name and phone').max(100),
+    passwordMode: z.enum(['generate', 'same']),
+    password: z.string().max(64),
+    labelPrefix: safeText(40),
+    linkProfile: z.boolean(),
+  })
+  .superRefine((v, ctx) => {
+    if (v.passwordMode === 'same' && v.password.length < 8) {
+      ctx.addIssue({ code: 'custom', path: ['password'], message: 'Use a password of at least 8 characters' });
+    }
+  });
+
 export const taskInputSchema = z
   .object({
     retailer: retailerIdSchema,

@@ -33,6 +33,7 @@ export const BESTBUY_DEFAULTS = {
   addToCartUrl: 'https://www.bestbuy.com/cart/api/v1/addToCart',
   homeUrl: 'https://www.bestbuy.com/',
   signInUrl: 'https://www.bestbuy.com/identity/global/signin',
+  signUpUrl: 'https://www.bestbuy.com/identity/newAccount',
   accountUrl: 'https://www.bestbuy.com/site/customer/myaccount',
   checkoutUrl: 'https://www.bestbuy.com/checkout/r/fast-track',
   inStockStates: ['ADD_TO_CART', 'PRE_ORDER'],
@@ -323,6 +324,9 @@ export function createBestBuy(cfg: () => BestBuyConfig): RetailerModule {
     },
     get signInUrl() {
       return cfg().signInUrl;
+    },
+    get signUpUrl() {
+      return cfg().signUpUrl;
     },
     checkStock,
     search,

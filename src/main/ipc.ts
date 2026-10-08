@@ -15,6 +15,7 @@ import {
   profileInputSchema,
   retailerIdSchema,
   settingsPatchSchema,
+  signupRequestSchema,
   taskCreateSchema,
   taskInputSchema,
 } from '../shared/schemas';
@@ -38,6 +39,7 @@ import type { AccountWindows } from './engine/accountWindow';
 import type { SessionKeeper } from './engine/keepalive';
 import type { TaskManager } from './engine/manager';
 import type { SessionManager } from './engine/sessions';
+import type { SignupAssistant } from './engine/signup';
 import type { Updater } from './updater';
 
 export interface AppServices {
@@ -54,6 +56,7 @@ export interface AppServices {
   sessions: SessionManager;
   keeper: SessionKeeper;
   accountWindows: AccountWindows;
+  signup: SignupAssistant;
   notifier: Notifier;
   updater: Updater;
   /** Downloads the catalog feed and merges it in (keeps entries that tasks use). */
@@ -71,7 +74,7 @@ function normalizeProfileInput(input: ProfileInput): ProfileInput {
 }
 
 export function registerIpc(services: AppServices): void {
-  const { settings, tasks, profiles, cards, accounts, catalog, overrides, manager, sessions, keeper, accountWindows, notifier, updater } = services;
+  const { settings, tasks, profiles, cards, accounts, catalog, overrides, manager, sessions, keeper, accountWindows, signup, notifier, updater } = services;
 
   const trusted = (event: IpcMainInvokeEvent) => {
     const win = services.mainWindow();
@@ -422,6 +425,13 @@ export function registerIpc(services: AppServices): void {
   });
 
   // ---- logs ----
+  // ---- assisted sign-up ----
+  handle('signup:start', (request) => signup.start(validate(signupRequestSchema, request)));
+  handle('signup:status', () => signup.view());
+  handle('signup:done', (force) => signup.done(force === true));
+  handle('signup:skip', () => signup.skip());
+  handle('signup:cancel', () => signup.cancel());
+
   // ---- drop reader ----
   handle('drops:analyze', async (text) => {
     const post = typeof text === 'string' ? text.trim() : '';
@@ -472,6 +482,7 @@ export function wireEvents(services: AppServices): void {
   services.accounts.on('account', (account: EventContract['account:changed']) => send('account:changed', account));
   services.settings.on('changed', (value: Settings) => send('settings:changed', value));
   services.catalog.on('changed', (file: EventContract['catalog:changed']) => send('catalog:changed', file));
+  services.signup.on('changed', (view: EventContract['signup:changed']) => send('signup:changed', view));
   services.updater.on('status', (status: EventContract['appUpdate:status']) => send('appUpdate:status', status));
   logBus.on('entry', (entry: EventContract['log:entry']) => send('log:entry', entry));
   logBus.on('cleared', () => send('logs:cleared', null));

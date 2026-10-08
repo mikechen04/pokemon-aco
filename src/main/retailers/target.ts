@@ -37,6 +37,8 @@ export const TARGET_DEFAULTS = {
   homeUrl: 'https://www.target.com/',
   signInUrl:
     'https://www.target.com/login?client_id=ecom-web-1.0.0&ui_namespace=ui-default&back_button_action=browser&keep_me_signed_in=true&kmsi_default=false&actions=create_session_signin',
+  signUpUrl:
+    'https://www.target.com/login?client_id=ecom-web-1.0.0&ui_namespace=ui-default&back_button_action=browser&keep_me_signed_in=true&kmsi_default=false&actions=create_session_create_account',
   checkoutPageUrl: 'https://www.target.com/checkout',
   channelId: '10',
   inStockStatuses: ['IN_STOCK', 'LIMITED_STOCK', 'PRE_ORDER_SELLABLE'],
@@ -315,6 +317,9 @@ export function createTarget(cfg: () => TargetConfig): RetailerModule {
     },
     get signInUrl() {
       return cfg().signInUrl;
+    },
+    get signUpUrl() {
+      return cfg().signUpUrl;
     },
     checkStock,
     search,

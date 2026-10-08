@@ -15,6 +15,7 @@ import { OverridesRepo } from './data/overrides';
 import { PurchaseLedger } from './data/purchases';
 import { SettingsRepo } from './data/settings';
 import { AccountWindows } from './engine/accountWindow';
+import { SignupAssistant } from './engine/signup';
 import { SessionKeeper } from './engine/keepalive';
 import { TaskManager } from './engine/manager';
 import { StockMonitor } from './engine/monitor';
@@ -86,6 +87,7 @@ async function start(): Promise<void> {
     onSignedOut: (accountId) => manager.onAccountSignedOut(accountId),
   });
   const accountWindows = new AccountWindows(accounts, sessions, modules, (accountId) => void keeper.check(accountId));
+  const signup = new SignupAssistant({ accounts, profiles, sessions, modules, getSettings });
   const updater = new Updater({ getSettings, busy: () => manager.list().some((t) => manager.isRunning(t.id)) });
   const syncCatalog = async () => {
     const keep = new Set(tasks.list().flatMap((t) => (t.catalogEntryId ? [t.catalogEntryId] : [])));
@@ -108,6 +110,7 @@ async function start(): Promise<void> {
     sessions,
     keeper,
     accountWindows,
+    signup,
     notifier,
     updater,
     syncCatalog,
@@ -170,6 +173,7 @@ async function start(): Promise<void> {
       updater.stop();
       for (const timer of catalogTimers) clearTimeout(timer);
       accountWindows.closeAll();
+      signup.closeAll();
       for (const store of [settings, tasks, profiles, cards, accounts, purchases]) store.flush();
       logBus.flushSync();
       app.quit();

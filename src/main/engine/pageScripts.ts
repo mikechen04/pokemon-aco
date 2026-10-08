@@ -298,3 +298,66 @@ export function pageFrameClick(frameSelector: string, selectors: string[]): bool
   }
   return false;
 }
+
+export interface SignupValues {
+  email: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  phone: string;
+}
+
+/**
+ * Fills a store's sign-up form like a password manager: email, password (and its confirm
+ * box), first and last name (or one full-name box) and phone. Only empty, visible fields are
+ * touched, so whatever the user typed stays. Returns which kinds of field were filled.
+ */
+export function pageFillSignup(values: SignupValues): string[] {
+  const visible = (el: HTMLElement): boolean => {
+    const r = el.getBoundingClientRect();
+    const s = getComputedStyle(el);
+    return r.width > 0 && r.height > 0 && s.visibility !== 'hidden' && s.display !== 'none';
+  };
+  const describe = (input: HTMLInputElement): string =>
+    [input.name, input.id, input.getAttribute('autocomplete'), input.placeholder, input.getAttribute('aria-label'), input.labels?.[0]?.innerText]
+      .filter(Boolean)
+      .join(' ')
+      .toLowerCase();
+  const kindOf = (input: HTMLInputElement): keyof SignupValues | 'fullName' | null => {
+    const type = (input.type || 'text').toLowerCase();
+    const text = describe(input);
+    const auto = (input.getAttribute('autocomplete') || '').toLowerCase();
+    if (type === 'password') return 'password';
+    if (!['text', 'email', 'tel', ''].includes(type)) return null;
+    if (type === 'email' || auto === 'email' || auto === 'username' || /e-?mail|user ?name|username|login/.test(text)) return 'email';
+    // Not ours: search boxes, address parts, verification codes and the like.
+    if (/search|zip|postal|address|city|code|otp|captcha|birth|promo|coupon/.test(text)) return null;
+    if (auto === 'given-name' || /first.?name|fname|given/.test(text)) return 'firstName';
+    if (auto === 'family-name' || /last.?name|lname|surname|family/.test(text)) return 'lastName';
+    if (type === 'tel' || auto.startsWith('tel') || /phone|mobile|\btel\b/.test(text)) return 'phone';
+    if (auto === 'name' || /full.?name|customer.?name|your name|^name$|\bname\b/.test(text)) return 'fullName';
+    return null;
+  };
+  const filled: string[] = [];
+  const inputs = Array.from(document.querySelectorAll('input')).filter((i) => visible(i) && !i.disabled && !i.readOnly);
+  for (const input of inputs) {
+    const kind = kindOf(input);
+    if (!kind || input.value) continue;
+    const value =
+      kind === 'fullName'
+        ? `${values.firstName} ${values.lastName}`.trim()
+        : kind === 'phone'
+          ? values.phone.replace(/\D/g, '').replace(/^1(?=\d{10}$)/, '')
+          : values[kind];
+    if (!value) continue;
+    input.focus();
+    const setter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value')?.set;
+    if (setter) setter.call(input, value);
+    else input.value = value;
+    input.dispatchEvent(new Event('input', { bubbles: true }));
+    input.dispatchEvent(new Event('change', { bubbles: true }));
+    input.dispatchEvent(new Event('blur', { bubbles: true }));
+    filled.push(kind);
+  }
+  return filled;
+}

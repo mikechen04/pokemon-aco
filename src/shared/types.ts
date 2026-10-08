@@ -197,6 +197,30 @@ export interface AccountInput {
   profileId?: string;
 }
 
+/** Assisted sign-up: one store window per email, filled in for the user to submit. */
+export interface SignupRequest {
+  retailer: RetailerId;
+  /** One email per line. */
+  emails: string;
+  /** Names and phone come from this profile's shipping address. */
+  profileId: string;
+  /** 'generate': a strong random password per account; 'same': `password` for all. */
+  passwordMode: 'generate' | 'same';
+  password: string;
+  labelPrefix: string;
+  /** Use the profile as each new account's default profile. */
+  linkProfile: boolean;
+}
+
+export type SignupItemStatus = 'waiting' | 'open' | 'saved' | 'skipped';
+
+export interface SignupJobView {
+  retailer: RetailerId;
+  items: { email: string; status: SignupItemStatus; message: string }[];
+  /** Index of the item whose window is open, or -1 when finished. */
+  current: number;
+}
+
 /** Bulk add: one account per line, "email:password" (also "," or tab as separator). */
 export interface BulkAccountInput {
   retailer: RetailerId;

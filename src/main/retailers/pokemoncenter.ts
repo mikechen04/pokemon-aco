@@ -26,6 +26,8 @@ import type {
 export const POKEMON_CENTER_DEFAULTS = {
   homeUrl: 'https://www.pokemoncenter.com/',
   signInUrl: 'https://www.pokemoncenter.com/account/login',
+  /** Pokémon Center's sign-in page links to its sign-up form. */
+  signUpUrl: 'https://www.pokemoncenter.com/account/login',
   cartUrl: 'https://www.pokemoncenter.com/cart',
   searchUrl: 'https://www.pokemoncenter.com/search/',
   addToCartSelectors: ['button[data-testid="add-to-cart-button"]', 'button[class*="add-to-cart" i]'],
@@ -213,6 +215,9 @@ export function createPokemonCenter(cfg: () => PokemonCenterConfig): RetailerMod
     },
     get signInUrl() {
       return cfg().signInUrl;
+    },
+    get signUpUrl() {
+      return cfg().signUpUrl;
     },
     checkStock,
     search,

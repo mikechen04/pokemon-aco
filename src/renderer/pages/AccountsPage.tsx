@@ -1,4 +1,4 @@
-import { Cookie, Eye, EyeOff, FileUp, KeyRound, LogIn, Pencil, Plus, RefreshCw, ShieldCheck, Trash2, Users } from 'lucide-react';
+import { Cookie, Eye, EyeOff, FileUp, KeyRound, LogIn, Pencil, Plus, RefreshCw, ShieldCheck, Trash2, UserPlus, Users } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { MAX_BULK_ACCOUNTS, parseAccountLines } from '../../shared/accountLines';
 import { RETAILER_LIST, RETAILERS } from '../../shared/retailers';
@@ -8,6 +8,7 @@ import { call } from '../api';
 import { PageHeader } from '../App';
 import { Button, confirm, EmptyState, Field, IconButton, Modal, RetailerBadge } from '../components/ui';
 import { act, useApp } from '../store';
+import { SignupAssistant } from './SignupAssistant';
 
 const SESSION: Record<AccountPublic['session'], { label: string; cls: string }> = {
   unknown: { label: 'Not checked', cls: '' },
@@ -34,6 +35,7 @@ export function AccountsPage() {
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [form, setForm] = useState<{ id: string | null } | null>(null);
   const [bulk, setBulk] = useState(false);
+  const [signup, setSignup] = useState(false);
 
   const visible = accounts.filter((a) => filter === 'all' || a.retailer === filter);
   useEffect(() => {
@@ -91,6 +93,9 @@ export function AccountsPage() {
             </Button>
             <Button variant="pink" onClick={() => setBulk(true)}>
               <Users size={15} /> Bulk add
+            </Button>
+            <Button onClick={() => setSignup(true)} title="Make new store accounts: the app fills in the sign-up form, you submit it">
+              <UserPlus size={15} /> Create accounts
             </Button>
             <Button onClick={() => void act(call('accounts:checkAll', filter === 'all' ? null : filter), (r) => r.message)}>
               <RefreshCw size={14} /> Check sessions
@@ -217,6 +222,7 @@ export function AccountsPage() {
       </div>
       {form ? <AccountForm id={form.id} defaultRetailer={filter === 'all' ? 'target' : filter} onClose={() => setForm(null)} /> : null}
       {bulk ? <BulkAccountsForm defaultRetailer={filter === 'all' ? 'target' : filter} onClose={() => setBulk(false)} /> : null}
+      {signup ? <SignupAssistant defaultRetailer={filter === 'all' ? 'target' : filter} onClose={() => setSignup(false)} /> : null}
     </>
   );
 }

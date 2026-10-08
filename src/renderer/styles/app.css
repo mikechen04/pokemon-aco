@@ -955,6 +955,9 @@ table.grid td.actions {
 .choice:last-child {
   border-bottom: none;
 }
+.choice.active {
+  background: var(--accent-soft);
+}
 .choice:hover {
   background: var(--panel-2);
 }

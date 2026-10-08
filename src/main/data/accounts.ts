@@ -145,10 +145,11 @@ export class AccountsRepo extends EventEmitter {
     };
   }
 
-  create(input: AccountInput): AccountPublic {
+  /** `id` lets a caller pick the id up front (its isolated session is named after it). */
+  create(input: AccountInput, id: string = randomUUID()): AccountPublic {
     this.assertEncryption();
     const account: AccountRecord = {
-      id: randomUUID(),
+      id,
       createdAt: Date.now(),
       retailer: input.retailer,
       label: input.label,
