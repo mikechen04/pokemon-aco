@@ -30,6 +30,7 @@ import type { CardsRepo } from './data/cards';
 import type { CatalogRepo } from './data/catalog';
 import type { Collection } from './data/collection';
 import type { OverridesRepo } from './data/overrides';
+import type { PurchaseLedger } from './data/purchases';
 import type { SettingsRepo } from './data/settings';
 import type { AccountWindows } from './engine/accountWindow';
 import type { SessionKeeper } from './engine/keepalive';
@@ -44,6 +45,7 @@ export interface AppServices {
   profiles: Collection<Profile>;
   cards: CardsRepo;
   accounts: AccountsRepo;
+  purchases: PurchaseLedger;
   catalog: CatalogRepo;
   overrides: OverridesRepo;
   manager: TaskManager;
@@ -180,6 +182,15 @@ export function registerIpc(services: AppServices): void {
     return { productId: parsed.product.productId };
   };
 
+  /** Schedule, keep-buying and budget fields as given (a past start time means "start now"). */
+  const scheduleFields = (input: TaskInput): Partial<Task> => ({
+    ...(input.startAt && input.startAt > Date.now() ? { startAt: input.startAt } : {}),
+    ...(input.stopAt ? { stopAt: input.stopAt } : {}),
+    ...(input.maxOrders && input.maxOrders > 1 ? { maxOrders: input.maxOrders } : {}),
+    ...(input.budget !== undefined ? { budget: input.budget } : {}),
+    ...(input.source ? { source: input.source } : {}),
+  });
+
   const checkTaskRefs = (input: TaskInput, accountId: string, profileId: string) => {
     const account = accounts.get(accountId);
     if (!account) throw new Error('One of the selected accounts no longer exists');
@@ -187,6 +198,10 @@ export function registerIpc(services: AppServices): void {
     if (!profiles.get(profileId)) throw new Error('Pick a profile');
     const max = settings.get().maxQuantityPerTask;
     if (input.quantity > max) throw new Error(`Quantity is above the global max of ${max} (change it in Settings)`);
+    const storeLimit = settings.get().itemLimitPerAccount[input.retailer];
+    if (storeLimit > 0 && input.quantity > storeLimit) {
+      throw new Error(`${RETAILERS[input.retailer].name} allows ${storeLimit} of an item per account; lower the quantity (or change the limit in Settings)`);
+    }
   };
 
   handle('tasks:list', () => manager.list());
@@ -219,6 +234,7 @@ export function registerIpc(services: AppServices): void {
       accountId: plan.accountId,
       quantity: input.quantity,
       maxPrice: input.maxPrice,
+      ...scheduleFields(input),
       ...(groupId ? { groupId, groupName } : {}),
       ...(groupId && valid.groupGoal ? { groupGoal: valid.groupGoal } : {}),
     }));
@@ -233,9 +249,10 @@ export function registerIpc(services: AppServices): void {
     if (!existing) throw new Error('Task not found');
     if (manager.isRunning(id)) throw new Error('Stop the task before editing it');
     checkTaskRefs(valid, valid.accountId, valid.profileId);
-    const { productId: _old, catalogEntryId: _c, label: _l, ...rest } = existing;
+    const { productId: _old, catalogEntryId: _c, label: _l, startAt: _s, stopAt: _t, maxOrders: _m, budget: _b, source: _src, ...rest } = existing;
     const next: Task = {
       ...rest,
+      ...scheduleFields(valid),
       retailer: valid.retailer,
       mode: valid.mode,
       input: valid.input.trim(),
@@ -247,13 +264,15 @@ export function registerIpc(services: AppServices): void {
       quantity: valid.quantity,
       maxPrice: valid.maxPrice,
     };
-    return tasks.replace(next);
+    const saved = tasks.replace(next);
+    manager.refreshRuntime(id);
+    return saved;
   });
 
   handle('tasks:duplicate', (id) => {
     const existing = tasks.get(id);
     if (!existing) throw new Error('Task not found');
-    const { lastResult: _r, ...rest } = existing;
+    const { lastResult: _r, progress: _p, ...rest } = existing;
     return tasks.insert({ ...rest, id: randomUUID(), createdAt: Date.now() });
   });
 
@@ -341,6 +360,7 @@ export function registerIpc(services: AppServices): void {
       accountWindows.close(id);
       await sessions.clearAccount(id).catch(() => undefined);
     }
+    services.purchases.forgetAccounts(ids);
     const removed = accounts.remove(ids);
     return { ok: true, message: `Deleted ${removed} account(s) and their saved sessions` };
   });

@@ -12,6 +12,7 @@ import { CatalogRepo } from './data/catalog';
 import { Collection } from './data/collection';
 import { normalizeProfile, normalizeTask } from './data/normalize';
 import { OverridesRepo } from './data/overrides';
+import { PurchaseLedger } from './data/purchases';
 import { SettingsRepo } from './data/settings';
 import { AccountWindows } from './engine/accountWindow';
 import { SessionKeeper } from './engine/keepalive';
@@ -65,6 +66,7 @@ async function start(): Promise<void> {
   const cards = new CardsRepo(onError);
   syncStoredCards(profiles, cards);
   const accounts = new AccountsRepo(onError);
+  const purchases = new PurchaseLedger(onError);
   const catalog = new CatalogRepo(onError);
   const overrides = new OverridesRepo(onError);
   const modules = createRetailerModules(overrides);
@@ -74,7 +76,7 @@ async function start(): Promise<void> {
   const sessions = new SessionManager(getSettings);
   const monitor = new StockMonitor(sessions, getSettings);
   const notifier = new Notifier(getSettings, icon, showMainWindow);
-  const manager = new TaskManager({ tasks, profiles, cards, accounts, getSettings, sessions, monitor, notifier, modules });
+  const manager = new TaskManager({ tasks, profiles, cards, accounts, purchases, getSettings, sessions, monitor, notifier, modules });
   const keeper = new SessionKeeper({
     accounts,
     sessions,
@@ -99,6 +101,7 @@ async function start(): Promise<void> {
     profiles,
     cards,
     accounts,
+    purchases,
     catalog,
     overrides,
     manager,
@@ -167,7 +170,7 @@ async function start(): Promise<void> {
       updater.stop();
       for (const timer of catalogTimers) clearTimeout(timer);
       accountWindows.closeAll();
-      for (const store of [settings, tasks, profiles, cards, accounts]) store.flush();
+      for (const store of [settings, tasks, profiles, cards, accounts, purchases]) store.flush();
       logBus.flushSync();
       app.quit();
     })();

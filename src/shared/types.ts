@@ -4,6 +4,7 @@ export const RETAILER_IDS = ['target', 'bestbuy', 'amazon', 'pokemoncenter'] as 
 export type RetailerId = (typeof RETAILER_IDS)[number];
 
 export const TASK_STATES = [
+  'scheduled',
   'idle',
   'monitoring',
   'in_stock',
@@ -39,7 +40,27 @@ export interface Task {
   groupName?: string;
   /** Stop the whole group once this many orders are placed. */
   groupGoal?: number;
+  /** Starts on its own at this time (epoch ms); cleared once it has started. */
+  startAt?: number;
+  /** Stops on its own at this time (epoch ms). */
+  stopAt?: number;
+  /** Keep buying: place up to this many orders (1 = buy once). */
+  maxOrders?: number;
+  /** Never let this task's orders add up to more than this (USD, tax included when the store shows it). */
+  budget?: number;
+  /** Orders and spending of the current run. */
+  progress?: TaskProgress;
+  /** Where the task came from, e.g. a pasted drop announcement. */
+  source?: string;
   lastResult?: TaskResult;
+}
+
+export interface TaskProgress {
+  orders: number;
+  /** Units bought across those orders. */
+  units: number;
+  /** USD; orders whose total could not be read count as 0. */
+  spent: number;
 }
 
 export interface TaskResult {
@@ -51,7 +72,20 @@ export interface TaskResult {
 
 export type TaskInput = Pick<
   Task,
-  'retailer' | 'mode' | 'input' | 'catalogEntryId' | 'label' | 'profileId' | 'accountId' | 'quantity' | 'maxPrice'
+  | 'retailer'
+  | 'mode'
+  | 'input'
+  | 'catalogEntryId'
+  | 'label'
+  | 'profileId'
+  | 'accountId'
+  | 'quantity'
+  | 'maxPrice'
+  | 'startAt'
+  | 'stopAt'
+  | 'maxOrders'
+  | 'budget'
+  | 'source'
 >;
 
 /** New task(s): one per selected account (times `copies`), grouped when there is more than one. */
@@ -216,13 +250,20 @@ export interface Settings {
   amazonSoldByAmazonOnly: boolean;
   /** Download new versions from GitHub Releases on their own (installed when the app quits). */
   autoUpdate: boolean;
+  /** Most units of one item an account may buy per store (30 days, 0 = no limit), e.g. Target's 2. */
+  itemLimitPerAccount: Record<RetailerId, number>;
+  /** Anthropic API key for reading pasted drop announcements. Never shown in full or logged. */
+  anthropicApiKey: string;
   /** Where the catalog feed (catalog/feed.json) is downloaded from. */
   catalogFeedUrl: string;
   /** Sync the catalog from the feed at start and every few hours. */
   catalogAutoSync: boolean;
 }
 
-export type SettingsPatch = Partial<Omit<Settings, 'notifyOn'>> & { notifyOn?: Partial<NotifyOn> };
+export type SettingsPatch = Partial<Omit<Settings, 'notifyOn' | 'itemLimitPerAccount'>> & {
+  notifyOn?: Partial<NotifyOn>;
+  itemLimitPerAccount?: Partial<Record<RetailerId, number>>;
+};
 
 export interface CatalogRetailerRef {
   url: string;

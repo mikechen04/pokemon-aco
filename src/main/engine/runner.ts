@@ -2,6 +2,7 @@
 // Challenges pause the task; repeated failures stop it; the kill switch aborts it.
 import { matchesKeywords, parseKeywords, type KeywordQuery } from '../../shared/keywords';
 import { formatUsd } from '../../shared/money';
+import { ITEM_LIMIT_WINDOW_DAYS } from '../../shared/constants';
 import { parseProductInput, RETAILERS } from '../../shared/retailers';
 import type {
   AccountSessionState,
@@ -9,6 +10,7 @@ import type {
   Profile,
   Settings,
   Task,
+  TaskProgress,
   TaskResult,
   TaskRuntime,
   TaskState,
@@ -34,6 +36,7 @@ import {
   sleep,
 } from './errors';
 import type { MonitorSpec, StockMonitor } from './monitor';
+import { affordableUnits, budgetProblem, describeProgress, ordersDone } from './spending';
 import type { Semaphore } from './semaphore';
 import type { SessionManager } from './sessions';
 
@@ -58,6 +61,12 @@ export interface RunnerDeps {
   reserveOrder: () => () => void;
   /** True when the task's group already has (or is submitting) all the orders it wants. */
   groupFull: () => boolean;
+  /** Orders and spending of this run so far. */
+  progress: () => TaskProgress;
+  /** Units of an item this account may still buy under the store's per-account limit (null = no limit). */
+  itemAllowance: (productId: string) => { remaining: number | null; limit: number; bought: number };
+  /** Records a placed order (run progress and the per-account ledger). Returns the new progress. */
+  recordOrder: (order: { productId: string; quantity: number; amount: number | null; orderNumber?: string }) => TaskProgress;
 }
 
 type Found =
@@ -75,6 +84,8 @@ export class TaskRunner {
   private notifiedInStock = false;
   private lastLogKey = '';
   private releaseOrder: (() => void) | null = null;
+  /** What the order being submitted costs, read on the review page. */
+  private pendingCost: number | null = null;
   done: Promise<void> = Promise.resolve();
 
   constructor(
@@ -152,7 +163,8 @@ export class TaskRunner {
         } catch (err) {
           if (signal.aborted || err instanceof AbortedError) return;
           if (err instanceof GoalReachedError) {
-            this.status('idle', err.message, 'info');
+            // A run that bought something and then hit its budget or limit is a success.
+            this.status(this.deps.progress().orders > 0 ? 'checked_out' : 'idle', err.message, 'info');
             return;
           }
           if (err instanceof PauseError) return this.pause(err);
@@ -177,7 +189,27 @@ export class TaskRunner {
     }
   }
 
+  /**
+   * Units this account may buy of the item: the task's quantity, capped by the store's
+   * per-account limit (Target: 2). Ends the task when nothing is left.
+   */
+  private allowedQuantity(productId: string): number {
+    const { task } = this.deps;
+    const allowance = this.deps.itemAllowance(productId);
+    if (allowance.remaining === null) return task.quantity;
+    if (allowance.remaining <= 0) {
+      throw new GoalReachedError(
+        `${RETAILERS[task.retailer].name} allows ${allowance.limit} of an item per account and this account already bought ${allowance.bought} in the last ${ITEM_LIMIT_WINDOW_DAYS} days (Settings → Safety to change)`,
+      );
+    }
+    return Math.min(task.quantity, allowance.remaining);
+  }
+
   private async cycle(signal: AbortSignal): Promise<void> {
+    const { task } = this.deps;
+    const progress = this.deps.progress();
+    if (ordersDone(task, progress)) throw new GoalReachedError(`Already done: ${describeProgress(task, progress)}`);
+    if (task.mode === 'url') this.allowedQuantity(this.productTarget().productId);
     const ctx = await this.context(signal);
     await this.ensureSignedIn(ctx, false);
     this.status('monitoring', 'Preparing checkout details', 'info', false);
@@ -233,7 +265,13 @@ export class TaskRunner {
       status: (state, message) => this.status(state, message),
       notify: (kind, detail) => this.deps.notify(kind, detail),
       card: () => this.deps.card() ?? null,
-      beforePlaceOrder: () => {
+      beforePlaceOrder: (cost) => {
+        const problem = budgetProblem(task, this.deps.progress(), cost);
+        if (problem) {
+          if (cost.total === null && cost.subtotal === null) throw new PauseError('needs_review', `${problem}. Nothing was ordered.`, true);
+          throw new GoalReachedError(`${problem}. Nothing was ordered.`);
+        }
+        this.pendingCost = cost.total ?? cost.subtotal;
         if (!this.releaseOrder) this.releaseOrder = this.deps.reserveOrder();
       },
       page: async () => {
@@ -496,14 +534,27 @@ export class TaskRunner {
       // Cheap early exit; the authoritative check happens right before an order is submitted.
       if (this.deps.groupFull()) throw new GoalReachedError(`Group "${task.groupName ?? 'group'}" already has its ${task.groupGoal} order(s)`);
       if (this.resignRequested) await this.ensureSignedIn(ctx, true);
+      // Per-account store limit, then what the budget still pays for.
+      const allowed = this.allowedQuantity(product.productId);
+      const progress = this.deps.progress();
+      const unitPrice = stock.price ?? task.maxPrice;
+      const quantity = affordableUnits(task.budget, progress.spent, unitPrice, allowed);
+      if (quantity <= 0) {
+        throw new GoalReachedError(
+          `Budget reached: ${formatUsd(progress.spent)} of ${formatUsd(task.budget)} spent, not enough left for one more at ${formatUsd(unitPrice)}`,
+        );
+      }
+      if (quantity < task.quantity) this.deps.log('info', `Buying ${quantity} instead of ${task.quantity} (store limit or budget)`);
+      // The modules read the quantity from the task, so this attempt gets its own copy.
+      const actx: TaskContext = quantity === task.quantity ? ctx : { ...ctx, task: { ...ctx.task, quantity } };
       const price = stock.price !== undefined ? ` at ${formatUsd(stock.price)}` : '';
-      this.status('in_stock', `In stock${price}, adding ${task.quantity} to cart`, 'success');
+      this.status('in_stock', `In stock${price}, adding ${quantity} to cart`, 'success');
       if (!this.notifiedInStock) {
         this.notifiedInStock = true;
         this.deps.notify('inStock', `In stock${price}`, { ...(stock.price !== undefined ? { price: stock.price } : {}) });
       }
 
-      const cart = await this.withQueue(ctx, () => module.addToCart(ctx, product, stock), product);
+      const cart = await this.withQueue(actx, () => module.addToCart(actx, product, stock), product);
       const unit = cart.unitPrice ?? stock.price;
       if (unit !== undefined && unit > task.maxPrice) throw new PriceLimitError(unit, task.maxPrice);
       this.status('carted', `Carted ${cart.quantity} × ${formatUsd(unit)} (${cart.detail})`, 'success');
@@ -513,26 +564,39 @@ export class TaskRunner {
       });
 
       this.status('checking_out', ctx.dryRun ? 'Checking out (dry run)' : 'Checking out');
-      const result = await this.withQueue(ctx, () => module.checkout(ctx, product, stock, cart), product);
+      const result = await this.withQueue(actx, () => module.checkout(actx, product, stock, cart), product);
       this.checkoutFailures = 0;
       if (!result.placed) {
         this.status('carted', result.detail, 'success');
         return true;
       }
+      const after = this.deps.recordOrder({
+        productId: product.productId,
+        quantity: cart.quantity,
+        amount: result.total ?? this.pendingCost,
+        ...(result.orderNumber ? { orderNumber: result.orderNumber } : {}),
+      });
+      this.pendingCost = null;
+      const more = !ordersDone(task, after);
+      const summary = (task.maxOrders ?? 1) > 1 || task.budget !== undefined ? ` · ${describeProgress(task, after)}` : '';
       this.deps.update({ ...(result.orderNumber ? { orderNumber: result.orderNumber } : {}) });
-      this.status('checked_out', result.detail, 'success');
+      this.status(more ? 'monitoring' : 'checked_out', `${result.detail}${summary}${more ? '. Watching for the next one.' : ''}`, 'success');
       this.deps.saveResult({
         state: 'checked_out',
         message: result.detail,
         at: Date.now(),
         ...(result.orderNumber ? { orderNumber: result.orderNumber } : {}),
       });
-      this.deps.notify('checkedOut', result.detail, {
+      this.deps.notify('checkedOut', `${result.detail}${summary}`, {
         quantity: cart.quantity,
         ...(unit !== undefined ? { price: unit } : {}),
         ...(result.orderNumber ? { orderNumber: result.orderNumber } : {}),
       });
-      return true;
+      if (!more) return true;
+      // Keep buying: the store empties the cart after an order; go back to watching stock.
+      this.closeIdlePage();
+      await sleep(this.deps.settings().pollIntervalMs, ctx.signal);
+      return false;
     } catch (err) {
       if (err instanceof OutOfStockError) {
         this.closeIdlePage();

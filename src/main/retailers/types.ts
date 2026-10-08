@@ -7,6 +7,7 @@ import type { NotifyKind } from '../core/notifier';
 import type { AccountRecord } from '../data/accounts';
 import type { StoredCard } from '../data/cards';
 import type { BrowserPage } from '../engine/browser';
+import type { OrderCost } from '../engine/spending';
 import type { HttpClient } from '../engine/http';
 import type { SessionHandle } from '../engine/sessions';
 
@@ -86,10 +87,11 @@ export interface TaskContext extends SessionContext {
    */
   card(): StoredCard | null;
   /**
-   * Call immediately before submitting an order. Throws GoalReachedError when the task's
-   * group already has the number of orders the user asked for. Never called in dry runs.
+   * Call immediately before submitting an order, with what the review page says it costs.
+   * Throws GoalReachedError when the task's budget or its group's order limit would be
+   * exceeded. Never called in dry runs.
    */
-  beforePlaceOrder(): void;
+  beforePlaceOrder(cost: OrderCost): void;
   /** Scratch space a module keeps between steps (prepared ids, cart ids). */
   memo: Map<string, string>;
 }

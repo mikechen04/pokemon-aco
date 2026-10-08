@@ -13,6 +13,7 @@ import {
   addressMatches,
   checkSubtotal,
   extractOrderNumber,
+  extractOrderTotal,
   extractSubtotal,
   looksDeclined,
   looksLikeConfirmation,
@@ -251,7 +252,7 @@ export function createAmazon(cfg: () => AmazonConfig): RetailerModule {
     if (ctx.dryRun) {
       return { placed: false, detail: `Dry run: Buy Now panel shows card ending in ${profile.cardLast4}, ZIP ${profile.shipping.zip}, ${priceCheck.message.toLowerCase()}. Order not placed.` };
     }
-    ctx.beforePlaceOrder();
+    ctx.beforePlaceOrder({ subtotal, total: extractOrderTotal(text) });
     ctx.status('checking_out', 'Placing order');
     if (!(await page.frameClick(c.turboFrameSelector, c.turboPlaceOrderSelectors))) {
       throw new RetailerError('Could not click "Place your order" in Amazon’s Buy Now panel');

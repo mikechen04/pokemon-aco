@@ -11,6 +11,13 @@ import { act, useApp } from '../store';
 
 type Source = 'url' | 'keyword' | 'catalog';
 
+/** Epoch ms -> the "YYYY-MM-DDTHH:mm" local-time value a datetime-local input takes. */
+function toLocalInput(at: number): string {
+  const d = new Date(at);
+  const pad = (n: number) => String(n).padStart(2, '0');
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
+
 const SESSION_LABELS: Record<AccountPublic['session'], { text: string; cls: string }> = {
   unknown: { text: 'Not checked', cls: '' },
   checking: { text: 'Checking', cls: 'accent' },
@@ -43,6 +50,10 @@ export function TaskForm({ task, catalogEntryId, onClose }: { task?: TaskView; c
   const [firstN, setFirstN] = useState('5');
   const [groupName, setGroupName] = useState('');
   const [groupGoal, setGroupGoal] = useState('');
+  const [startAt, setStartAt] = useState(task?.startAt ? toLocalInput(task.startAt) : '');
+  const [stopAt, setStopAt] = useState(task?.stopAt ? toLocalInput(task.stopAt) : '');
+  const [maxOrders, setMaxOrders] = useState(String(task?.maxOrders ?? 1));
+  const [budget, setBudget] = useState(task?.budget !== undefined ? String(task.budget) : '');
   const [error, setError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
 
@@ -99,8 +110,14 @@ export function TaskForm({ task, catalogEntryId, onClose }: { task?: TaskView; c
   const totalTasks = editing ? 1 : accountIds.length * copiesNum;
   const usesDefaults = accountIds.some((id) => accounts.find((a) => a.id === id)?.profileId);
 
+  const storeLimit = settings?.itemLimitPerAccount[retailer] ?? 0;
+
   const submit = async () => {
     setError(null);
+    const start = startAt ? new Date(startAt).getTime() : undefined;
+    const stop = stopAt ? new Date(stopAt).getTime() : undefined;
+    if (start !== undefined && start < Date.now() - 60_000) return setError('The start time is in the past. Clear it to start by hand.');
+    const orders = Number.parseInt(maxOrders, 10) || 1;
     const draft: TaskInput = {
       retailer,
       mode: source === 'keyword' ? 'keyword' : 'url',
@@ -111,10 +128,18 @@ export function TaskForm({ task, catalogEntryId, onClose }: { task?: TaskView; c
       accountId: accountIds[0] ?? '',
       quantity: Number.parseInt(quantity, 10),
       maxPrice: Number.parseFloat(maxPrice),
+      ...(start !== undefined ? { startAt: start } : {}),
+      ...(stop !== undefined ? { stopAt: stop } : {}),
+      ...(orders > 1 ? { maxOrders: orders } : {}),
+      ...(budget.trim() ? { budget: Number.parseFloat(budget) } : {}),
+      ...(task?.source ? { source: task.source } : {}),
     };
     const check = taskInputSchema.safeParse(draft);
     if (!check.success) return setError(firstIssue(check.error));
     if (draft.quantity > maxQuantity) return setError(`Quantity is above the global max of ${maxQuantity} (Settings → Safety).`);
+    if (storeLimit > 0 && draft.quantity > storeLimit) {
+      return setError(`${RETAILERS[retailer].name} allows ${storeLimit} of an item per account. Lower the quantity (or the limit in Settings).`);
+    }
     if (accountIds.length === 0) return setError('Pick at least one account.');
     const goal = groupGoal.trim() ? Number.parseInt(groupGoal, 10) : null;
     if (goal !== null && (!Number.isInteger(goal) || goal < 1)) return setError('“Stop after” must be a whole number of orders, or empty.');
@@ -308,7 +333,7 @@ export function TaskForm({ task, catalogEntryId, onClose }: { task?: TaskView; c
             ))}
           </select>
         </Field>
-        <Field label="Quantity" help={`Global max is ${maxQuantity}`}>
+        <Field label="Quantity" help={storeLimit > 0 ? `${RETAILERS[retailer].name}: at most ${storeLimit} per account` : `Global max is ${maxQuantity}`}>
           <input className="input" inputMode="numeric" value={quantity} onChange={(e) => setQuantity(e.target.value.replace(/\D/g, ''))} />
         </Field>
         <Field label="Max price per item" help="Before tax and shipping. Above this, nothing is bought.">
@@ -325,6 +350,31 @@ export function TaskForm({ task, catalogEntryId, onClose }: { task?: TaskView; c
             <div className="desc">Accounts with a default profile check out with their own card and address.</div>
           </div>
           <Toggle on={useAccountProfiles} onChange={setUseAccountProfiles} label="Use each account's default profile" />
+        </div>
+      ) : null}
+
+      <div className="section-title">Schedule and spending</div>
+      <div className="form-grid four">
+        <Field label="Start at (optional)" help="Starts on its own, 2 min early to sign in">
+          <input className="input" type="datetime-local" value={startAt} onChange={(e) => setStartAt(e.target.value)} />
+        </Field>
+        <Field label="Stop at (optional)" help="Stops on its own">
+          <input className="input" type="datetime-local" value={stopAt} onChange={(e) => setStopAt(e.target.value)} />
+        </Field>
+        <Field label="Orders to place" help="More than 1 keeps buying after each order">
+          <input className="input" inputMode="numeric" value={maxOrders} onChange={(e) => setMaxOrders(e.target.value.replace(/\D/g, ''))} />
+        </Field>
+        <Field label="Budget (optional)" help="Total for this task, tax included when shown">
+          <div className="prefix-input">
+            <span>$</span>
+            <input className="input" inputMode="decimal" value={budget} onChange={(e) => setBudget(e.target.value.replace(/[^\d.]/g, ''))} placeholder="no limit" />
+          </div>
+        </Field>
+      </div>
+      {storeLimit > 0 && (Number.parseInt(maxOrders, 10) || 1) > 1 ? (
+        <div className="muted" style={{ fontSize: 12.5 }}>
+          {RETAILERS[retailer].name} cancels orders past {storeLimit} of one item per account, so each account stops once it has bought {storeLimit}
+          {' '}(counted over 30 days, across tasks).
         </div>
       ) : null}
 

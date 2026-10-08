@@ -2,6 +2,7 @@ import { Bell, BookOpen, Download, FileJson, FolderOpen, Gauge, Globe, OctagonX,
 import { useEffect, useMemo, useState } from 'react';
 import { CATALOG_FEED_URL, DEFAULT_NOTIFY_ON, LIMITS } from '../../shared/constants';
 import { parseProxyList } from '../../shared/proxies';
+import { RETAILER_LIST } from '../../shared/retailers';
 import { firstIssue, settingsPatchSchema } from '../../shared/schemas';
 import type { NotifyOn, ProxyTestResult, Settings, SettingsPatch } from '../../shared/types';
 import { call } from '../api';
@@ -103,6 +104,25 @@ export function SettingsPage() {
                 <input className="input" inputMode="numeric" value={draft.maxConsecutiveFailures} onChange={num('maxConsecutiveFailures')} />
               </Field>
             </div>
+            <div className="field-label" style={{ marginTop: 10 }}>Most of one item per account (last 30 days, 0 = no limit)</div>
+            <div className="form-grid four">
+              {RETAILER_LIST.map((r) => (
+                <Field key={r.id} label={r.name}>
+                  <input
+                    className="input"
+                    inputMode="numeric"
+                    value={draft.itemLimitPerAccount[r.id]}
+                    onChange={(e) =>
+                      set('itemLimitPerAccount', { ...draft.itemLimitPerAccount, [r.id]: Number.parseInt(e.target.value.replace(/\D/g, '') || '0', 10) })
+                    }
+                  />
+                </Field>
+              ))}
+            </div>
+            <p className="hint" style={{ marginTop: 4 }}>
+              Stores cancel orders over their per-customer limits (Target: 2 of an item). Tasks stop once an account has bought this many,
+              counting every order this app placed for it.
+            </p>
           </div>
 
           <div className="card card-pad">

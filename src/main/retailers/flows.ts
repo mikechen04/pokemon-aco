@@ -508,7 +508,7 @@ export async function verifyReviewPage(
   page: BrowserPage,
   options: BrowserCheckoutOptions,
   state: CheckoutState = { cardTyped: false },
-): Promise<{ snapshot: PageSnapshot; subtotal: number | null }> {
+): Promise<{ snapshot: PageSnapshot; subtotal: number | null; total: number | null }> {
   const label = RETAILERS[ctx.task.retailer].name;
   const { profile, task } = ctx;
   // A card typed into an inline form is not echoed back as "ending in 1234" until it is saved;
@@ -549,7 +549,7 @@ export async function verifyReviewPage(
   const check = checkSubtotal(subtotal, task.maxPrice, task.quantity);
   if (!check.ok) throw new PauseError('needs_review', `${check.message}. Nothing was ordered.`, true);
   ctx.log(`Verified card ending in ${profile.cardLast4}, ship-to ZIP ${profile.shipping.zip}, ${check.message.toLowerCase()}`);
-  return { snapshot, subtotal };
+  return { snapshot, subtotal, total: extractOrderTotal(snapshot.text) };
 }
 
 /**
@@ -662,14 +662,14 @@ export async function browserCheckout(ctx: TaskContext, page: BrowserPage, optio
     );
   }
 
-  const { subtotal } = await verifyReviewPage(ctx, page, options, state);
+  const { subtotal, total } = await verifyReviewPage(ctx, page, options, state);
   if (ctx.dryRun) {
     return {
       placed: false,
       detail: `Dry run: card ending in ${ctx.profile.cardLast4}${state.cardTyped ? ' (stored card entered)' : ''}, ZIP ${ctx.profile.shipping.zip} and subtotal ${formatUsd(subtotal)} verified. Order not placed.`,
     };
   }
-  ctx.beforePlaceOrder();
+  ctx.beforePlaceOrder({ subtotal, total });
   ctx.status('checking_out', 'Placing order');
   const placeOrder: ClickTarget = { ...(options.placeOrderSelectors ? { selectors: options.placeOrderSelectors } : {}), text: options.placeOrderText };
   const submitted = await page.click(placeOrder);

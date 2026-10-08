@@ -1,5 +1,12 @@
 import type { NotifyOn, Settings } from './types';
 
+/** Purchases older than this no longer count toward a per-account item limit. */
+export const ITEM_LIMIT_WINDOW_DAYS = 30;
+/** Scheduled tasks start this long before their start time, to sign in and warm up. */
+export const SCHEDULE_LEAD_MS = 2 * 60_000;
+/** A scheduled start missed by more than this (app closed) is not made up. */
+export const SCHEDULE_GRACE_MS = 30 * 60_000;
+
 export const LIMITS = {
   pollIntervalMs: { min: 2000, max: 600_000 },
   requestTimeoutMs: { min: 5000, max: 120_000 },
@@ -41,6 +48,9 @@ export const DEFAULT_SETTINGS: Settings = {
   bestBuyApiKey: '',
   amazonSoldByAmazonOnly: true,
   autoUpdate: true,
+  // Target cancels orders past 2 of one item per guest.
+  itemLimitPerAccount: { target: 2, bestbuy: 0, amazon: 0, pokemoncenter: 0 },
+  anthropicApiKey: '',
   catalogFeedUrl: CATALOG_FEED_URL,
   catalogAutoSync: true,
 };

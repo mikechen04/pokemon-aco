@@ -37,8 +37,12 @@ function normalizeSettings(raw: unknown): Settings {
     'catalogAutoSync',
   ] as const;
   for (const key of booleans) if (typeof source[key] === 'boolean') out[key] = source[key];
-  const strings = ['proxies', 'webhookUrl', 'bestBuyApiKey', 'catalogFeedUrl'] as const;
+  const strings = ['proxies', 'webhookUrl', 'bestBuyApiKey', 'catalogFeedUrl', 'anthropicApiKey'] as const;
   for (const key of strings) if (typeof source[key] === 'string') out[key] = source[key];
+  const limits = (source.itemLimitPerAccount ?? {}) as Record<string, unknown>;
+  for (const key of Object.keys(out.itemLimitPerAccount) as Array<keyof Settings['itemLimitPerAccount']>) {
+    out.itemLimitPerAccount[key] = clampInt(limits[key], DEFAULT_SETTINGS.itemLimitPerAccount[key], { min: 0, max: 99 });
+  }
   const notify = (source.notifyOn ?? {}) as Record<string, unknown>;
   for (const key of Object.keys(out.notifyOn) as Array<keyof Settings['notifyOn']>) {
     if (typeof notify[key] === 'boolean') out.notifyOn[key] = notify[key];
@@ -47,7 +51,7 @@ function normalizeSettings(raw: unknown): Settings {
 }
 
 function secretsOf(settings: Settings): string[] {
-  const values = [settings.webhookUrl, settings.bestBuyApiKey];
+  const values = [settings.webhookUrl, settings.bestBuyApiKey, settings.anthropicApiKey];
   for (const proxy of parseProxyList(settings.proxies).proxies) {
     if (proxy.password) values.push(proxy.password);
     if (proxy.username) values.push(`${proxy.username}:${proxy.password ?? ''}`);
@@ -84,6 +88,7 @@ export class SettingsRepo extends EventEmitter {
       ...current,
       ...patch,
       notifyOn: { ...current.notifyOn, ...(patch.notifyOn ?? {}) },
+      itemLimitPerAccount: { ...current.itemLimitPerAccount, ...(patch.itemLimitPerAccount ?? {}) },
     };
     for (const secret of secretsOf(current)) forgetSecret(secret);
     for (const secret of secretsOf(next)) registerSecret(secret);

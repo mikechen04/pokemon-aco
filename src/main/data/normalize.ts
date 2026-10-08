@@ -107,6 +107,14 @@ export function normalizeTask(raw: unknown): Task | null {
     ...(typeof raw.groupId === 'string' && raw.groupId ? { groupId: raw.groupId } : {}),
     ...(typeof raw.groupName === 'string' && raw.groupName ? { groupName: raw.groupName } : {}),
     ...(typeof raw.groupGoal === 'number' && raw.groupGoal >= 1 ? { groupGoal: Math.round(raw.groupGoal) } : {}),
+    ...(typeof raw.startAt === 'number' && raw.startAt > 0 ? { startAt: raw.startAt } : {}),
+    ...(typeof raw.stopAt === 'number' && raw.stopAt > 0 ? { stopAt: raw.stopAt } : {}),
+    ...(typeof raw.maxOrders === 'number' && raw.maxOrders >= 1 ? { maxOrders: Math.round(raw.maxOrders) } : {}),
+    ...(typeof raw.budget === 'number' && raw.budget > 0 ? { budget: raw.budget } : {}),
+    ...(isObj(raw.progress)
+      ? { progress: { orders: Math.max(0, Math.round(num(raw.progress.orders, 0))), units: Math.max(0, Math.round(num(raw.progress.units, 0))), spent: Math.max(0, num(raw.progress.spent, 0)) } }
+      : {}),
+    ...(typeof raw.source === 'string' && raw.source ? { source: raw.source } : {}),
     ...(lastResult ? { lastResult } : {}),
   };
 }

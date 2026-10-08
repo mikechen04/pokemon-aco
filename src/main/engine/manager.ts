@@ -2,6 +2,7 @@
 // the global concurrency limit, and keeps paused tasks' windows available for the user.
 import { EventEmitter } from 'node:events';
 import { formatUsd } from '../../shared/money';
+import { SCHEDULE_GRACE_MS, SCHEDULE_LEAD_MS } from '../../shared/constants';
 import { parseProductInput, RETAILERS, titleFromUrl } from '../../shared/retailers';
 import type {
   ActionResult,
@@ -9,6 +10,7 @@ import type {
   RetailerId,
   Settings,
   Task,
+  TaskProgress,
   TaskResult,
   TaskRuntime,
   TaskState,
@@ -18,6 +20,7 @@ import { logBus } from '../core/logger';
 import type { NotifyEvent, NotifyKind, Notifier } from '../core/notifier';
 import type { AccountsRepo } from '../data/accounts';
 import type { CardsRepo } from '../data/cards';
+import type { PurchaseLedger } from '../data/purchases';
 import type { Collection } from '../data/collection';
 import type { RetailerModule } from '../retailers/types';
 import { BrowserPage } from './browser';
@@ -26,6 +29,7 @@ import { extractOrderNumber, looksLikeConfirmation } from './guards';
 import type { StockMonitor } from './monitor';
 import { TaskRunner } from './runner';
 import { Semaphore } from './semaphore';
+import { NO_PROGRESS, ordersDone } from './spending';
 import type { SessionManager } from './sessions';
 
 export interface ManagerDeps {
@@ -33,6 +37,7 @@ export interface ManagerDeps {
   profiles: Collection<Profile>;
   cards: CardsRepo;
   accounts: AccountsRepo;
+  purchases: PurchaseLedger;
   getSettings: () => Settings;
   sessions: SessionManager;
   monitor: StockMonitor;
@@ -66,15 +71,28 @@ export class TaskManager extends EventEmitter {
   /** taskId -> release function of its order reservation (kept while a submit is unresolved). */
   private readonly orderReleases = new Map<string, () => void>();
   readonly slots: Semaphore;
+  private readonly scheduleTimer: NodeJS.Timeout;
 
   constructor(private readonly deps: ManagerDeps) {
     super();
     this.slots = new Semaphore(deps.getSettings().maxConcurrency);
     for (const task of deps.tasks.list()) this.runtimes.set(task.id, this.initialRuntime(task));
+    this.scheduleTimer = setInterval(() => this.tickSchedule(), 1000);
   }
 
   private initialRuntime(task: Task): TaskRuntime {
     const last = task.lastResult;
+    if (task.startAt) {
+      return {
+        taskId: task.id,
+        state: 'scheduled',
+        message: `Starts ${new Date(task.startAt).toLocaleString()}`,
+        running: false,
+        updatedAt: Date.now(),
+        failures: 0,
+        handoff: false,
+      };
+    }
     return {
       taskId: task.id,
       state: last?.state === 'checked_out' ? 'checked_out' : 'idle',
@@ -145,8 +163,88 @@ export class TaskManager extends EventEmitter {
     return null;
   }
 
+  /** Orders a task placed in its current run (older tasks only know whether they checked out). */
+  private ordersOf(task: Task): number {
+    return task.progress?.orders ?? (this.runtime(task.id).state === 'checked_out' ? 1 : 0);
+  }
+
   private placedInGroup(groupId: string): number {
-    return this.deps.tasks.list().filter((t) => t.groupId === groupId && this.runtime(t.id).state === 'checked_out').length;
+    return this.deps.tasks
+      .list()
+      .filter((t) => t.groupId === groupId)
+      .reduce((sum, t) => sum + this.ordersOf(t), 0);
+  }
+
+  /** Records a placed order: the task's run progress and the per-account purchase ledger. */
+  private recordOrder(taskId: string, order: { productId: string; quantity: number; amount: number | null; orderNumber?: string }): TaskProgress {
+    const task = this.deps.tasks.get(taskId);
+    if (!task) return NO_PROGRESS;
+    const before = task.progress ?? NO_PROGRESS;
+    const progress: TaskProgress = {
+      orders: before.orders + 1,
+      units: before.units + order.quantity,
+      spent: Math.round((before.spent + (order.amount ?? 0)) * 100) / 100,
+    };
+    this.deps.tasks.replace({ ...task, progress });
+    this.deps.purchases.record({
+      accountId: task.accountId,
+      retailer: task.retailer,
+      productId: order.productId,
+      quantity: order.quantity,
+      at: Date.now(),
+      ...(order.orderNumber ? { orderNumber: order.orderNumber } : {}),
+    });
+    return progress;
+  }
+
+  private itemAllowance(task: Task, productId: string): { remaining: number | null; limit: number; bought: number } {
+    const limit = this.deps.getSettings().itemLimitPerAccount[task.retailer] ?? 0;
+    const bought = this.deps.purchases.unitsBought(task.accountId, task.retailer, productId);
+    return { remaining: limit > 0 ? Math.max(0, limit - bought) : null, limit, bought };
+  }
+
+  /**
+   * Starts scheduled tasks shortly before their start time (to sign in and warm up), and
+   * stops tasks at their stop time. A start missed while the app was closed is made up only
+   * within a short grace period.
+   */
+  private tickSchedule(): void {
+    const now = Date.now();
+    const settings = this.deps.getSettings();
+    for (const task of this.deps.tasks.list()) {
+      if (task.stopAt && now >= task.stopAt) {
+        const { stopAt: _stop, ...rest } = task;
+        this.deps.tasks.replace(rest);
+        if (this.runners.has(task.id)) {
+          logBus.log({ level: 'info', message: 'Stop time reached', taskId: task.id, retailer: task.retailer });
+          void this.stop([task.id], 'idle', 'Stop time reached');
+        }
+        continue;
+      }
+      if (!task.startAt || this.runners.has(task.id) || now < task.startAt - SCHEDULE_LEAD_MS) continue;
+      if (settings.killSwitch) {
+        if (this.runtime(task.id).message !== 'Kill switch is on: waiting to start') this.update(task.id, { message: 'Kill switch is on: waiting to start' });
+        if (now <= task.startAt + SCHEDULE_GRACE_MS) continue;
+      }
+      const { startAt, ...rest } = task;
+      this.deps.tasks.replace(rest);
+      if (now > startAt + SCHEDULE_GRACE_MS) {
+        this.update(task.id, { state: 'idle', message: `Missed its start time (${new Date(startAt).toLocaleString()}); the app was not running` });
+        continue;
+      }
+      logBus.log({ level: 'info', message: `Starting on schedule (${new Date(startAt).toLocaleTimeString()})`, taskId: task.id, retailer: task.retailer });
+      const result = this.start([task.id]);
+      if (!result.ok) this.update(task.id, { state: 'idle', message: `Scheduled start failed: ${result.message}` });
+    }
+  }
+
+  /** A task was edited while stopped: show its schedule (or its plain state) again. */
+  refreshRuntime(id: string): void {
+    const task = this.deps.tasks.get(id);
+    if (!task || this.runners.has(id) || this.handoffs.has(id)) return;
+    const next = this.initialRuntime(task);
+    this.runtimes.set(id, next);
+    this.emit('runtime', next);
   }
 
   /**
@@ -216,7 +314,13 @@ export class TaskManager extends EventEmitter {
         this.update(id, { message: problem });
         continue;
       }
-      this.launch(task);
+      // Starting a task that finished its run starts a new run (the per-account store limit
+      // still counts earlier orders). A manual start also replaces a pending schedule.
+      const fresh: Task = { ...task };
+      if (fresh.progress && ordersDone(fresh, fresh.progress)) delete fresh.progress;
+      delete fresh.startAt;
+      if (fresh.progress !== task.progress || fresh.startAt !== task.startAt) this.deps.tasks.replace(fresh);
+      this.launch(fresh);
       started++;
     }
     if (problems.length) return { ok: started > 0, message: `Started ${started}. ${problems.join(' · ')}` };
@@ -227,7 +331,7 @@ export class TaskManager extends EventEmitter {
   startAll(): ActionResult {
     const ids = this.deps.tasks
       .list()
-      .filter((t) => !this.runners.has(t.id) && this.runtime(t.id).state !== 'checked_out')
+      .filter((t) => !this.runners.has(t.id) && !t.startAt && this.runtime(t.id).state !== 'checked_out' && !(t.progress && ordersDone(t, t.progress)))
       .map((t) => t.id);
     if (ids.length === 0) return { ok: true, message: 'Nothing to start' };
     return this.start(ids);
@@ -260,6 +364,9 @@ export class TaskManager extends EventEmitter {
         accountSession: (state, message) => deps.accounts.setSession(task.accountId, state, message),
         saveResult: (result) => this.saveResult(task.id, result),
         reserveOrder: () => this.reserveOrder(task.id),
+        progress: () => deps.tasks.get(task.id)?.progress ?? NO_PROGRESS,
+        itemAllowance: (productId) => this.itemAllowance(task, productId),
+        recordOrder: (order) => this.recordOrder(task.id, order),
         groupFull: () => {
           const current = deps.tasks.get(task.id);
           if (!current?.groupId || !current.groupGoal) return false;
@@ -285,6 +392,13 @@ export class TaskManager extends EventEmitter {
       ids.map(async (id) => {
         const runner = this.runners.get(id);
         const hadHandoff = this.handoffs.has(id);
+        // Stopping a task that has not started yet cancels its schedule.
+        const task = this.deps.tasks.get(id);
+        if (!runner && task?.startAt) {
+          const { startAt: _start, ...rest } = task;
+          this.deps.tasks.replace(rest);
+          this.update(id, { state: 'idle', message: 'Schedule cancelled' });
+        }
         if (runner) {
           this.runners.delete(id);
           await runner.stop();
@@ -361,6 +475,15 @@ export class TaskManager extends EventEmitter {
       const task = this.deps.tasks.get(taskId);
       const orderNumber = extractOrderNumber(snapshot.text) ?? undefined;
       const message = `Order completed by you in the session window${orderNumber ? ` (#${orderNumber})` : ''}`;
+      if (task) {
+        const productId = (task.mode === 'url' ? parseProductInput(task.retailer, task.input) : null);
+        this.recordOrder(taskId, {
+          productId: productId?.ok ? productId.product.productId : (task.productId ?? task.input),
+          quantity: task.quantity,
+          amount: null,
+          ...(orderNumber ? { orderNumber } : {}),
+        });
+      }
       this.update(taskId, { state: 'checked_out', message, handoff: false, ...(orderNumber ? { orderNumber } : {}) });
       this.saveResult(taskId, { state: 'checked_out', message, at: Date.now(), ...(orderNumber ? { orderNumber } : {}) });
       // Now counted as placed, so its reservation must not count twice.
@@ -418,6 +541,7 @@ export class TaskManager extends EventEmitter {
   }
 
   async shutdown(): Promise<void> {
+    clearInterval(this.scheduleTimer);
     await this.stop([...new Set([...this.runners.keys(), ...this.handoffs.keys()])]);
     this.deps.monitor.stopAll();
   }

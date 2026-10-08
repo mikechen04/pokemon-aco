@@ -123,8 +123,19 @@ export const taskInputSchema = z
       .number()
       .min(LIMITS.maxPrice.min, 'Set a max price per item')
       .max(LIMITS.maxPrice.max),
+    startAt: z.number().int().positive().optional(),
+    stopAt: z.number().int().positive().optional(),
+    maxOrders: z.number().int().min(1, 'Orders must be at least 1').max(50, 'At most 50 orders per task').optional(),
+    budget: z.number().min(1, 'Budget must be at least $1').max(LIMITS.maxPrice.max).optional(),
+    source: safeText(200).optional(),
   })
   .superRefine((task, ctx) => {
+    if (task.startAt && task.stopAt && task.stopAt <= task.startAt) {
+      ctx.addIssue({ code: 'custom', message: 'The stop time must be after the start time', path: ['stopAt'] });
+    }
+    if (task.budget !== undefined && task.budget < task.maxPrice) {
+      ctx.addIssue({ code: 'custom', message: 'The budget is below the max price of a single item, so nothing could be bought', path: ['budget'] });
+    }
     if (task.mode === 'url') {
       const parsed = parseProductInput(task.retailer, task.input);
       if (!parsed.ok) ctx.addIssue({ code: 'custom', message: parsed.error, path: ['input'] });
@@ -184,6 +195,18 @@ export const settingsPatchSchema = z
       .regex(/^[A-Za-z0-9]{0,64}$/, 'Best Buy API keys are letters and digits only'),
     amazonSoldByAmazonOnly: z.boolean(),
     autoUpdate: z.boolean(),
+    itemLimitPerAccount: z
+      .object({
+        target: z.number().int().min(0).max(99),
+        bestbuy: z.number().int().min(0).max(99),
+        amazon: z.number().int().min(0).max(99),
+        pokemoncenter: z.number().int().min(0).max(99),
+      })
+      .partial(),
+    anthropicApiKey: z
+      .string()
+      .trim()
+      .regex(/^(?:sk-ant-[A-Za-z0-9_-]{20,200})?$/, 'Anthropic API keys start with sk-ant-'),
     catalogFeedUrl: z
       .string()
       .trim()

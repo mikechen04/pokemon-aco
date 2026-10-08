@@ -194,6 +194,7 @@ export function ConfirmHost() {
 }
 
 export const STATUS_LABELS: Record<TaskState, string> = {
+  scheduled: 'Scheduled',
   idle: 'Idle',
   monitoring: 'Monitoring',
   in_stock: 'In stock',

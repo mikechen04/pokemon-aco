@@ -1,6 +1,7 @@
 import {
   AppWindow,
   BookOpen,
+  Clock,
   Copy,
   ListChecks,
   OctagonX,
@@ -23,6 +24,17 @@ import { act, useApp } from '../store';
 import { TaskForm } from './TaskForm';
 
 type FormState = { mode: 'create'; catalogEntryId?: string } | { mode: 'edit'; task: TaskView } | null;
+
+/** "Today 9:00 AM", "Tomorrow 9:00 AM" or "Oct 9, 9:00 AM". */
+export function formatWhen(at: number): string {
+  const date = new Date(at);
+  const time = date.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' });
+  const day = (d: Date) => d.toDateString();
+  const tomorrow = new Date(Date.now() + 86_400_000);
+  if (day(date) === day(new Date())) return `Today ${time}`;
+  if (day(date) === day(tomorrow)) return `Tomorrow ${time}`;
+  return `${date.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}, ${time}`;
+}
 
 const IN_FLIGHT = new Set<TaskState>(['in_stock', 'queued', 'carted', 'checking_out']);
 
@@ -263,6 +275,17 @@ export function TasksPage() {
                                 <span className="badge pink" title={task.groupGoal ? `Stops after ${task.groupGoal} order(s)` : 'Task group'}>
                                   {task.groupName}
                                   {task.groupGoal ? ` · goal ${task.groupGoal}` : ''}
+                                </span>
+                              ) : null}
+                              {task.startAt ? (
+                                <span className="badge accent" title="Starts on its own at this time">
+                                  <Clock size={11} /> {formatWhen(task.startAt)}
+                                </span>
+                              ) : null}
+                              {(task.maxOrders ?? 1) > 1 || task.budget !== undefined || task.progress ? (
+                                <span className="badge" title="Orders placed this run (keep buying) and money spent against the budget">
+                                  {task.progress?.orders ?? 0}/{task.maxOrders ?? 1} orders
+                                  {task.budget !== undefined ? ` · ${formatUsd(task.progress?.spent ?? 0)} of ${formatUsd(task.budget)}` : ''}
                                 </span>
                               ) : null}
                               {rt.lastPrice !== undefined ? <span>{formatUsd(rt.lastPrice)}</span> : null}
