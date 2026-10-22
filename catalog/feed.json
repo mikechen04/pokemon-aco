@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-10-22T00:00:33.438Z",
+  "generatedAt": "2026-10-22T23:59:27.515Z",
   "source": "TCGplayer prices via tcgcsv.com",
   "entries": [
     {
@@ -17,13 +17,13 @@
       "tcgplayerId": 624675,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/624675/pokemon-sv10-destined-rivals-destined-rivals-pokemon-center-elite-trainer-box-exclusive",
       "market": {
-        "price": 412.36,
+        "price": 411.12,
         "low": 389.99,
-        "change7d": -0.03,
+        "change7d": -0.033,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 6.637,
+      "score": 6.622,
       "retailers": {
         "target": {
           "url": "",
@@ -58,7 +58,7 @@
       "tcgplayerUrl": "https://www.tcgplayer.com/product/593324/pokemon-sv-prismatic-evolutions-prismatic-evolutions-pokemon-center-elite-trainer-box-exclusive",
       "market": {
         "price": 400.37,
-        "low": 374.45,
+        "low": 370,
         "change7d": -0.011,
         "change30d": null,
         "updatedAt": "2026-10-22"
@@ -97,13 +97,13 @@
       "tcgplayerId": 712104,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/712104/pokemon-me06-delta-reign-delta-reign-pokemon-center-elite-trainer-box-exclusive",
       "market": {
-        "price": 369.48,
+        "price": 353,
         "low": 295,
-        "change7d": -0.187,
+        "change7d": -0.224,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 6.241,
+      "score": 6.028,
       "retailers": {
         "target": {
           "url": "",
@@ -137,13 +137,13 @@
       "tcgplayerId": 668497,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/668497/pokemon-me-ascended-heroes-ascended-heroes-pokemon-center-elite-trainer-box-exclusive",
       "market": {
-        "price": 329.37,
-        "low": 309.99,
-        "change7d": -0.01,
+        "price": 328.45,
+        "low": 325,
+        "change7d": -0.013,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 5.995,
+      "score": 5.98,
       "retailers": {
         "target": {
           "url": "",
@@ -177,13 +177,13 @@
       "tcgplayerId": 704144,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/704144/pokemon-me-30th-celebration-30th-celebration-pokemon-center-elite-trainer-box",
       "market": {
-        "price": 294.29,
+        "price": 294.01,
         "low": 285,
-        "change7d": -0.018,
+        "change7d": -0.019,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 5.633,
+      "score": 5.628,
       "retailers": {
         "target": {
           "url": "",
@@ -217,13 +217,13 @@
       "tcgplayerId": 654135,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/654135/pokemon-me02-phantasmal-flames-phantasmal-flames-pokemon-center-elite-trainer-box-exclusive",
       "market": {
-        "price": 283.14,
+        "price": 282.06,
         "low": 265,
-        "change7d": -0.005,
+        "change7d": -0.009,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 5.54,
+      "score": 5.52,
       "retailers": {
         "target": {
           "url": "",
@@ -257,13 +257,13 @@
       "tcgplayerId": 630687,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/630687/pokemon-sv-black-bolt-black-bolt-pokemon-center-elite-trainer-box-exclusive",
       "market": {
-        "price": 261.54,
+        "price": 261.21,
         "low": 244,
-        "change7d": -0.008,
+        "change7d": -0.009,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 5.288,
+      "score": 5.282,
       "retailers": {
         "target": {
           "url": "",
@@ -297,13 +297,13 @@
       "tcgplayerId": 565632,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/565632/pokemon-sv08-surging-sparks-surging-sparks-pokemon-center-elite-trainer-box-exclusive",
       "market": {
-        "price": 253.7,
+        "price": 250.34,
         "low": 234,
-        "change7d": -0.044,
+        "change7d": -0.057,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 5.121,
+      "score": 5.054,
       "retailers": {
         "target": {
           "url": "",
@@ -337,13 +337,13 @@
       "tcgplayerId": 630688,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/630688/pokemon-sv-white-flare-white-flare-pokemon-center-elite-trainer-box-exclusive",
       "market": {
-        "price": 237.78,
+        "price": 238.18,
         "low": 229.99,
-        "change7d": 0.005,
+        "change7d": 0.007,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 5.017,
+      "score": 5.026,
       "retailers": {
         "target": {
           "url": "",
@@ -377,13 +377,13 @@
       "tcgplayerId": 654137,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/654137/pokemon-me02-phantasmal-flames-phantasmal-flames-booster-box",
       "market": {
-        "price": 395.74,
-        "low": 384.34,
-        "change7d": 0.003,
+        "price": 394.93,
+        "low": 387.9,
+        "change7d": 0.001,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 4.671,
+      "score": 4.66,
       "retailers": {
         "target": {
           "url": "",
@@ -457,133 +457,13 @@
       "tcgplayerId": 624679,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/624679/pokemon-sv10-destined-rivals-destined-rivals-booster-box",
       "market": {
-        "price": 393.37,
-        "low": 382.99,
-        "change7d": -0.023,
+        "price": 392.97,
+        "low": 384.99,
+        "change7d": -0.024,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 4.597,
-      "retailers": {
-        "target": {
-          "url": "",
-          "sku": ""
-        },
-        "bestbuy": {
-          "url": "",
-          "sku": ""
-        },
-        "amazon": {
-          "url": "",
-          "sku": ""
-        },
-        "pokemoncenter": {
-          "url": "",
-          "sku": ""
-        }
-      }
-    },
-    {
-      "id": "tcg-644282",
-      "name": "Mega Evolution Pokemon Center Elite Trainer Box (Exclusive) [Mega Lucario]",
-      "category": "Pokémon Center Exclusive",
-      "set": "Mega Evolution",
-      "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/644282_200w.jpg",
-      "msrp": 59.99,
-      "msrpEstimated": true,
-      "notes": "",
-      "releaseDate": "2025-09-26",
-      "tcgplayerId": 644282,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/644282/pokemon-me01-mega-evolution-mega-evolution-pokemon-center-elite-trainer-box-exclusive-mega-lucario",
-      "market": {
-        "price": 201.48,
-        "low": 199.98,
-        "change7d": -0.004,
-        "change30d": null,
-        "updatedAt": "2026-10-22"
-      },
-      "score": 4.475,
-      "retailers": {
-        "target": {
-          "url": "",
-          "sku": ""
-        },
-        "bestbuy": {
-          "url": "",
-          "sku": ""
-        },
-        "amazon": {
-          "url": "",
-          "sku": ""
-        },
-        "pokemoncenter": {
-          "url": "",
-          "sku": ""
-        }
-      }
-    },
-    {
-      "id": "tcg-648415",
-      "name": "Mega Evolution Pokemon Center Elite Trainer Box (Exclusive) [Mega Gardevoir]",
-      "category": "Pokémon Center Exclusive",
-      "set": "Mega Evolution",
-      "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/648415_200w.jpg",
-      "msrp": 59.99,
-      "msrpEstimated": true,
-      "notes": "",
-      "releaseDate": "2025-09-26",
-      "tcgplayerId": 648415,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/648415/pokemon-me01-mega-evolution-mega-evolution-pokemon-center-elite-trainer-box-exclusive-mega-gardevoir",
-      "market": {
-        "price": 196.57,
-        "low": 174.99,
-        "change7d": -0.004,
-        "change30d": null,
-        "updatedAt": "2026-10-22"
-      },
-      "score": 4.396,
-      "retailers": {
-        "target": {
-          "url": "",
-          "sku": ""
-        },
-        "bestbuy": {
-          "url": "",
-          "sku": ""
-        },
-        "amazon": {
-          "url": "",
-          "sku": ""
-        },
-        "pokemoncenter": {
-          "url": "",
-          "sku": ""
-        }
-      }
-    },
-    {
-      "id": "tcg-610929",
-      "name": "Journey Together Pokemon Center Elite Trainer Box (Exclusive)",
-      "category": "Pokémon Center Exclusive",
-      "set": "Journey Together",
-      "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/610929_200w.jpg",
-      "msrp": 59.99,
-      "msrpEstimated": true,
-      "notes": "",
-      "releaseDate": "2025-03-28",
-      "tcgplayerId": 610929,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/610929/pokemon-sv09-journey-together-journey-together-pokemon-center-elite-trainer-box-exclusive",
-      "market": {
-        "price": 193.94,
-        "low": 185,
-        "change7d": 0.004,
-        "change30d": null,
-        "updatedAt": "2026-10-22"
-      },
-      "score": 4.369,
+      "score": 4.592,
       "retailers": {
         "target": {
           "url": "",
@@ -617,13 +497,133 @@
       "tcgplayerId": 623029,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/623029/pokemon-miscellaneous-cards-and-products-league-battle-deck-dragapult-ex",
       "market": {
-        "price": 124.63,
+        "price": 127.54,
         "low": 134.9,
-        "change7d": 0.024,
+        "change7d": 0.048,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 4.362,
+      "score": 4.478,
+      "retailers": {
+        "target": {
+          "url": "",
+          "sku": ""
+        },
+        "bestbuy": {
+          "url": "",
+          "sku": ""
+        },
+        "amazon": {
+          "url": "",
+          "sku": ""
+        },
+        "pokemoncenter": {
+          "url": "",
+          "sku": ""
+        }
+      }
+    },
+    {
+      "id": "tcg-644282",
+      "name": "Mega Evolution Pokemon Center Elite Trainer Box (Exclusive) [Mega Lucario]",
+      "category": "Pokémon Center Exclusive",
+      "set": "Mega Evolution",
+      "tags": [],
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/644282_200w.jpg",
+      "msrp": 59.99,
+      "msrpEstimated": true,
+      "notes": "",
+      "releaseDate": "2025-09-26",
+      "tcgplayerId": 644282,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/644282/pokemon-me01-mega-evolution-mega-evolution-pokemon-center-elite-trainer-box-exclusive-mega-lucario",
+      "market": {
+        "price": 201.1,
+        "low": 195,
+        "change7d": -0.005,
+        "change30d": null,
+        "updatedAt": "2026-10-22"
+      },
+      "score": 4.467,
+      "retailers": {
+        "target": {
+          "url": "",
+          "sku": ""
+        },
+        "bestbuy": {
+          "url": "",
+          "sku": ""
+        },
+        "amazon": {
+          "url": "",
+          "sku": ""
+        },
+        "pokemoncenter": {
+          "url": "",
+          "sku": ""
+        }
+      }
+    },
+    {
+      "id": "tcg-648415",
+      "name": "Mega Evolution Pokemon Center Elite Trainer Box (Exclusive) [Mega Gardevoir]",
+      "category": "Pokémon Center Exclusive",
+      "set": "Mega Evolution",
+      "tags": [],
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/648415_200w.jpg",
+      "msrp": 59.99,
+      "msrpEstimated": true,
+      "notes": "",
+      "releaseDate": "2025-09-26",
+      "tcgplayerId": 648415,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/648415/pokemon-me01-mega-evolution-mega-evolution-pokemon-center-elite-trainer-box-exclusive-mega-gardevoir",
+      "market": {
+        "price": 195.63,
+        "low": 170,
+        "change7d": -0.009,
+        "change30d": null,
+        "updatedAt": "2026-10-22"
+      },
+      "score": 4.371,
+      "retailers": {
+        "target": {
+          "url": "",
+          "sku": ""
+        },
+        "bestbuy": {
+          "url": "",
+          "sku": ""
+        },
+        "amazon": {
+          "url": "",
+          "sku": ""
+        },
+        "pokemoncenter": {
+          "url": "",
+          "sku": ""
+        }
+      }
+    },
+    {
+      "id": "tcg-610929",
+      "name": "Journey Together Pokemon Center Elite Trainer Box (Exclusive)",
+      "category": "Pokémon Center Exclusive",
+      "set": "Journey Together",
+      "tags": [],
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/610929_200w.jpg",
+      "msrp": 59.99,
+      "msrpEstimated": true,
+      "notes": "",
+      "releaseDate": "2025-03-28",
+      "tcgplayerId": 610929,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/610929/pokemon-sv09-journey-together-journey-together-pokemon-center-elite-trainer-box-exclusive",
+      "market": {
+        "price": 193.85,
+        "low": 185,
+        "change7d": 0.004,
+        "change30d": null,
+        "updatedAt": "2026-10-22"
+      },
+      "score": 4.368,
       "retailers": {
         "target": {
           "url": "",
@@ -657,13 +657,13 @@
       "tcgplayerId": 704169,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/704169/pokemon-me-30th-celebration-30th-celebration-binder-collection",
       "market": {
-        "price": 109.27,
+        "price": 109.1,
         "low": 103.49,
-        "change7d": -0.001,
+        "change7d": -0.003,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 4.053,
+      "score": 4.044,
       "retailers": {
         "target": {
           "url": "",
@@ -697,13 +697,13 @@
       "tcgplayerId": 630686,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/630686/pokemon-sv-black-bolt-black-bolt-elite-trainer-box",
       "market": {
-        "price": 159.24,
+        "price": 159.32,
         "low": 151.51,
-        "change7d": -0.034,
+        "change7d": -0.033,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 4.028,
+      "score": 4.032,
       "retailers": {
         "target": {
           "url": "",
@@ -737,13 +737,13 @@
       "tcgplayerId": 654136,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/654136/pokemon-me02-phantasmal-flames-phantasmal-flames-elite-trainer-box",
       "market": {
-        "price": 148.99,
-        "low": 145,
-        "change7d": 0.005,
+        "price": 147.86,
+        "low": 137.88,
+        "change7d": -0.003,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 3.896,
+      "score": 3.856,
       "retailers": {
         "target": {
           "url": "",
@@ -778,7 +778,7 @@
       "tcgplayerUrl": "https://www.tcgplayer.com/product/624681/pokemon-sv10-destined-rivals-destined-rivals-half-booster-box",
       "market": {
         "price": 316.15,
-        "low": 400,
+        "low": 379.99,
         "change7d": 0,
         "change30d": null,
         "updatedAt": "2026-10-22"
@@ -817,13 +817,13 @@
       "tcgplayerId": 630431,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/630431/pokemon-sv-black-bolt-black-bolt-booster-bundle",
       "market": {
-        "price": 96.69,
+        "price": 96.63,
         "low": 80,
         "change7d": 0.006,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 3.778,
+      "score": 3.776,
       "retailers": {
         "target": {
           "url": "",
@@ -897,13 +897,13 @@
       "tcgplayerId": 630689,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/630689/pokemon-sv-white-flare-white-flare-elite-trainer-box",
       "market": {
-        "price": 142.95,
-        "low": 128.95,
-        "change7d": -0.028,
+        "price": 142.24,
+        "low": 132,
+        "change7d": -0.033,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 3.698,
+      "score": 3.672,
       "retailers": {
         "target": {
           "url": "",
@@ -937,7 +937,7 @@
       "tcgplayerId": 644298,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/644298/pokemon-me01-mega-evolution-mega-evolution-booster-box",
       "market": {
-        "price": 303.55,
+        "price": 303.5,
         "low": 282.01,
         "change7d": -0.001,
         "change30d": null,
@@ -964,66 +964,26 @@
       }
     },
     {
-      "id": "tcg-565606",
-      "name": "Surging Sparks Booster Box",
-      "category": "Booster Box",
-      "set": "Surging Sparks",
+      "id": "tcg-593355",
+      "name": "Prismatic Evolutions Elite Trainer Box",
+      "category": "Elite Trainer Box",
+      "set": "Prismatic Evolutions",
       "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/565606_200w.jpg",
-      "msrp": 161.64,
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/593355_200w.jpg",
+      "msrp": 49.99,
       "msrpEstimated": true,
       "notes": "",
-      "releaseDate": "2024-11-08",
-      "tcgplayerId": 565606,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/565606/pokemon-sv08-surging-sparks-surging-sparks-booster-box",
+      "releaseDate": "2025-01-17",
+      "tcgplayerId": 593355,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/593355/pokemon-sv-prismatic-evolutions-prismatic-evolutions-elite-trainer-box",
       "market": {
-        "price": 295.7,
-        "low": 285,
-        "change7d": -0.008,
+        "price": 127.56,
+        "low": 112.99,
+        "change7d": 0.073,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 3.525,
-      "retailers": {
-        "target": {
-          "url": "",
-          "sku": ""
-        },
-        "bestbuy": {
-          "url": "",
-          "sku": ""
-        },
-        "amazon": {
-          "url": "",
-          "sku": ""
-        },
-        "pokemoncenter": {
-          "url": "",
-          "sku": ""
-        }
-      }
-    },
-    {
-      "id": "tcg-630696",
-      "name": "White Flare Booster Bundle",
-      "category": "Booster Bundle",
-      "set": "White Flare",
-      "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/630696_200w.jpg",
-      "msrp": 26.94,
-      "msrpEstimated": true,
-      "notes": "",
-      "releaseDate": "2025-08-22",
-      "tcgplayerId": 630696,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/630696/pokemon-sv-white-flare-white-flare-booster-bundle",
-      "market": {
-        "price": 89,
-        "low": 77.96,
-        "change7d": 0,
-        "change30d": null,
-        "updatedAt": "2026-10-22"
-      },
-      "score": 3.524,
+      "score": 3.534,
       "retailers": {
         "target": {
           "url": "",
@@ -1084,26 +1044,66 @@
       }
     },
     {
-      "id": "tcg-600518",
-      "name": "Prismatic Evolutions Booster Bundle",
-      "category": "Booster Bundle",
-      "set": "Prismatic Evolutions",
+      "id": "tcg-565606",
+      "name": "Surging Sparks Booster Box",
+      "category": "Booster Box",
+      "set": "Surging Sparks",
       "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/600518_200w.jpg",
-      "msrp": 26.94,
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/565606_200w.jpg",
+      "msrp": 161.64,
       "msrpEstimated": true,
       "notes": "",
-      "releaseDate": "2025-01-17",
-      "tcgplayerId": 600518,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/600518/pokemon-sv-prismatic-evolutions-prismatic-evolutions-booster-bundle",
+      "releaseDate": "2024-11-08",
+      "tcgplayerId": 565606,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/565606/pokemon-sv08-surging-sparks-surging-sparks-booster-box",
       "market": {
-        "price": 85.04,
-        "low": 70,
-        "change7d": 0.062,
+        "price": 294.96,
+        "low": 285,
+        "change7d": -0.011,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 3.515,
+      "score": 3.509,
+      "retailers": {
+        "target": {
+          "url": "",
+          "sku": ""
+        },
+        "bestbuy": {
+          "url": "",
+          "sku": ""
+        },
+        "amazon": {
+          "url": "",
+          "sku": ""
+        },
+        "pokemoncenter": {
+          "url": "",
+          "sku": ""
+        }
+      }
+    },
+    {
+      "id": "tcg-630696",
+      "name": "White Flare Booster Bundle",
+      "category": "Booster Bundle",
+      "set": "White Flare",
+      "tags": [],
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/630696_200w.jpg",
+      "msrp": 26.94,
+      "msrpEstimated": true,
+      "notes": "",
+      "releaseDate": "2025-08-22",
+      "tcgplayerId": 630696,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/630696/pokemon-sv-white-flare-white-flare-booster-bundle",
+      "market": {
+        "price": 88.47,
+        "low": 77.96,
+        "change7d": -0.006,
+        "change30d": null,
+        "updatedAt": "2026-10-22"
+      },
+      "score": 3.495,
       "retailers": {
         "target": {
           "url": "",
@@ -1137,53 +1137,13 @@
       "tcgplayerId": 644300,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/644300/pokemon-me01-mega-evolution-mega-evolution-enhanced-booster-box",
       "market": {
-        "price": 289.04,
-        "low": 276.04,
+        "price": 288.88,
+        "low": 289,
         "change7d": -0.001,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 3.444,
-      "retailers": {
-        "target": {
-          "url": "",
-          "sku": ""
-        },
-        "bestbuy": {
-          "url": "",
-          "sku": ""
-        },
-        "amazon": {
-          "url": "",
-          "sku": ""
-        },
-        "pokemoncenter": {
-          "url": "",
-          "sku": ""
-        }
-      }
-    },
-    {
-      "id": "tcg-593355",
-      "name": "Prismatic Evolutions Elite Trainer Box",
-      "category": "Elite Trainer Box",
-      "set": "Prismatic Evolutions",
-      "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/593355_200w.jpg",
-      "msrp": 49.99,
-      "msrpEstimated": true,
-      "notes": "",
-      "releaseDate": "2025-01-17",
-      "tcgplayerId": 593355,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/593355/pokemon-sv-prismatic-evolutions-prismatic-evolutions-elite-trainer-box",
-      "market": {
-        "price": 124.94,
-        "low": 120.99,
-        "change7d": 0.051,
-        "change30d": null,
-        "updatedAt": "2026-10-22"
-      },
-      "score": 3.423,
+      "score": 3.442,
       "retailers": {
         "target": {
           "url": "",
@@ -1213,7 +1173,7 @@
       "msrp": 21.99,
       "msrpEstimated": true,
       "notes": "",
-      "releaseDate": "2026-10-21",
+      "releaseDate": "2026-10-22",
       "tcgplayerId": 596518,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/596518/pokemon-miscellaneous-cards-and-products-tyranitar-ex-box",
       "market": {
@@ -1257,13 +1217,53 @@
       "tcgplayerId": 668496,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/668496/pokemon-me-ascended-heroes-ascended-heroes-elite-trainer-box",
       "market": {
-        "price": 132.01,
-        "low": 124.96,
+        "price": 131.95,
+        "low": 120,
         "change7d": -0.09,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 3.319,
+      "score": 3.317,
+      "retailers": {
+        "target": {
+          "url": "",
+          "sku": ""
+        },
+        "bestbuy": {
+          "url": "",
+          "sku": ""
+        },
+        "amazon": {
+          "url": "",
+          "sku": ""
+        },
+        "pokemoncenter": {
+          "url": "",
+          "sku": ""
+        }
+      }
+    },
+    {
+      "id": "tcg-600518",
+      "name": "Prismatic Evolutions Booster Bundle",
+      "category": "Booster Bundle",
+      "set": "Prismatic Evolutions",
+      "tags": [],
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/600518_200w.jpg",
+      "msrp": 26.94,
+      "msrpEstimated": true,
+      "notes": "",
+      "releaseDate": "2025-01-17",
+      "tcgplayerId": 600518,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/600518/pokemon-sv-prismatic-evolutions-prismatic-evolutions-booster-bundle",
+      "market": {
+        "price": 81.57,
+        "low": 70,
+        "change7d": 0.019,
+        "change30d": null,
+        "updatedAt": "2026-10-22"
+      },
+      "score": 3.308,
       "retailers": {
         "target": {
           "url": "",
@@ -1324,46 +1324,6 @@
       }
     },
     {
-      "id": "tcg-644279",
-      "name": "Mega Evolution Elite Trainer Box [Mega Gardevoir]",
-      "category": "Elite Trainer Box",
-      "set": "Mega Evolution",
-      "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/644279_200w.jpg",
-      "msrp": 49.99,
-      "msrpEstimated": true,
-      "notes": "",
-      "releaseDate": "2025-09-26",
-      "tcgplayerId": 644279,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/644279/pokemon-me01-mega-evolution-mega-evolution-elite-trainer-box-mega-gardevoir",
-      "market": {
-        "price": 121.52,
-        "low": 99.99,
-        "change7d": 0.002,
-        "change30d": null,
-        "updatedAt": "2026-10-22"
-      },
-      "score": 3.235,
-      "retailers": {
-        "target": {
-          "url": "",
-          "sku": ""
-        },
-        "bestbuy": {
-          "url": "",
-          "sku": ""
-        },
-        "amazon": {
-          "url": "",
-          "sku": ""
-        },
-        "pokemoncenter": {
-          "url": "",
-          "sku": ""
-        }
-      }
-    },
-    {
       "id": "tcg-593459",
       "name": "Prismatic Evolutions Mini Tin [Umbreon]",
       "category": "Tin",
@@ -1404,22 +1364,62 @@
       }
     },
     {
-      "id": "tcg-704188",
-      "name": "30th Celebration Battle Deck [Umbreon ex]",
-      "category": "Other",
-      "set": "30th Celebration",
+      "id": "tcg-565630",
+      "name": "Surging Sparks Elite Trainer Box",
+      "category": "Elite Trainer Box",
+      "set": "Surging Sparks",
       "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/704188_200w.jpg",
-      "msrp": 19.99,
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/565630_200w.jpg",
+      "msrp": 49.99,
       "msrpEstimated": true,
       "notes": "",
-      "releaseDate": "2026-10-30",
-      "tcgplayerId": 704188,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/704188/pokemon-me-30th-celebration-30th-celebration-battle-deck-umbreon-ex",
+      "releaseDate": "2024-11-08",
+      "tcgplayerId": 565630,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/565630/pokemon-sv08-surging-sparks-surging-sparks-elite-trainer-box",
       "market": {
-        "price": 61.3,
-        "low": 58.35,
-        "change7d": -0.033,
+        "price": 120.37,
+        "low": 114.9,
+        "change7d": 0.009,
+        "change30d": null,
+        "updatedAt": "2026-10-22"
+      },
+      "score": 3.218,
+      "retailers": {
+        "target": {
+          "url": "",
+          "sku": ""
+        },
+        "bestbuy": {
+          "url": "",
+          "sku": ""
+        },
+        "amazon": {
+          "url": "",
+          "sku": ""
+        },
+        "pokemoncenter": {
+          "url": "",
+          "sku": ""
+        }
+      }
+    },
+    {
+      "id": "tcg-644279",
+      "name": "Mega Evolution Elite Trainer Box [Mega Gardevoir]",
+      "category": "Elite Trainer Box",
+      "set": "Mega Evolution",
+      "tags": [],
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/644279_200w.jpg",
+      "msrp": 49.99,
+      "msrpEstimated": true,
+      "notes": "",
+      "releaseDate": "2025-09-26",
+      "tcgplayerId": 644279,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/644279/pokemon-me01-mega-evolution-mega-evolution-elite-trainer-box-mega-gardevoir",
+      "market": {
+        "price": 120.92,
+        "low": 99.99,
+        "change7d": -0.003,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
@@ -1444,26 +1444,26 @@
       }
     },
     {
-      "id": "tcg-565630",
-      "name": "Surging Sparks Elite Trainer Box",
-      "category": "Elite Trainer Box",
-      "set": "Surging Sparks",
+      "id": "tcg-704188",
+      "name": "30th Celebration Battle Deck [Umbreon ex]",
+      "category": "Other",
+      "set": "30th Celebration",
       "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/565630_200w.jpg",
-      "msrp": 49.99,
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/704188_200w.jpg",
+      "msrp": 19.99,
       "msrpEstimated": true,
       "notes": "",
-      "releaseDate": "2024-11-08",
-      "tcgplayerId": 565630,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/565630/pokemon-sv08-surging-sparks-surging-sparks-elite-trainer-box",
+      "releaseDate": "2026-10-30",
+      "tcgplayerId": 704188,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/704188/pokemon-me-30th-celebration-30th-celebration-battle-deck-umbreon-ex",
       "market": {
-        "price": 118.78,
-        "low": 114.9,
-        "change7d": -0.004,
+        "price": 61.15,
+        "low": 58.54,
+        "change7d": -0.035,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 3.148,
+      "score": 3.197,
       "retailers": {
         "target": {
           "url": "",
@@ -1497,13 +1497,13 @@
       "tcgplayerId": 593455,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/593455/pokemon-sv-prismatic-evolutions-prismatic-evolutions-mini-tin-vaporeon",
       "market": {
-        "price": 39.66,
+        "price": 39.68,
         "low": 33.99,
-        "change7d": 0,
+        "change7d": 0.001,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 3.118,
+      "score": 3.121,
       "retailers": {
         "target": {
           "url": "",
@@ -1533,7 +1533,7 @@
       "msrp": 21.99,
       "msrpEstimated": true,
       "notes": "",
-      "releaseDate": "2026-10-21",
+      "releaseDate": "2026-10-22",
       "tcgplayerId": 596517,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/596517/pokemon-miscellaneous-cards-and-products-tsareena-ex-box",
       "market": {
@@ -1544,46 +1544,6 @@
         "updatedAt": "2026-10-22"
       },
       "score": 3.117,
-      "retailers": {
-        "target": {
-          "url": "",
-          "sku": ""
-        },
-        "bestbuy": {
-          "url": "",
-          "sku": ""
-        },
-        "amazon": {
-          "url": "",
-          "sku": ""
-        },
-        "pokemoncenter": {
-          "url": "",
-          "sku": ""
-        }
-      }
-    },
-    {
-      "id": "tcg-668541",
-      "name": "Ascended Heroes Booster Bundle",
-      "category": "Booster Bundle",
-      "set": "Ascended Heroes",
-      "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/668541_200w.jpg",
-      "msrp": 26.94,
-      "msrpEstimated": true,
-      "notes": "",
-      "releaseDate": "2026-04-24",
-      "tcgplayerId": 668541,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/668541/pokemon-me-ascended-heroes-ascended-heroes-booster-bundle",
-      "market": {
-        "price": 80.34,
-        "low": 69,
-        "change7d": -0.056,
-        "change30d": null,
-        "updatedAt": "2026-10-22"
-      },
-      "score": 3.113,
       "retailers": {
         "target": {
           "url": "",
@@ -1657,133 +1617,13 @@
       "tcgplayerId": 593461,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/593461/pokemon-sv-prismatic-evolutions-prismatic-evolutions-mini-tin-glaceon",
       "market": {
-        "price": 38.69,
+        "price": 38.58,
         "low": 30.97,
-        "change7d": 0.018,
+        "change7d": 0.015,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 3.092,
-      "retailers": {
-        "target": {
-          "url": "",
-          "sku": ""
-        },
-        "bestbuy": {
-          "url": "",
-          "sku": ""
-        },
-        "amazon": {
-          "url": "",
-          "sku": ""
-        },
-        "pokemoncenter": {
-          "url": "",
-          "sku": ""
-        }
-      }
-    },
-    {
-      "id": "tcg-704143",
-      "name": "30th Celebration Elite Trainer Box",
-      "category": "Elite Trainer Box",
-      "set": "30th Celebration",
-      "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/704143_200w.jpg",
-      "msrp": 49.99,
-      "msrpEstimated": false,
-      "notes": "",
-      "releaseDate": "2026-09-16",
-      "tcgplayerId": 704143,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/704143/pokemon-me-30th-celebration-30th-celebration-elite-trainer-box",
-      "market": {
-        "price": 122.29,
-        "low": 110,
-        "change7d": -0.082,
-        "change30d": null,
-        "updatedAt": "2026-10-22"
-      },
-      "score": 3.087,
-      "retailers": {
-        "target": {
-          "url": "https://www.target.com/p/pok-233-mon-trading-card-game-30th-celebration-elite-trainer-box/-/A-1010892076",
-          "sku": ""
-        },
-        "bestbuy": {
-          "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-30th-celebration-elite-trainer-box/JJG2TL8XCJ/sku/13089535",
-          "sku": ""
-        },
-        "amazon": {
-          "url": "https://www.amazon.com/dp/B0H78BB9TY",
-          "sku": ""
-        },
-        "pokemoncenter": {
-          "url": "",
-          "sku": ""
-        }
-      }
-    },
-    {
-      "id": "tcg-648394",
-      "name": "Mega Evolution Elite Trainer Box [Mega Lucario]",
-      "category": "Elite Trainer Box",
-      "set": "Mega Evolution",
-      "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/648394_200w.jpg",
-      "msrp": 49.99,
-      "msrpEstimated": true,
-      "notes": "",
-      "releaseDate": "2025-09-26",
-      "tcgplayerId": 648394,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/648394/pokemon-me01-mega-evolution-mega-evolution-elite-trainer-box-mega-lucario",
-      "market": {
-        "price": 120.68,
-        "low": 114.96,
-        "change7d": -0.062,
-        "change30d": null,
-        "updatedAt": "2026-10-22"
-      },
-      "score": 3.084,
-      "retailers": {
-        "target": {
-          "url": "",
-          "sku": ""
-        },
-        "bestbuy": {
-          "url": "",
-          "sku": ""
-        },
-        "amazon": {
-          "url": "",
-          "sku": ""
-        },
-        "pokemoncenter": {
-          "url": "",
-          "sku": ""
-        }
-      }
-    },
-    {
-      "id": "tcg-623014",
-      "name": "Rival Battle Deck [Marnie]",
-      "category": "Other",
-      "set": "Miscellaneous Cards & Products",
-      "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/623014_200w.jpg",
-      "msrp": 19.99,
-      "msrpEstimated": true,
-      "notes": "",
-      "releaseDate": "2025-05-16",
-      "tcgplayerId": 623014,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/623014/pokemon-miscellaneous-cards-and-products-rival-battle-deck-marnie",
-      "market": {
-        "price": 61.73,
-        "low": 61.2,
-        "change7d": 0.006,
-        "change30d": null,
-        "updatedAt": "2026-10-22"
-      },
-      "score": 3.055,
+      "score": 3.079,
       "retailers": {
         "target": {
           "url": "",
@@ -1844,26 +1684,26 @@
       }
     },
     {
-      "id": "tcg-593458",
-      "name": "Prismatic Evolutions Mini Tin [Espeon]",
-      "category": "Tin",
-      "set": "Prismatic Evolutions",
+      "id": "tcg-648394",
+      "name": "Mega Evolution Elite Trainer Box [Mega Lucario]",
+      "category": "Elite Trainer Box",
+      "set": "Mega Evolution",
       "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/593458_200w.jpg",
-      "msrp": 9.99,
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/648394_200w.jpg",
+      "msrp": 49.99,
       "msrpEstimated": true,
       "notes": "",
-      "releaseDate": "2025-01-17",
-      "tcgplayerId": 593458,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/593458/pokemon-sv-prismatic-evolutions-prismatic-evolutions-mini-tin-espeon",
+      "releaseDate": "2025-09-26",
+      "tcgplayerId": 648394,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/648394/pokemon-me01-mega-evolution-mega-evolution-elite-trainer-box-mega-lucario",
       "market": {
-        "price": 38.25,
-        "low": 32.95,
-        "change7d": 0.003,
+        "price": 119.58,
+        "low": 116.5,
+        "change7d": -0.071,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 3.034,
+      "score": 3.036,
       "retailers": {
         "target": {
           "url": "",
@@ -1884,26 +1724,26 @@
       }
     },
     {
-      "id": "tcg-624676",
-      "name": "Destined Rivals Elite Trainer Box",
-      "category": "Elite Trainer Box",
-      "set": "Destined Rivals",
+      "id": "tcg-593458",
+      "name": "Prismatic Evolutions Mini Tin [Espeon]",
+      "category": "Tin",
+      "set": "Prismatic Evolutions",
       "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/624676_200w.jpg",
-      "msrp": 49.99,
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/593458_200w.jpg",
+      "msrp": 9.99,
       "msrpEstimated": true,
       "notes": "",
-      "releaseDate": "2025-05-30",
-      "tcgplayerId": 624676,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/624676/pokemon-sv10-destined-rivals-destined-rivals-elite-trainer-box",
+      "releaseDate": "2025-01-17",
+      "tcgplayerId": 593458,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/593458/pokemon-sv-prismatic-evolutions-prismatic-evolutions-mini-tin-espeon",
       "market": {
-        "price": 113.83,
-        "low": 104.99,
-        "change7d": 0.002,
+        "price": 38.25,
+        "low": 32.95,
+        "change7d": 0.003,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 3.02,
+      "score": 3.034,
       "retailers": {
         "target": {
           "url": "",
@@ -1964,6 +1804,46 @@
       }
     },
     {
+      "id": "tcg-624676",
+      "name": "Destined Rivals Elite Trainer Box",
+      "category": "Elite Trainer Box",
+      "set": "Destined Rivals",
+      "tags": [],
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/624676_200w.jpg",
+      "msrp": 49.99,
+      "msrpEstimated": true,
+      "notes": "",
+      "releaseDate": "2025-05-30",
+      "tcgplayerId": 624676,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/624676/pokemon-sv10-destined-rivals-destined-rivals-elite-trainer-box",
+      "market": {
+        "price": 113,
+        "low": 104.99,
+        "change7d": -0.005,
+        "change30d": null,
+        "updatedAt": "2026-10-22"
+      },
+      "score": 2.982,
+      "retailers": {
+        "target": {
+          "url": "",
+          "sku": ""
+        },
+        "bestbuy": {
+          "url": "",
+          "sku": ""
+        },
+        "amazon": {
+          "url": "",
+          "sku": ""
+        },
+        "pokemoncenter": {
+          "url": "",
+          "sku": ""
+        }
+      }
+    },
+    {
       "id": "tcg-659192",
       "name": "Mega Battle Deck (Mega Gengar ex)",
       "category": "Other",
@@ -1977,13 +1857,13 @@
       "tcgplayerId": 659192,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/659192/pokemon-miscellaneous-cards-and-products-mega-battle-deck-mega-gengar-ex",
       "market": {
-        "price": 62.05,
+        "price": 61.77,
         "low": 55.01,
-        "change7d": -0.034,
+        "change7d": -0.038,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 2.99,
+      "score": 2.969,
       "retailers": {
         "target": {
           "url": "",
@@ -1995,6 +1875,86 @@
         },
         "amazon": {
           "url": "",
+          "sku": ""
+        },
+        "pokemoncenter": {
+          "url": "",
+          "sku": ""
+        }
+      }
+    },
+    {
+      "id": "tcg-623014",
+      "name": "Rival Battle Deck [Marnie]",
+      "category": "Other",
+      "set": "Miscellaneous Cards & Products",
+      "tags": [],
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/623014_200w.jpg",
+      "msrp": 19.99,
+      "msrpEstimated": true,
+      "notes": "",
+      "releaseDate": "2025-05-16",
+      "tcgplayerId": 623014,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/623014/pokemon-miscellaneous-cards-and-products-rival-battle-deck-marnie",
+      "market": {
+        "price": 60.33,
+        "low": 61.2,
+        "change7d": -0.016,
+        "change30d": null,
+        "updatedAt": "2026-10-22"
+      },
+      "score": 2.948,
+      "retailers": {
+        "target": {
+          "url": "",
+          "sku": ""
+        },
+        "bestbuy": {
+          "url": "",
+          "sku": ""
+        },
+        "amazon": {
+          "url": "",
+          "sku": ""
+        },
+        "pokemoncenter": {
+          "url": "",
+          "sku": ""
+        }
+      }
+    },
+    {
+      "id": "tcg-704143",
+      "name": "30th Celebration Elite Trainer Box",
+      "category": "Elite Trainer Box",
+      "set": "30th Celebration",
+      "tags": [],
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/704143_200w.jpg",
+      "msrp": 49.99,
+      "msrpEstimated": false,
+      "notes": "",
+      "releaseDate": "2026-09-16",
+      "tcgplayerId": 704143,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/704143/pokemon-me-30th-celebration-30th-celebration-elite-trainer-box",
+      "market": {
+        "price": 118.66,
+        "low": 109.99,
+        "change7d": -0.109,
+        "change30d": null,
+        "updatedAt": "2026-10-22"
+      },
+      "score": 2.935,
+      "retailers": {
+        "target": {
+          "url": "https://www.target.com/p/pok-233-mon-trading-card-game-30th-celebration-elite-trainer-box/-/A-1010892076",
+          "sku": ""
+        },
+        "bestbuy": {
+          "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-30th-celebration-elite-trainer-box/JJG2TL8XCJ/sku/13089535",
+          "sku": ""
+        },
+        "amazon": {
+          "url": "https://www.amazon.com/dp/B0H78BB9TY",
           "sku": ""
         },
         "pokemoncenter": {
@@ -2017,13 +1977,13 @@
       "tcgplayerId": 704171,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/704171/pokemon-me-30th-celebration-30th-celebration-booster-bundle",
       "market": {
-        "price": 72.66,
-        "low": 70,
-        "change7d": 0.003,
+        "price": 72.36,
+        "low": 44.7,
+        "change7d": -0.001,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 2.938,
+      "score": 2.917,
       "retailers": {
         "target": {
           "url": "",
@@ -2098,7 +2058,7 @@
       "tcgplayerUrl": "https://www.tcgplayer.com/product/712112/pokemon-me06-delta-reign-delta-reign-sleeved-booster-pack",
       "market": {
         "price": 19.39,
-        "low": 14.26,
+        "low": 14.08,
         "change7d": -0.081,
         "change30d": null,
         "updatedAt": "2026-10-22"
@@ -2204,26 +2164,26 @@
       }
     },
     {
-      "id": "tcg-684452",
-      "name": "Chaos Rising Pokemon Center Elite Trainer Box",
-      "category": "Pokémon Center Exclusive",
-      "set": "Chaos Rising",
+      "id": "tcg-668541",
+      "name": "Ascended Heroes Booster Bundle",
+      "category": "Booster Bundle",
+      "set": "Ascended Heroes",
       "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/684452_200w.jpg",
-      "msrp": 59.99,
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/668541_200w.jpg",
+      "msrp": 26.94,
       "msrpEstimated": true,
       "notes": "",
-      "releaseDate": "2026-05-22",
-      "tcgplayerId": 684452,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/684452/pokemon-me04-chaos-rising-chaos-rising-pokemon-center-elite-trainer-box",
+      "releaseDate": "2026-04-24",
+      "tcgplayerId": 668541,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/668541/pokemon-me-ascended-heroes-ascended-heroes-booster-bundle",
       "market": {
-        "price": 123.24,
-        "low": 110.01,
-        "change7d": -0.015,
+        "price": 75.98,
+        "low": 65,
+        "change7d": -0.107,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 2.828,
+      "score": 2.848,
       "retailers": {
         "target": {
           "url": "",
@@ -2244,26 +2204,26 @@
       }
     },
     {
-      "id": "tcg-654160",
-      "name": "Phantasmal Flames Booster Bundle",
-      "category": "Booster Bundle",
-      "set": "Phantasmal Flames",
+      "id": "tcg-684452",
+      "name": "Chaos Rising Pokemon Center Elite Trainer Box",
+      "category": "Pokémon Center Exclusive",
+      "set": "Chaos Rising",
       "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/654160_200w.jpg",
-      "msrp": 26.94,
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/684452_200w.jpg",
+      "msrp": 59.99,
       "msrpEstimated": true,
       "notes": "",
-      "releaseDate": "2025-11-14",
-      "tcgplayerId": 654160,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/654160/pokemon-me02-phantasmal-flames-phantasmal-flames-booster-bundle",
+      "releaseDate": "2026-05-22",
+      "tcgplayerId": 684452,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/684452/pokemon-me04-chaos-rising-chaos-rising-pokemon-center-elite-trainer-box",
       "market": {
-        "price": 75.63,
-        "low": 70,
-        "change7d": -0.113,
+        "price": 123.16,
+        "low": 110.01,
+        "change7d": -0.016,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 2.823,
+      "score": 2.824,
       "retailers": {
         "target": {
           "url": "",
@@ -2337,13 +2297,13 @@
       "tcgplayerId": 712102,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/712102/pokemon-me06-delta-reign-delta-reign-elite-trainer-box",
       "market": {
-        "price": 106.28,
+        "price": 106.19,
         "low": 104.99,
-        "change7d": -0.109,
+        "change7d": -0.11,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 2.821,
+      "score": 2.816,
       "retailers": {
         "target": {
           "url": "",
@@ -2377,13 +2337,13 @@
       "tcgplayerId": 672404,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/672404/pokemon-me03-perfect-order-perfect-order-pokemon-center-elite-trainer-box",
       "market": {
-        "price": 121.99,
+        "price": 121.91,
         "low": 114.99,
-        "change7d": -0.002,
+        "change7d": -0.003,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 2.819,
+      "score": 2.815,
       "retailers": {
         "target": {
           "url": "",
@@ -2444,66 +2404,26 @@
       }
     },
     {
-      "id": "tcg-712094",
-      "name": "Delta Reign Booster Box",
-      "category": "Booster Box",
-      "set": "Delta Reign",
+      "id": "tcg-692949",
+      "name": "Pitch Black Pokemon Center Elite Trainer Box (Exclusive)",
+      "category": "Pokémon Center Exclusive",
+      "set": "Pitch Black",
       "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/712094_200w.jpg",
-      "msrp": 161.64,
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/692949_200w.jpg",
+      "msrp": 59.99,
       "msrpEstimated": true,
       "notes": "",
-      "releaseDate": "2026-11-06",
-      "tcgplayerId": 712094,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/712094/pokemon-me06-delta-reign-delta-reign-booster-box",
+      "releaseDate": "2026-07-17",
+      "tcgplayerId": 692949,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/692949/pokemon-me05-pitch-black-pitch-black-pokemon-center-elite-trainer-box-exclusive",
       "market": {
-        "price": 239.04,
-        "low": 229.18,
-        "change7d": -0.032,
+        "price": 119.37,
+        "low": 110.96,
+        "change7d": 0.006,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 2.785,
-      "retailers": {
-        "target": {
-          "url": "",
-          "sku": ""
-        },
-        "bestbuy": {
-          "url": "",
-          "sku": ""
-        },
-        "amazon": {
-          "url": "",
-          "sku": ""
-        },
-        "pokemoncenter": {
-          "url": "",
-          "sku": ""
-        }
-      }
-    },
-    {
-      "id": "tcg-712097",
-      "name": "Delta Reign Booster Bundle",
-      "category": "Booster Bundle",
-      "set": "Delta Reign",
-      "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/712097_200w.jpg",
-      "msrp": 26.94,
-      "msrpEstimated": true,
-      "notes": "",
-      "releaseDate": "2026-11-06",
-      "tcgplayerId": 712097,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/712097/pokemon-me06-delta-reign-delta-reign-booster-bundle",
-      "market": {
-        "price": 66.34,
-        "low": 64.62,
-        "change7d": -0.081,
-        "change30d": null,
-        "updatedAt": "2026-10-22"
-      },
-      "score": 2.753,
+      "score": 2.76,
       "retailers": {
         "target": {
           "url": "",
@@ -2544,86 +2464,6 @@
         "updatedAt": "2026-10-22"
       },
       "score": 2.752,
-      "retailers": {
-        "target": {
-          "url": "",
-          "sku": ""
-        },
-        "bestbuy": {
-          "url": "",
-          "sku": ""
-        },
-        "amazon": {
-          "url": "",
-          "sku": ""
-        },
-        "pokemoncenter": {
-          "url": "",
-          "sku": ""
-        }
-      }
-    },
-    {
-      "id": "tcg-692949",
-      "name": "Pitch Black Pokemon Center Elite Trainer Box (Exclusive)",
-      "category": "Pokémon Center Exclusive",
-      "set": "Pitch Black",
-      "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/692949_200w.jpg",
-      "msrp": 59.99,
-      "msrpEstimated": true,
-      "notes": "",
-      "releaseDate": "2026-07-17",
-      "tcgplayerId": 692949,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/692949/pokemon-me05-pitch-black-pitch-black-pokemon-center-elite-trainer-box-exclusive",
-      "market": {
-        "price": 119.16,
-        "low": 109,
-        "change7d": 0.005,
-        "change30d": null,
-        "updatedAt": "2026-10-22"
-      },
-      "score": 2.751,
-      "retailers": {
-        "target": {
-          "url": "",
-          "sku": ""
-        },
-        "bestbuy": {
-          "url": "",
-          "sku": ""
-        },
-        "amazon": {
-          "url": "",
-          "sku": ""
-        },
-        "pokemoncenter": {
-          "url": "",
-          "sku": ""
-        }
-      }
-    },
-    {
-      "id": "tcg-668533",
-      "name": "Ascended Heroes Mini Tin [Zorua & Cramorant]",
-      "category": "Tin",
-      "set": "Ascended Heroes",
-      "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/668533_200w.jpg",
-      "msrp": 9.99,
-      "msrpEstimated": true,
-      "notes": "",
-      "releaseDate": "2026-02-20",
-      "tcgplayerId": 668533,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/668533/pokemon-me-ascended-heroes-ascended-heroes-mini-tin-zorua-and-cramorant",
-      "market": {
-        "price": 34.17,
-        "low": 18.99,
-        "change7d": 0,
-        "change30d": null,
-        "updatedAt": "2026-10-22"
-      },
-      "score": 2.75,
       "retailers": {
         "target": {
           "url": "",
@@ -2764,6 +2604,46 @@
       }
     },
     {
+      "id": "tcg-712094",
+      "name": "Delta Reign Booster Box",
+      "category": "Booster Box",
+      "set": "Delta Reign",
+      "tags": [],
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/712094_200w.jpg",
+      "msrp": 161.64,
+      "msrpEstimated": true,
+      "notes": "",
+      "releaseDate": "2026-11-06",
+      "tcgplayerId": 712094,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/712094/pokemon-me06-delta-reign-delta-reign-booster-box",
+      "market": {
+        "price": 237.43,
+        "low": 235,
+        "change7d": -0.039,
+        "change30d": null,
+        "updatedAt": "2026-10-22"
+      },
+      "score": 2.738,
+      "retailers": {
+        "target": {
+          "url": "",
+          "sku": ""
+        },
+        "bestbuy": {
+          "url": "",
+          "sku": ""
+        },
+        "amazon": {
+          "url": "",
+          "sku": ""
+        },
+        "pokemoncenter": {
+          "url": "",
+          "sku": ""
+        }
+      }
+    },
+    {
       "id": "tcg-593456",
       "name": "Prismatic Evolutions Mini Tin [Jolteon]",
       "category": "Tin",
@@ -2857,13 +2737,93 @@
       "tcgplayerId": 630695,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/630695/pokemon-sv-white-flare-white-flare-binder-collection",
       "market": {
-        "price": 76.2,
+        "price": 76.21,
         "low": 68.02,
-        "change7d": -0.006,
+        "change7d": -0.005,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 2.709,
+      "score": 2.712,
+      "retailers": {
+        "target": {
+          "url": "",
+          "sku": ""
+        },
+        "bestbuy": {
+          "url": "",
+          "sku": ""
+        },
+        "amazon": {
+          "url": "",
+          "sku": ""
+        },
+        "pokemoncenter": {
+          "url": "",
+          "sku": ""
+        }
+      }
+    },
+    {
+      "id": "tcg-654160",
+      "name": "Phantasmal Flames Booster Bundle",
+      "category": "Booster Bundle",
+      "set": "Phantasmal Flames",
+      "tags": [],
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/654160_200w.jpg",
+      "msrp": 26.94,
+      "msrpEstimated": true,
+      "notes": "",
+      "releaseDate": "2025-11-14",
+      "tcgplayerId": 654160,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/654160/pokemon-me02-phantasmal-flames-phantasmal-flames-booster-bundle",
+      "market": {
+        "price": 73.85,
+        "low": 69.99,
+        "change7d": -0.134,
+        "change30d": null,
+        "updatedAt": "2026-10-22"
+      },
+      "score": 2.711,
+      "retailers": {
+        "target": {
+          "url": "",
+          "sku": ""
+        },
+        "bestbuy": {
+          "url": "",
+          "sku": ""
+        },
+        "amazon": {
+          "url": "",
+          "sku": ""
+        },
+        "pokemoncenter": {
+          "url": "",
+          "sku": ""
+        }
+      }
+    },
+    {
+      "id": "tcg-668533",
+      "name": "Ascended Heroes Mini Tin [Zorua & Cramorant]",
+      "category": "Tin",
+      "set": "Ascended Heroes",
+      "tags": [],
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/668533_200w.jpg",
+      "msrp": 9.99,
+      "msrpEstimated": true,
+      "notes": "",
+      "releaseDate": "2026-02-20",
+      "tcgplayerId": 668533,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/668533/pokemon-me-ascended-heroes-ascended-heroes-mini-tin-zorua-and-cramorant",
+      "market": {
+        "price": 33.81,
+        "low": 18.99,
+        "change7d": -0.011,
+        "change30d": null,
+        "updatedAt": "2026-10-22"
+      },
+      "score": 2.702,
       "retailers": {
         "target": {
           "url": "",
@@ -2897,9 +2857,49 @@
       "tcgplayerId": 644362,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/644362/pokemon-me01-mega-evolution-mega-evolution-booster-bundle",
       "market": {
-        "price": 67.16,
+        "price": 67.22,
         "low": 58.99,
-        "change7d": -0.008,
+        "change7d": -0.007,
+        "change30d": null,
+        "updatedAt": "2026-10-22"
+      },
+      "score": 2.69,
+      "retailers": {
+        "target": {
+          "url": "",
+          "sku": ""
+        },
+        "bestbuy": {
+          "url": "",
+          "sku": ""
+        },
+        "amazon": {
+          "url": "",
+          "sku": ""
+        },
+        "pokemoncenter": {
+          "url": "",
+          "sku": ""
+        }
+      }
+    },
+    {
+      "id": "tcg-712097",
+      "name": "Delta Reign Booster Bundle",
+      "category": "Booster Bundle",
+      "set": "Delta Reign",
+      "tags": [],
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/712097_200w.jpg",
+      "msrp": 26.94,
+      "msrpEstimated": true,
+      "notes": "",
+      "releaseDate": "2026-11-06",
+      "tcgplayerId": 712097,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/712097/pokemon-me06-delta-reign-delta-reign-booster-bundle",
+      "market": {
+        "price": 65.38,
+        "low": 64.58,
+        "change7d": -0.094,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
@@ -2937,53 +2937,13 @@
       "tcgplayerId": 704168,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/704168/pokemon-me-30th-celebration-30th-celebration-greninja-ex-box",
       "market": {
-        "price": 56.99,
+        "price": 56.93,
         "low": 45,
-        "change7d": 0.007,
+        "change7d": 0.006,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 2.651,
-      "retailers": {
-        "target": {
-          "url": "",
-          "sku": ""
-        },
-        "bestbuy": {
-          "url": "",
-          "sku": ""
-        },
-        "amazon": {
-          "url": "",
-          "sku": ""
-        },
-        "pokemoncenter": {
-          "url": "",
-          "sku": ""
-        }
-      }
-    },
-    {
-      "id": "tcg-630612",
-      "name": "Unova Poster Collection",
-      "category": "Collection Box",
-      "set": "Black Bolt",
-      "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/630612_200w.jpg",
-      "msrp": 14.99,
-      "msrpEstimated": true,
-      "notes": "",
-      "releaseDate": "2025-07-18",
-      "tcgplayerId": 630612,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/630612/pokemon-sv-black-bolt-unova-poster-collection",
-      "market": {
-        "price": 44.74,
-        "low": 39.99,
-        "change7d": -0.029,
-        "change30d": null,
-        "updatedAt": "2026-10-22"
-      },
-      "score": 2.65,
+      "score": 2.646,
       "retailers": {
         "target": {
           "url": "",
@@ -3138,8 +3098,48 @@
       "tcgplayerUrl": "https://www.tcgplayer.com/product/565629/pokemon-sv08-surging-sparks-surging-sparks-booster-bundle-lgs",
       "market": {
         "price": 63.91,
-        "low": 63.7,
+        "low": 63.91,
         "change7d": 0.005,
+        "change30d": null,
+        "updatedAt": "2026-10-22"
+      },
+      "score": 2.566,
+      "retailers": {
+        "target": {
+          "url": "",
+          "sku": ""
+        },
+        "bestbuy": {
+          "url": "",
+          "sku": ""
+        },
+        "amazon": {
+          "url": "",
+          "sku": ""
+        },
+        "pokemoncenter": {
+          "url": "",
+          "sku": ""
+        }
+      }
+    },
+    {
+      "id": "tcg-630612",
+      "name": "Unova Poster Collection",
+      "category": "Collection Box",
+      "set": "Black Bolt",
+      "tags": [],
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/630612_200w.jpg",
+      "msrp": 14.99,
+      "msrpEstimated": true,
+      "notes": "",
+      "releaseDate": "2025-07-18",
+      "tcgplayerId": 630612,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/630612/pokemon-sv-black-bolt-unova-poster-collection",
+      "market": {
+        "price": 43.92,
+        "low": 39.99,
+        "change7d": -0.047,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
@@ -3177,93 +3177,13 @@
       "tcgplayerId": 672735,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/672735/pokemon-me-ascended-heroes-ascended-heroes-mega-feraligatr-ex-box",
       "market": {
-        "price": 56.06,
+        "price": 56.12,
         "low": 44.99,
-        "change7d": -0.018,
+        "change7d": -0.017,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 2.555,
-      "retailers": {
-        "target": {
-          "url": "",
-          "sku": ""
-        },
-        "bestbuy": {
-          "url": "",
-          "sku": ""
-        },
-        "amazon": {
-          "url": "",
-          "sku": ""
-        },
-        "pokemoncenter": {
-          "url": "",
-          "sku": ""
-        }
-      }
-    },
-    {
-      "id": "tcg-672733",
-      "name": "Ascended Heroes Mega Meganium ex Box",
-      "category": "Collection Box",
-      "set": "Ascended Heroes",
-      "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/672733_200w.jpg",
-      "msrp": 21.99,
-      "msrpEstimated": true,
-      "notes": "",
-      "releaseDate": "2026-01-30",
-      "tcgplayerId": 672733,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/672733/pokemon-me-ascended-heroes-ascended-heroes-mega-meganium-ex-box",
-      "market": {
-        "price": 55.62,
-        "low": 43.8,
-        "change7d": -0.008,
-        "change30d": null,
-        "updatedAt": "2026-10-22"
-      },
-      "score": 2.552,
-      "retailers": {
-        "target": {
-          "url": "",
-          "sku": ""
-        },
-        "bestbuy": {
-          "url": "",
-          "sku": ""
-        },
-        "amazon": {
-          "url": "",
-          "sku": ""
-        },
-        "pokemoncenter": {
-          "url": "",
-          "sku": ""
-        }
-      }
-    },
-    {
-      "id": "tcg-704153",
-      "name": "30th Celebration Poster Collection",
-      "category": "Collection Box",
-      "set": "30th Celebration",
-      "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/704153_200w.jpg",
-      "msrp": 14.99,
-      "msrpEstimated": true,
-      "notes": "",
-      "releaseDate": "2026-09-16",
-      "tcgplayerId": 704153,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/704153/pokemon-me-30th-celebration-30th-celebration-poster-collection",
-      "market": {
-        "price": 36.95,
-        "low": 24.99,
-        "change7d": 0.17,
-        "change30d": null,
-        "updatedAt": "2026-10-22"
-      },
-      "score": 2.551,
+      "score": 2.56,
       "retailers": {
         "target": {
           "url": "",
@@ -3297,13 +3217,13 @@
       "tcgplayerId": 704155,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/704155/pokemon-me-30th-celebration-30th-celebration-sylveon-ex-box",
       "market": {
-        "price": 57.73,
+        "price": 57.65,
         "low": 45,
-        "change7d": -0.062,
+        "change7d": -0.063,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 2.549,
+      "score": 2.543,
       "retailers": {
         "target": {
           "url": "",
@@ -3364,26 +3284,66 @@
       }
     },
     {
-      "id": "tcg-704182",
-      "name": "30th Celebration Mini Tin [Umbreon]",
+      "id": "tcg-672733",
+      "name": "Ascended Heroes Mega Meganium ex Box",
+      "category": "Collection Box",
+      "set": "Ascended Heroes",
+      "tags": [],
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/672733_200w.jpg",
+      "msrp": 21.99,
+      "msrpEstimated": true,
+      "notes": "",
+      "releaseDate": "2026-01-30",
+      "tcgplayerId": 672733,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/672733/pokemon-me-ascended-heroes-ascended-heroes-mega-meganium-ex-box",
+      "market": {
+        "price": 55.37,
+        "low": 43.8,
+        "change7d": -0.012,
+        "change30d": null,
+        "updatedAt": "2026-10-22"
+      },
+      "score": 2.532,
+      "retailers": {
+        "target": {
+          "url": "",
+          "sku": ""
+        },
+        "bestbuy": {
+          "url": "",
+          "sku": ""
+        },
+        "amazon": {
+          "url": "",
+          "sku": ""
+        },
+        "pokemoncenter": {
+          "url": "",
+          "sku": ""
+        }
+      }
+    },
+    {
+      "id": "tcg-704178",
+      "name": "30th Celebration Mini Tin [Mew]",
       "category": "Tin",
       "set": "30th Celebration",
       "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/704182_200w.jpg",
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/704178_200w.jpg",
       "msrp": 9.99,
       "msrpEstimated": true,
       "notes": "",
       "releaseDate": "2026-10-02",
-      "tcgplayerId": 704182,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/704182/pokemon-me-30th-celebration-30th-celebration-mini-tin-umbreon",
+      "tcgplayerId": 704178,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/704178/pokemon-me-30th-celebration-30th-celebration-mini-tin-mew",
       "market": {
-        "price": 31.11,
-        "low": 22,
-        "change7d": -0.001,
+        "price": 28.6,
+        "low": 23.23,
+        "change7d": 0.098,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 2.52,
+      "score": 2.516,
       "retailers": {
         "target": {
           "url": "",
@@ -3524,46 +3484,6 @@
       }
     },
     {
-      "id": "tcg-704178",
-      "name": "30th Celebration Mini Tin [Mew]",
-      "category": "Tin",
-      "set": "30th Celebration",
-      "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/704178_200w.jpg",
-      "msrp": 9.99,
-      "msrpEstimated": true,
-      "notes": "",
-      "releaseDate": "2026-10-02",
-      "tcgplayerId": 704178,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/704178/pokemon-me-30th-celebration-30th-celebration-mini-tin-mew",
-      "market": {
-        "price": 28.36,
-        "low": 26.9,
-        "change7d": 0.089,
-        "change30d": null,
-        "updatedAt": "2026-10-22"
-      },
-      "score": 2.478,
-      "retailers": {
-        "target": {
-          "url": "",
-          "sku": ""
-        },
-        "bestbuy": {
-          "url": "",
-          "sku": ""
-        },
-        "amazon": {
-          "url": "",
-          "sku": ""
-        },
-        "pokemoncenter": {
-          "url": "",
-          "sku": ""
-        }
-      }
-    },
-    {
       "id": "tcg-625695",
       "name": "Team Rocket's Mewtwo ex Box",
       "category": "Collection Box",
@@ -3577,13 +3497,13 @@
       "tcgplayerId": 625695,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/625695/pokemon-miscellaneous-cards-and-products-team-rockets-mewtwo-ex-box",
       "market": {
-        "price": 55.07,
+        "price": 55.29,
         "low": 45,
-        "change7d": -0.035,
+        "change7d": -0.031,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 2.471,
+      "score": 2.49,
       "retailers": {
         "target": {
           "url": "",
@@ -3617,13 +3537,13 @@
       "tcgplayerId": 630442,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/630442/pokemon-sv-black-bolt-unova-mini-tin-lilligant-and-whimsicot",
       "market": {
-        "price": 28.98,
+        "price": 29.13,
         "low": 34,
-        "change7d": 0.048,
+        "change7d": 0.054,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 2.448,
+      "score": 2.472,
       "retailers": {
         "target": {
           "url": "",
@@ -3684,6 +3604,46 @@
       }
     },
     {
+      "id": "tcg-704182",
+      "name": "30th Celebration Mini Tin [Umbreon]",
+      "category": "Tin",
+      "set": "30th Celebration",
+      "tags": [],
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/704182_200w.jpg",
+      "msrp": 9.99,
+      "msrpEstimated": true,
+      "notes": "",
+      "releaseDate": "2026-10-02",
+      "tcgplayerId": 704182,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/704182/pokemon-me-30th-celebration-30th-celebration-mini-tin-umbreon",
+      "market": {
+        "price": 30.53,
+        "low": 22,
+        "change7d": -0.02,
+        "change30d": null,
+        "updatedAt": "2026-10-22"
+      },
+      "score": 2.437,
+      "retailers": {
+        "target": {
+          "url": "",
+          "sku": ""
+        },
+        "bestbuy": {
+          "url": "",
+          "sku": ""
+        },
+        "amazon": {
+          "url": "",
+          "sku": ""
+        },
+        "pokemoncenter": {
+          "url": "",
+          "sku": ""
+        }
+      }
+    },
+    {
       "id": "tcg-630438",
       "name": "Unova Mini Tin [Garbodor & Amoonguss]",
       "category": "Tin",
@@ -3704,86 +3664,6 @@
         "updatedAt": "2026-10-22"
       },
       "score": 2.384,
-      "retailers": {
-        "target": {
-          "url": "",
-          "sku": ""
-        },
-        "bestbuy": {
-          "url": "",
-          "sku": ""
-        },
-        "amazon": {
-          "url": "",
-          "sku": ""
-        },
-        "pokemoncenter": {
-          "url": "",
-          "sku": ""
-        }
-      }
-    },
-    {
-      "id": "tcg-679564",
-      "name": "Surging Sparks Booster Bundle (Retail)",
-      "category": "Booster Bundle",
-      "set": "Surging Sparks",
-      "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/679564_200w.jpg",
-      "msrp": 26.94,
-      "msrpEstimated": true,
-      "notes": "",
-      "releaseDate": "2024-11-08",
-      "tcgplayerId": 679564,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/679564/pokemon-sv08-surging-sparks-surging-sparks-booster-bundle-retail",
-      "market": {
-        "price": 58.27,
-        "low": 51.99,
-        "change7d": 0.049,
-        "change30d": null,
-        "updatedAt": "2026-10-22"
-      },
-      "score": 2.383,
-      "retailers": {
-        "target": {
-          "url": "",
-          "sku": ""
-        },
-        "bestbuy": {
-          "url": "",
-          "sku": ""
-        },
-        "amazon": {
-          "url": "",
-          "sku": ""
-        },
-        "pokemoncenter": {
-          "url": "",
-          "sku": ""
-        }
-      }
-    },
-    {
-      "id": "tcg-625670",
-      "name": "Destined Rivals Booster Bundle",
-      "category": "Booster Bundle",
-      "set": "Destined Rivals",
-      "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/625670_200w.jpg",
-      "msrp": 26.94,
-      "msrpEstimated": true,
-      "notes": "",
-      "releaseDate": "2025-05-30",
-      "tcgplayerId": 625670,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/625670/pokemon-sv10-destined-rivals-destined-rivals-booster-bundle",
-      "market": {
-        "price": 58.31,
-        "low": 44,
-        "change7d": 0.035,
-        "change30d": null,
-        "updatedAt": "2026-10-22"
-      },
-      "score": 2.357,
       "retailers": {
         "target": {
           "url": "",
@@ -3844,26 +3724,26 @@
       }
     },
     {
-      "id": "tcg-704146",
-      "name": "30th Celebration Tech Sticker Collection [Lucario]",
-      "category": "Collection Box",
-      "set": "30th Celebration",
+      "id": "tcg-679564",
+      "name": "Surging Sparks Booster Bundle (Retail)",
+      "category": "Booster Bundle",
+      "set": "Surging Sparks",
       "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/704146_200w.jpg",
-      "msrp": 14.99,
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/679564_200w.jpg",
+      "msrp": 26.94,
       "msrpEstimated": true,
       "notes": "",
-      "releaseDate": "2026-09-16",
-      "tcgplayerId": 704146,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/704146/pokemon-me-30th-celebration-30th-celebration-tech-sticker-collection-lucario",
+      "releaseDate": "2024-11-08",
+      "tcgplayerId": 679564,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/679564/pokemon-sv08-surging-sparks-surging-sparks-booster-bundle-retail",
       "market": {
-        "price": 36.84,
-        "low": 29.95,
-        "change7d": 0.071,
+        "price": 57.87,
+        "low": 53,
+        "change7d": 0.042,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 2.345,
+      "score": 2.349,
       "retailers": {
         "target": {
           "url": "",
@@ -3898,7 +3778,7 @@
       "tcgplayerUrl": "https://www.tcgplayer.com/product/704179/pokemon-me-30th-celebration-30th-celebration-mini-tin-lapras",
       "market": {
         "price": 26.53,
-        "low": 25,
+        "low": 22.23,
         "change7d": 0.092,
         "change30d": null,
         "updatedAt": "2026-10-22"
@@ -3924,106 +3804,26 @@
       }
     },
     {
-      "id": "tcg-593359",
-      "name": "Prismatic Evolutions Poster Collection",
-      "category": "Collection Box",
-      "set": "Prismatic Evolutions",
-      "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/593359_200w.jpg",
-      "msrp": 14.99,
-      "msrpEstimated": true,
-      "notes": "",
-      "releaseDate": "2025-01-17",
-      "tcgplayerId": 593359,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/593359/pokemon-sv-prismatic-evolutions-prismatic-evolutions-poster-collection",
-      "market": {
-        "price": 39.19,
-        "low": 36.99,
-        "change7d": -0.025,
-        "change30d": null,
-        "updatedAt": "2026-10-22"
-      },
-      "score": 2.313,
-      "retailers": {
-        "target": {
-          "url": "",
-          "sku": ""
-        },
-        "bestbuy": {
-          "url": "",
-          "sku": ""
-        },
-        "amazon": {
-          "url": "",
-          "sku": ""
-        },
-        "pokemoncenter": {
-          "url": "",
-          "sku": ""
-        }
-      }
-    },
-    {
-      "id": "tcg-628494",
-      "name": "Knock Out Collection [Chien-Pao]",
-      "category": "Collection Box",
-      "set": "Miscellaneous Cards & Products",
-      "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/628494_200w.jpg",
-      "msrp": 9.99,
-      "msrpEstimated": true,
-      "notes": "",
-      "releaseDate": "2026-10-21",
-      "tcgplayerId": 628494,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/628494/pokemon-miscellaneous-cards-and-products-knock-out-collection-chien-pao",
-      "market": {
-        "price": 26.92,
-        "low": 35.9,
-        "change7d": 0.054,
-        "change30d": null,
-        "updatedAt": "2026-10-22"
-      },
-      "score": 2.284,
-      "retailers": {
-        "target": {
-          "url": "",
-          "sku": ""
-        },
-        "bestbuy": {
-          "url": "",
-          "sku": ""
-        },
-        "amazon": {
-          "url": "",
-          "sku": ""
-        },
-        "pokemoncenter": {
-          "url": "",
-          "sku": ""
-        }
-      }
-    },
-    {
-      "id": "tcg-704145",
-      "name": "30th Celebration Tech Sticker Collection [Alolan Exeggutor]",
+      "id": "tcg-704146",
+      "name": "30th Celebration Tech Sticker Collection [Lucario]",
       "category": "Collection Box",
       "set": "30th Celebration",
       "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/704145_200w.jpg",
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/704146_200w.jpg",
       "msrp": 14.99,
       "msrpEstimated": true,
       "notes": "",
       "releaseDate": "2026-09-16",
-      "tcgplayerId": 704145,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/704145/pokemon-me-30th-celebration-30th-celebration-tech-sticker-collection-alolan-exeggutor",
+      "tcgplayerId": 704146,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/704146/pokemon-me-30th-celebration-30th-celebration-tech-sticker-collection-lucario",
       "market": {
-        "price": 35.32,
-        "low": 29.95,
-        "change7d": 0.093,
+        "price": 36.67,
+        "low": 33.99,
+        "change7d": 0.066,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 2.281,
+      "score": 2.323,
       "retailers": {
         "target": {
           "url": "",
@@ -4057,9 +3857,89 @@
       "tcgplayerId": 630444,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/630444/pokemon-sv-black-bolt-unova-mini-tin-alomomola-and-axew",
       "market": {
-        "price": 27.71,
+        "price": 27.89,
         "low": 30.48,
-        "change7d": 0.015,
+        "change7d": 0.022,
+        "change30d": null,
+        "updatedAt": "2026-10-22"
+      },
+      "score": 2.304,
+      "retailers": {
+        "target": {
+          "url": "",
+          "sku": ""
+        },
+        "bestbuy": {
+          "url": "",
+          "sku": ""
+        },
+        "amazon": {
+          "url": "",
+          "sku": ""
+        },
+        "pokemoncenter": {
+          "url": "",
+          "sku": ""
+        }
+      }
+    },
+    {
+      "id": "tcg-628494",
+      "name": "Knock Out Collection [Chien-Pao]",
+      "category": "Collection Box",
+      "set": "Miscellaneous Cards & Products",
+      "tags": [],
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/628494_200w.jpg",
+      "msrp": 9.99,
+      "msrpEstimated": true,
+      "notes": "",
+      "releaseDate": "2026-10-22",
+      "tcgplayerId": 628494,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/628494/pokemon-miscellaneous-cards-and-products-knock-out-collection-chien-pao",
+      "market": {
+        "price": 26.92,
+        "low": 35.9,
+        "change7d": 0.054,
+        "change30d": null,
+        "updatedAt": "2026-10-22"
+      },
+      "score": 2.284,
+      "retailers": {
+        "target": {
+          "url": "",
+          "sku": ""
+        },
+        "bestbuy": {
+          "url": "",
+          "sku": ""
+        },
+        "amazon": {
+          "url": "",
+          "sku": ""
+        },
+        "pokemoncenter": {
+          "url": "",
+          "sku": ""
+        }
+      }
+    },
+    {
+      "id": "tcg-625670",
+      "name": "Destined Rivals Booster Bundle",
+      "category": "Booster Bundle",
+      "set": "Destined Rivals",
+      "tags": [],
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/625670_200w.jpg",
+      "msrp": 26.94,
+      "msrpEstimated": true,
+      "notes": "",
+      "releaseDate": "2025-05-30",
+      "tcgplayerId": 625670,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/625670/pokemon-sv10-destined-rivals-destined-rivals-booster-bundle",
+      "market": {
+        "price": 57.37,
+        "low": 57.1,
+        "change7d": 0.018,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
@@ -4097,13 +3977,13 @@
       "tcgplayerId": 704183,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/704183/pokemon-me-30th-celebration-30th-celebration-mini-tin-mewtwo",
       "market": {
-        "price": 26.93,
-        "low": 24.95,
-        "change7d": 0.045,
+        "price": 26.82,
+        "low": 21.75,
+        "change7d": 0.04,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 2.267,
+      "score": 2.247,
       "retailers": {
         "target": {
           "url": "",
@@ -4137,13 +4017,93 @@
       "tcgplayerId": 712093,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/712093/pokemon-me06-delta-reign-delta-reign-3-pack-blister-seel",
       "market": {
-        "price": 37.32,
+        "price": 37.08,
         "low": 30.69,
-        "change7d": -0.118,
+        "change7d": -0.123,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 2.251,
+      "score": 2.224,
+      "retailers": {
+        "target": {
+          "url": "",
+          "sku": ""
+        },
+        "bestbuy": {
+          "url": "",
+          "sku": ""
+        },
+        "amazon": {
+          "url": "",
+          "sku": ""
+        },
+        "pokemoncenter": {
+          "url": "",
+          "sku": ""
+        }
+      }
+    },
+    {
+      "id": "tcg-593359",
+      "name": "Prismatic Evolutions Poster Collection",
+      "category": "Collection Box",
+      "set": "Prismatic Evolutions",
+      "tags": [],
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/593359_200w.jpg",
+      "msrp": 14.99,
+      "msrpEstimated": true,
+      "notes": "",
+      "releaseDate": "2025-01-17",
+      "tcgplayerId": 593359,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/593359/pokemon-sv-prismatic-evolutions-prismatic-evolutions-poster-collection",
+      "market": {
+        "price": 38.23,
+        "low": 37.5,
+        "change7d": -0.049,
+        "change30d": null,
+        "updatedAt": "2026-10-22"
+      },
+      "score": 2.201,
+      "retailers": {
+        "target": {
+          "url": "",
+          "sku": ""
+        },
+        "bestbuy": {
+          "url": "",
+          "sku": ""
+        },
+        "amazon": {
+          "url": "",
+          "sku": ""
+        },
+        "pokemoncenter": {
+          "url": "",
+          "sku": ""
+        }
+      }
+    },
+    {
+      "id": "tcg-704145",
+      "name": "30th Celebration Tech Sticker Collection [Alolan Exeggutor]",
+      "category": "Collection Box",
+      "set": "30th Celebration",
+      "tags": [],
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/704145_200w.jpg",
+      "msrp": 14.99,
+      "msrpEstimated": true,
+      "notes": "",
+      "releaseDate": "2026-09-16",
+      "tcgplayerId": 704145,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/704145/pokemon-me-30th-celebration-30th-celebration-tech-sticker-collection-alolan-exeggutor",
+      "market": {
+        "price": 34.42,
+        "low": 31,
+        "change7d": 0.065,
+        "change30d": null,
+        "updatedAt": "2026-10-22"
+      },
+      "score": 2.159,
       "retailers": {
         "target": {
           "url": "",
@@ -4177,13 +4137,13 @@
       "tcgplayerId": 704187,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/704187/pokemon-me-30th-celebration-30th-celebration-battle-deck-espeon-ex",
       "market": {
-        "price": 42.71,
+        "price": 42.35,
         "low": 40.25,
-        "change7d": -0.042,
+        "change7d": -0.05,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 2.194,
+      "score": 2.155,
       "retailers": {
         "target": {
           "url": "",
@@ -4217,133 +4177,13 @@
       "tcgplayerId": 630699,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/630699/pokemon-sv-white-flare-white-flare-booster-pack",
       "market": {
-        "price": 14.58,
-        "low": 11.99,
-        "change7d": 0,
+        "price": 14.45,
+        "low": 10,
+        "change7d": -0.009,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 2.188,
-      "retailers": {
-        "target": {
-          "url": "",
-          "sku": ""
-        },
-        "bestbuy": {
-          "url": "",
-          "sku": ""
-        },
-        "amazon": {
-          "url": "",
-          "sku": ""
-        },
-        "pokemoncenter": {
-          "url": "",
-          "sku": ""
-        }
-      }
-    },
-    {
-      "id": "tcg-630434",
-      "name": "Black Bolt Booster Pack",
-      "category": "Booster Pack",
-      "set": "Black Bolt",
-      "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/630434_200w.jpg",
-      "msrp": 4.49,
-      "msrpEstimated": true,
-      "notes": "",
-      "releaseDate": "2025-07-18",
-      "tcgplayerId": 630434,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/630434/pokemon-sv-black-bolt-black-bolt-booster-pack",
-      "market": {
-        "price": 14.67,
-        "low": 12,
-        "change7d": -0.011,
-        "change30d": null,
-        "updatedAt": "2026-10-22"
-      },
-      "score": 2.179,
-      "retailers": {
-        "target": {
-          "url": "",
-          "sku": ""
-        },
-        "bestbuy": {
-          "url": "",
-          "sku": ""
-        },
-        "amazon": {
-          "url": "",
-          "sku": ""
-        },
-        "pokemoncenter": {
-          "url": "",
-          "sku": ""
-        }
-      }
-    },
-    {
-      "id": "tcg-593453",
-      "name": "Prismatic Evolutions Tech Sticker Collection [Leafeon]",
-      "category": "Collection Box",
-      "set": "Prismatic Evolutions",
-      "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/593453_200w.jpg",
-      "msrp": 14.99,
-      "msrpEstimated": true,
-      "notes": "",
-      "releaseDate": "2025-01-17",
-      "tcgplayerId": 593453,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/593453/pokemon-sv-prismatic-evolutions-prismatic-evolutions-tech-sticker-collection-leafeon",
-      "market": {
-        "price": 38.5,
-        "low": 34.99,
-        "change7d": -0.076,
-        "change30d": null,
-        "updatedAt": "2026-10-22"
-      },
-      "score": 2.165,
-      "retailers": {
-        "target": {
-          "url": "",
-          "sku": ""
-        },
-        "bestbuy": {
-          "url": "",
-          "sku": ""
-        },
-        "amazon": {
-          "url": "",
-          "sku": ""
-        },
-        "pokemoncenter": {
-          "url": "",
-          "sku": ""
-        }
-      }
-    },
-    {
-      "id": "tcg-704176",
-      "name": "30th Celebration Mini Tin [Espeon]",
-      "category": "Tin",
-      "set": "30th Celebration",
-      "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/704176_200w.jpg",
-      "msrp": 9.99,
-      "msrpEstimated": true,
-      "notes": "",
-      "releaseDate": "2026-10-02",
-      "tcgplayerId": 704176,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/704176/pokemon-me-30th-celebration-30th-celebration-mini-tin-espeon",
-      "market": {
-        "price": 27.39,
-        "low": 26.47,
-        "change7d": -0.031,
-        "change30d": null,
-        "updatedAt": "2026-10-22"
-      },
-      "score": 2.155,
+      "score": 2.152,
       "retailers": {
         "target": {
           "url": "",
@@ -4377,13 +4217,13 @@
       "tcgplayerId": 704184,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/704184/pokemon-me-30th-celebration-30th-celebration-mini-tin-night-pikachu",
       "market": {
-        "price": 25.6,
-        "low": 23.41,
-        "change7d": 0.047,
+        "price": 25.58,
+        "low": 21.75,
+        "change7d": 0.046,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 2.151,
+      "score": 2.148,
       "retailers": {
         "target": {
           "url": "",
@@ -4404,26 +4244,26 @@
       }
     },
     {
-      "id": "tcg-593294",
-      "name": "Prismatic Evolutions Booster Pack",
+      "id": "tcg-630434",
+      "name": "Black Bolt Booster Pack",
       "category": "Booster Pack",
-      "set": "Prismatic Evolutions",
+      "set": "Black Bolt",
       "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/593294_200w.jpg",
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/630434_200w.jpg",
       "msrp": 4.49,
       "msrpEstimated": true,
       "notes": "",
-      "releaseDate": "2025-01-17",
-      "tcgplayerId": 593294,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/593294/pokemon-sv-prismatic-evolutions-prismatic-evolutions-booster-pack",
+      "releaseDate": "2025-07-18",
+      "tcgplayerId": 630434,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/630434/pokemon-sv-black-bolt-black-bolt-booster-pack",
       "market": {
-        "price": 14.02,
-        "low": 11.99,
-        "change7d": 0.02,
+        "price": 14.55,
+        "low": 12,
+        "change7d": -0.019,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 2.149,
+      "score": 2.146,
       "retailers": {
         "target": {
           "url": "",
@@ -4497,13 +4337,133 @@
       "tcgplayerId": 704181,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/704181/pokemon-me-30th-celebration-30th-celebration-mini-tin-zapdos",
       "market": {
-        "price": 25.78,
-        "low": 20,
-        "change7d": 0.021,
+        "price": 25.82,
+        "low": 19.75,
+        "change7d": 0.023,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 2.116,
+      "score": 2.124,
+      "retailers": {
+        "target": {
+          "url": "",
+          "sku": ""
+        },
+        "bestbuy": {
+          "url": "",
+          "sku": ""
+        },
+        "amazon": {
+          "url": "",
+          "sku": ""
+        },
+        "pokemoncenter": {
+          "url": "",
+          "sku": ""
+        }
+      }
+    },
+    {
+      "id": "tcg-593294",
+      "name": "Prismatic Evolutions Booster Pack",
+      "category": "Booster Pack",
+      "set": "Prismatic Evolutions",
+      "tags": [],
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/593294_200w.jpg",
+      "msrp": 4.49,
+      "msrpEstimated": true,
+      "notes": "",
+      "releaseDate": "2025-01-17",
+      "tcgplayerId": 593294,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/593294/pokemon-sv-prismatic-evolutions-prismatic-evolutions-booster-pack",
+      "market": {
+        "price": 13.91,
+        "low": 11.99,
+        "change7d": 0.012,
+        "change30d": null,
+        "updatedAt": "2026-10-22"
+      },
+      "score": 2.117,
+      "retailers": {
+        "target": {
+          "url": "",
+          "sku": ""
+        },
+        "bestbuy": {
+          "url": "",
+          "sku": ""
+        },
+        "amazon": {
+          "url": "",
+          "sku": ""
+        },
+        "pokemoncenter": {
+          "url": "",
+          "sku": ""
+        }
+      }
+    },
+    {
+      "id": "tcg-593453",
+      "name": "Prismatic Evolutions Tech Sticker Collection [Leafeon]",
+      "category": "Collection Box",
+      "set": "Prismatic Evolutions",
+      "tags": [],
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/593453_200w.jpg",
+      "msrp": 14.99,
+      "msrpEstimated": true,
+      "notes": "",
+      "releaseDate": "2025-01-17",
+      "tcgplayerId": 593453,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/593453/pokemon-sv-prismatic-evolutions-prismatic-evolutions-tech-sticker-collection-leafeon",
+      "market": {
+        "price": 38.08,
+        "low": 37,
+        "change7d": -0.086,
+        "change30d": null,
+        "updatedAt": "2026-10-22"
+      },
+      "score": 2.117,
+      "retailers": {
+        "target": {
+          "url": "",
+          "sku": ""
+        },
+        "bestbuy": {
+          "url": "",
+          "sku": ""
+        },
+        "amazon": {
+          "url": "",
+          "sku": ""
+        },
+        "pokemoncenter": {
+          "url": "",
+          "sku": ""
+        }
+      }
+    },
+    {
+      "id": "tcg-704176",
+      "name": "30th Celebration Mini Tin [Espeon]",
+      "category": "Tin",
+      "set": "30th Celebration",
+      "tags": [],
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/704176_200w.jpg",
+      "msrp": 9.99,
+      "msrpEstimated": true,
+      "notes": "",
+      "releaseDate": "2026-10-02",
+      "tcgplayerId": 704176,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/704176/pokemon-me-30th-celebration-30th-celebration-mini-tin-espeon",
+      "market": {
+        "price": 27.03,
+        "low": 21.75,
+        "change7d": -0.044,
+        "change30d": null,
+        "updatedAt": "2026-10-22"
+      },
+      "score": 2.098,
       "retailers": {
         "target": {
           "url": "",
@@ -4533,7 +4493,7 @@
       "msrp": 9.99,
       "msrpEstimated": true,
       "notes": "",
-      "releaseDate": "2026-10-21",
+      "releaseDate": "2026-10-22",
       "tcgplayerId": 628493,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/628493/pokemon-miscellaneous-cards-and-products-knock-out-collection-alakazam",
       "market": {
@@ -4564,26 +4524,26 @@
       }
     },
     {
-      "id": "tcg-654145",
-      "name": "Phantasmal Flames Sleeved Booster Pack",
-      "category": "Booster Pack",
-      "set": "Phantasmal Flames",
+      "id": "tcg-704153",
+      "name": "30th Celebration Poster Collection",
+      "category": "Collection Box",
+      "set": "30th Celebration",
       "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/654145_200w.jpg",
-      "msrp": 4.49,
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/704153_200w.jpg",
+      "msrp": 14.99,
       "msrpEstimated": true,
       "notes": "",
-      "releaseDate": "2025-11-14",
-      "tcgplayerId": 654145,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/654145/pokemon-me02-phantasmal-flames-phantasmal-flames-sleeved-booster-pack",
+      "releaseDate": "2026-09-16",
+      "tcgplayerId": 704153,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/704153/pokemon-me-30th-celebration-30th-celebration-poster-collection",
       "market": {
-        "price": 13.97,
-        "low": 10.5,
-        "change7d": -0.016,
+        "price": 33.4,
+        "low": 24.99,
+        "change7d": 0.058,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 2.069,
+      "score": 2.068,
       "retailers": {
         "target": {
           "url": "",
@@ -4617,13 +4577,13 @@
       "tcgplayerId": 644356,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/644356/pokemon-me01-mega-evolution-mega-evolution-3-pack-blister-golduck",
       "market": {
-        "price": 34.92,
-        "low": 33.99,
-        "change7d": 0,
+        "price": 34.8,
+        "low": 35.79,
+        "change7d": -0.003,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 2.066,
+      "score": 2.051,
       "retailers": {
         "target": {
           "url": "",
@@ -4657,13 +4617,53 @@
       "tcgplayerId": 704177,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/704177/pokemon-me-30th-celebration-30th-celebration-mini-tin-day-pikachu",
       "market": {
-        "price": 25.57,
-        "low": 25,
+        "price": 25.58,
+        "low": 22.57,
         "change7d": -0.016,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 2.023,
+      "score": 2.024,
+      "retailers": {
+        "target": {
+          "url": "",
+          "sku": ""
+        },
+        "bestbuy": {
+          "url": "",
+          "sku": ""
+        },
+        "amazon": {
+          "url": "",
+          "sku": ""
+        },
+        "pokemoncenter": {
+          "url": "",
+          "sku": ""
+        }
+      }
+    },
+    {
+      "id": "tcg-654145",
+      "name": "Phantasmal Flames Sleeved Booster Pack",
+      "category": "Booster Pack",
+      "set": "Phantasmal Flames",
+      "tags": [],
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/654145_200w.jpg",
+      "msrp": 4.49,
+      "msrpEstimated": true,
+      "notes": "",
+      "releaseDate": "2025-11-14",
+      "tcgplayerId": 654145,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/654145/pokemon-me02-phantasmal-flames-phantasmal-flames-sleeved-booster-pack",
+      "market": {
+        "price": 13.81,
+        "low": 10.5,
+        "change7d": -0.027,
+        "change30d": null,
+        "updatedAt": "2026-10-22"
+      },
+      "score": 2.024,
       "retailers": {
         "target": {
           "url": "",
@@ -4693,7 +4693,7 @@
       "msrp": 9.99,
       "msrpEstimated": true,
       "notes": "",
-      "releaseDate": "2026-10-21",
+      "releaseDate": "2026-10-22",
       "tcgplayerId": 603323,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/603323/pokemon-miscellaneous-cards-and-products-knock-out-collection-iron-jugulis",
       "market": {
@@ -4777,13 +4777,13 @@
       "tcgplayerId": 704185,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/704185/pokemon-me-30th-celebration-30th-celebration-mini-tin-greninja",
       "market": {
-        "price": 23.96,
-        "low": 23.99,
-        "change7d": 0.016,
+        "price": 24.08,
+        "low": 21.5,
+        "change7d": 0.021,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 1.935,
+      "score": 1.956,
       "retailers": {
         "target": {
           "url": "",
@@ -4813,17 +4813,57 @@
       "msrp": 21.99,
       "msrpEstimated": true,
       "notes": "",
-      "releaseDate": "2026-10-21",
+      "releaseDate": "2026-10-22",
       "tcgplayerId": 666512,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/666512/pokemon-miscellaneous-cards-and-products-reshiram-ex-box",
       "market": {
         "price": 42.94,
-        "low": 49.49,
+        "low": 44.66,
         "change7d": 0.023,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
       "score": 1.89,
+      "retailers": {
+        "target": {
+          "url": "",
+          "sku": ""
+        },
+        "bestbuy": {
+          "url": "",
+          "sku": ""
+        },
+        "amazon": {
+          "url": "",
+          "sku": ""
+        },
+        "pokemoncenter": {
+          "url": "",
+          "sku": ""
+        }
+      }
+    },
+    {
+      "id": "tcg-704152",
+      "name": "30th Celebration Knock Out Collection",
+      "category": "Collection Box",
+      "set": "30th Celebration",
+      "tags": [],
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/704152_200w.jpg",
+      "msrp": 9.99,
+      "msrpEstimated": true,
+      "notes": "",
+      "releaseDate": "2026-09-16",
+      "tcgplayerId": 704152,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/704152/pokemon-me-30th-celebration-30th-celebration-knock-out-collection",
+      "market": {
+        "price": 24.45,
+        "low": 16.35,
+        "change7d": -0.058,
+        "change30d": null,
+        "updatedAt": "2026-10-22"
+      },
+      "score": 1.834,
       "retailers": {
         "target": {
           "url": "",
@@ -4884,26 +4924,66 @@
       }
     },
     {
-      "id": "tcg-704152",
-      "name": "30th Celebration Knock Out Collection",
-      "category": "Collection Box",
-      "set": "30th Celebration",
+      "id": "tcg-610931",
+      "name": "Journey Together Booster Box",
+      "category": "Booster Box",
+      "set": "Journey Together",
       "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/704152_200w.jpg",
-      "msrp": 9.99,
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/610931_200w.jpg",
+      "msrp": 161.64,
       "msrpEstimated": true,
       "notes": "",
-      "releaseDate": "2026-09-16",
-      "tcgplayerId": 704152,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/704152/pokemon-me-30th-celebration-30th-celebration-knock-out-collection",
+      "releaseDate": "2025-03-28",
+      "tcgplayerId": 610931,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/610931/pokemon-sv09-journey-together-journey-together-booster-box",
       "market": {
-        "price": 24.18,
-        "low": 18.95,
-        "change7d": -0.069,
+        "price": 202.71,
+        "low": 195,
+        "change7d": 0.05,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 1.786,
+      "score": 1.829,
+      "retailers": {
+        "target": {
+          "url": "",
+          "sku": ""
+        },
+        "bestbuy": {
+          "url": "",
+          "sku": ""
+        },
+        "amazon": {
+          "url": "",
+          "sku": ""
+        },
+        "pokemoncenter": {
+          "url": "",
+          "sku": ""
+        }
+      }
+    },
+    {
+      "id": "tcg-696613",
+      "name": "30th Celebration Booster Pack",
+      "category": "Booster Pack",
+      "set": "30th Celebration",
+      "tags": [],
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/696613_200w.jpg",
+      "msrp": 4.49,
+      "msrpEstimated": true,
+      "notes": "",
+      "releaseDate": "2026-09-16",
+      "tcgplayerId": 696613,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/696613/pokemon-me-30th-celebration-30th-celebration-booster-pack",
+      "market": {
+        "price": 11.76,
+        "low": 10,
+        "change7d": 0.015,
+        "change30d": null,
+        "updatedAt": "2026-10-22"
+      },
+      "score": 1.787,
       "retailers": {
         "target": {
           "url": "",
@@ -5004,46 +5084,6 @@
       }
     },
     {
-      "id": "tcg-666908",
-      "name": "Mega Evolution: Ascended Heroes Tech Sticker Collection - Charmander",
-      "category": "Collection Box",
-      "set": "Ascended Heroes",
-      "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/666908_200w.jpg",
-      "msrp": 14.99,
-      "msrpEstimated": true,
-      "notes": "",
-      "releaseDate": "2026-01-30",
-      "tcgplayerId": 666908,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/666908/pokemon-me-ascended-heroes-mega-evolution-ascended-heroes-tech-sticker-collection-charmander",
-      "market": {
-        "price": 33.01,
-        "low": 29,
-        "change7d": -0.088,
-        "change30d": null,
-        "updatedAt": "2026-10-22"
-      },
-      "score": 1.746,
-      "retailers": {
-        "target": {
-          "url": "",
-          "sku": ""
-        },
-        "bestbuy": {
-          "url": "",
-          "sku": ""
-        },
-        "amazon": {
-          "url": "",
-          "sku": ""
-        },
-        "pokemoncenter": {
-          "url": "",
-          "sku": ""
-        }
-      }
-    },
-    {
       "id": "tcg-565602",
       "name": "Surging Sparks Sleeved Booster Pack",
       "category": "Booster Pack",
@@ -5084,26 +5124,26 @@
       }
     },
     {
-      "id": "tcg-610931",
-      "name": "Journey Together Booster Box",
-      "category": "Booster Box",
-      "set": "Journey Together",
+      "id": "tcg-666909",
+      "name": "Mega Evolution: Ascended Heroes Tech Sticker Collection - Gastly",
+      "category": "Collection Box",
+      "set": "Ascended Heroes",
       "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/610931_200w.jpg",
-      "msrp": 161.64,
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/666909_200w.jpg",
+      "msrp": 14.99,
       "msrpEstimated": true,
       "notes": "",
-      "releaseDate": "2025-03-28",
-      "tcgplayerId": 610931,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/610931/pokemon-sv09-journey-together-journey-together-booster-box",
+      "releaseDate": "2026-01-30",
+      "tcgplayerId": 666909,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/666909/pokemon-me-ascended-heroes-mega-evolution-ascended-heroes-tech-sticker-collection-gastly",
       "market": {
-        "price": 199.53,
-        "low": 195,
-        "change7d": 0.033,
+        "price": 32.44,
+        "low": 22.99,
+        "change7d": -0.081,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 1.701,
+      "score": 1.716,
       "retailers": {
         "target": {
           "url": "",
@@ -5124,26 +5164,26 @@
       }
     },
     {
-      "id": "tcg-666909",
-      "name": "Mega Evolution: Ascended Heroes Tech Sticker Collection - Gastly",
+      "id": "tcg-575897",
+      "name": "Bloodmoon Ursaluna ex Box",
       "category": "Collection Box",
-      "set": "Ascended Heroes",
+      "set": "Miscellaneous Cards & Products",
       "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/666909_200w.jpg",
-      "msrp": 14.99,
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/575897_200w.jpg",
+      "msrp": 21.99,
       "msrpEstimated": true,
       "notes": "",
-      "releaseDate": "2026-01-30",
-      "tcgplayerId": 666909,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/666909/pokemon-me-ascended-heroes-mega-evolution-ascended-heroes-tech-sticker-collection-gastly",
+      "releaseDate": "2024-11-15",
+      "tcgplayerId": 575897,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/575897/pokemon-miscellaneous-cards-and-products-bloodmoon-ursaluna-ex-box",
       "market": {
-        "price": 31.92,
-        "low": 22.99,
-        "change7d": -0.096,
+        "price": 39.78,
+        "low": 37.99,
+        "change7d": 0.031,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 1.645,
+      "score": 1.693,
       "retailers": {
         "target": {
           "url": "",
@@ -5177,13 +5217,133 @@
       "tcgplayerId": 654144,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/654144/pokemon-me02-phantasmal-flames-phantasmal-flames-booster-pack",
       "market": {
-        "price": 11.54,
+        "price": 11.62,
         "low": 9.99,
-        "change7d": -0.053,
+        "change7d": -0.046,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 1.614,
+      "score": 1.642,
+      "retailers": {
+        "target": {
+          "url": "",
+          "sku": ""
+        },
+        "bestbuy": {
+          "url": "",
+          "sku": ""
+        },
+        "amazon": {
+          "url": "",
+          "sku": ""
+        },
+        "pokemoncenter": {
+          "url": "",
+          "sku": ""
+        }
+      }
+    },
+    {
+      "id": "tcg-666908",
+      "name": "Mega Evolution: Ascended Heroes Tech Sticker Collection - Charmander",
+      "category": "Collection Box",
+      "set": "Ascended Heroes",
+      "tags": [],
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/666908_200w.jpg",
+      "msrp": 14.99,
+      "msrpEstimated": true,
+      "notes": "",
+      "releaseDate": "2026-01-30",
+      "tcgplayerId": 666908,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/666908/pokemon-me-ascended-heroes-mega-evolution-ascended-heroes-tech-sticker-collection-charmander",
+      "market": {
+        "price": 32.19,
+        "low": 29,
+        "change7d": -0.11,
+        "change30d": null,
+        "updatedAt": "2026-10-22"
+      },
+      "score": 1.638,
+      "retailers": {
+        "target": {
+          "url": "",
+          "sku": ""
+        },
+        "bestbuy": {
+          "url": "",
+          "sku": ""
+        },
+        "amazon": {
+          "url": "",
+          "sku": ""
+        },
+        "pokemoncenter": {
+          "url": "",
+          "sku": ""
+        }
+      }
+    },
+    {
+      "id": "tcg-692947",
+      "name": "Pitch Black Elite Trainer Box",
+      "category": "Elite Trainer Box",
+      "set": "Pitch Black",
+      "tags": [],
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/692947_200w.jpg",
+      "msrp": 49.99,
+      "msrpEstimated": true,
+      "notes": "",
+      "releaseDate": "2026-07-17",
+      "tcgplayerId": 692947,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/692947/pokemon-me05-pitch-black-pitch-black-elite-trainer-box",
+      "market": {
+        "price": 76.59,
+        "low": 61.99,
+        "change7d": -0.018,
+        "change30d": null,
+        "updatedAt": "2026-10-22"
+      },
+      "score": 1.625,
+      "retailers": {
+        "target": {
+          "url": "",
+          "sku": ""
+        },
+        "bestbuy": {
+          "url": "",
+          "sku": ""
+        },
+        "amazon": {
+          "url": "",
+          "sku": ""
+        },
+        "pokemoncenter": {
+          "url": "",
+          "sku": ""
+        }
+      }
+    },
+    {
+      "id": "tcg-662745",
+      "name": "Black Kyurem ex Box",
+      "category": "Collection Box",
+      "set": "Miscellaneous Cards & Products",
+      "tags": [],
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/662745_200w.jpg",
+      "msrp": 21.99,
+      "msrpEstimated": true,
+      "notes": "",
+      "releaseDate": "2026-10-22",
+      "tcgplayerId": 662745,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/662745/pokemon-miscellaneous-cards-and-products-black-kyurem-ex-box",
+      "market": {
+        "price": 39.24,
+        "low": 39.69,
+        "change7d": 0.012,
+        "change30d": null,
+        "updatedAt": "2026-10-22"
+      },
+      "score": 1.617,
       "retailers": {
         "target": {
           "url": "",
@@ -5213,7 +5373,7 @@
       "msrp": 21.99,
       "msrpEstimated": true,
       "notes": "",
-      "releaseDate": "2026-10-21",
+      "releaseDate": "2026-10-22",
       "tcgplayerId": 656955,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/656955/pokemon-miscellaneous-cards-and-products-archaludon-ex-box",
       "market": {
@@ -5364,86 +5524,6 @@
       }
     },
     {
-      "id": "tcg-575897",
-      "name": "Bloodmoon Ursaluna ex Box",
-      "category": "Collection Box",
-      "set": "Miscellaneous Cards & Products",
-      "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/575897_200w.jpg",
-      "msrp": 21.99,
-      "msrpEstimated": true,
-      "notes": "",
-      "releaseDate": "2024-11-15",
-      "tcgplayerId": 575897,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/575897/pokemon-miscellaneous-cards-and-products-bloodmoon-ursaluna-ex-box",
-      "market": {
-        "price": 38.58,
-        "low": 37.99,
-        "change7d": 0,
-        "change30d": null,
-        "updatedAt": "2026-10-22"
-      },
-      "score": 1.545,
-      "retailers": {
-        "target": {
-          "url": "",
-          "sku": ""
-        },
-        "bestbuy": {
-          "url": "",
-          "sku": ""
-        },
-        "amazon": {
-          "url": "",
-          "sku": ""
-        },
-        "pokemoncenter": {
-          "url": "",
-          "sku": ""
-        }
-      }
-    },
-    {
-      "id": "tcg-696613",
-      "name": "30th Celebration Booster Pack",
-      "category": "Booster Pack",
-      "set": "30th Celebration",
-      "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/696613_200w.jpg",
-      "msrp": 4.49,
-      "msrpEstimated": true,
-      "notes": "",
-      "releaseDate": "2026-09-16",
-      "tcgplayerId": 696613,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/696613/pokemon-me-30th-celebration-30th-celebration-booster-pack",
-      "market": {
-        "price": 11.02,
-        "low": 9.5,
-        "change7d": -0.049,
-        "change30d": null,
-        "updatedAt": "2026-10-22"
-      },
-      "score": 1.532,
-      "retailers": {
-        "target": {
-          "url": "",
-          "sku": ""
-        },
-        "bestbuy": {
-          "url": "",
-          "sku": ""
-        },
-        "amazon": {
-          "url": "",
-          "sku": ""
-        },
-        "pokemoncenter": {
-          "url": "",
-          "sku": ""
-        }
-      }
-    },
-    {
       "id": "tcg-623015",
       "name": "Rival Battle Deck [Steven]",
       "category": "Other",
@@ -5457,13 +5537,53 @@
       "tcgplayerId": 623015,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/623015/pokemon-miscellaneous-cards-and-products-rival-battle-deck-steven",
       "market": {
-        "price": 35.25,
+        "price": 35.53,
         "low": 34,
-        "change7d": 0.008,
+        "change7d": 0.016,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 1.522,
+      "score": 1.559,
+      "retailers": {
+        "target": {
+          "url": "",
+          "sku": ""
+        },
+        "bestbuy": {
+          "url": "",
+          "sku": ""
+        },
+        "amazon": {
+          "url": "",
+          "sku": ""
+        },
+        "pokemoncenter": {
+          "url": "",
+          "sku": ""
+        }
+      }
+    },
+    {
+      "id": "tcg-662750",
+      "name": "Melmetal ex Box",
+      "category": "Collection Box",
+      "set": "Miscellaneous Cards & Products",
+      "tags": [],
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/662750_200w.jpg",
+      "msrp": 21.99,
+      "msrpEstimated": true,
+      "notes": "",
+      "releaseDate": "2026-10-22",
+      "tcgplayerId": 662750,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/662750/pokemon-miscellaneous-cards-and-products-melmetal-ex-box",
+      "market": {
+        "price": 37.47,
+        "low": 30,
+        "change7d": 0.01,
+        "change30d": null,
+        "updatedAt": "2026-10-22"
+      },
+      "score": 1.484,
       "retailers": {
         "target": {
           "url": "",
@@ -5524,86 +5644,6 @@
       }
     },
     {
-      "id": "tcg-662745",
-      "name": "Black Kyurem ex Box",
-      "category": "Collection Box",
-      "set": "Miscellaneous Cards & Products",
-      "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/662745_200w.jpg",
-      "msrp": 21.99,
-      "msrpEstimated": true,
-      "notes": "",
-      "releaseDate": "2026-10-21",
-      "tcgplayerId": 662745,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/662745/pokemon-miscellaneous-cards-and-products-black-kyurem-ex-box",
-      "market": {
-        "price": 38.16,
-        "low": 39.99,
-        "change7d": -0.016,
-        "change30d": null,
-        "updatedAt": "2026-10-22"
-      },
-      "score": 1.483,
-      "retailers": {
-        "target": {
-          "url": "",
-          "sku": ""
-        },
-        "bestbuy": {
-          "url": "",
-          "sku": ""
-        },
-        "amazon": {
-          "url": "",
-          "sku": ""
-        },
-        "pokemoncenter": {
-          "url": "",
-          "sku": ""
-        }
-      }
-    },
-    {
-      "id": "tcg-692947",
-      "name": "Pitch Black Elite Trainer Box",
-      "category": "Elite Trainer Box",
-      "set": "Pitch Black",
-      "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/692947_200w.jpg",
-      "msrp": 49.99,
-      "msrpEstimated": true,
-      "notes": "",
-      "releaseDate": "2026-07-17",
-      "tcgplayerId": 692947,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/692947/pokemon-me05-pitch-black-pitch-black-elite-trainer-box",
-      "market": {
-        "price": 74.56,
-        "low": 61.99,
-        "change7d": -0.044,
-        "change30d": null,
-        "updatedAt": "2026-10-22"
-      },
-      "score": 1.476,
-      "retailers": {
-        "target": {
-          "url": "",
-          "sku": ""
-        },
-        "bestbuy": {
-          "url": "",
-          "sku": ""
-        },
-        "amazon": {
-          "url": "",
-          "sku": ""
-        },
-        "pokemoncenter": {
-          "url": "",
-          "sku": ""
-        }
-      }
-    },
-    {
       "id": "tcg-610948",
       "name": "Journey Together 3 Pack Blister [Scrafty]",
       "category": "Booster Pack",
@@ -5624,46 +5664,6 @@
         "updatedAt": "2026-10-22"
       },
       "score": 1.448,
-      "retailers": {
-        "target": {
-          "url": "",
-          "sku": ""
-        },
-        "bestbuy": {
-          "url": "",
-          "sku": ""
-        },
-        "amazon": {
-          "url": "",
-          "sku": ""
-        },
-        "pokemoncenter": {
-          "url": "",
-          "sku": ""
-        }
-      }
-    },
-    {
-      "id": "tcg-662750",
-      "name": "Melmetal ex Box",
-      "category": "Collection Box",
-      "set": "Miscellaneous Cards & Products",
-      "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/662750_200w.jpg",
-      "msrp": 21.99,
-      "msrpEstimated": true,
-      "notes": "",
-      "releaseDate": "2026-10-21",
-      "tcgplayerId": 662750,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/662750/pokemon-miscellaneous-cards-and-products-melmetal-ex-box",
-      "market": {
-        "price": 37.1,
-        "low": 30,
-        "change7d": 0,
-        "change30d": null,
-        "updatedAt": "2026-10-22"
-      },
-      "score": 1.437,
       "retailers": {
         "target": {
           "url": "",
@@ -5724,26 +5724,26 @@
       }
     },
     {
-      "id": "tcg-712099",
-      "name": "Delta Reign Booster Pack",
+      "id": "tcg-624684",
+      "name": "Destined Rivals Sleeved Booster Pack",
       "category": "Booster Pack",
-      "set": "Delta Reign",
+      "set": "Destined Rivals",
       "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/712099_200w.jpg",
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/624684_200w.jpg",
       "msrp": 4.49,
       "msrpEstimated": true,
       "notes": "",
-      "releaseDate": "2026-11-06",
-      "tcgplayerId": 712099,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/712099/pokemon-me06-delta-reign-delta-reign-booster-pack",
+      "releaseDate": "2025-05-30",
+      "tcgplayerId": 624684,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/624684/pokemon-sv10-destined-rivals-destined-rivals-sleeved-booster-pack",
       "market": {
-        "price": 10.84,
-        "low": 9.53,
-        "change7d": -0.219,
+        "price": 9.94,
+        "low": 8.2,
+        "change7d": -0.023,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 1.41,
+      "score": 1.385,
       "retailers": {
         "target": {
           "url": "",
@@ -5777,93 +5777,13 @@
       "tcgplayerId": 684450,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/684450/pokemon-me04-chaos-rising-chaos-rising-elite-trainer-box",
       "market": {
-        "price": 70.71,
+        "price": 70.42,
         "low": 50,
-        "change7d": 0.016,
+        "change7d": 0.012,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 1.403,
-      "retailers": {
-        "target": {
-          "url": "",
-          "sku": ""
-        },
-        "bestbuy": {
-          "url": "",
-          "sku": ""
-        },
-        "amazon": {
-          "url": "",
-          "sku": ""
-        },
-        "pokemoncenter": {
-          "url": "",
-          "sku": ""
-        }
-      }
-    },
-    {
-      "id": "tcg-624684",
-      "name": "Destined Rivals Sleeved Booster Pack",
-      "category": "Booster Pack",
-      "set": "Destined Rivals",
-      "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/624684_200w.jpg",
-      "msrp": 4.49,
-      "msrpEstimated": true,
-      "notes": "",
-      "releaseDate": "2025-05-30",
-      "tcgplayerId": 624684,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/624684/pokemon-sv10-destined-rivals-destined-rivals-sleeved-booster-pack",
-      "market": {
-        "price": 9.92,
-        "low": 8.2,
-        "change7d": -0.025,
-        "change30d": null,
-        "updatedAt": "2026-10-22"
-      },
-      "score": 1.377,
-      "retailers": {
-        "target": {
-          "url": "",
-          "sku": ""
-        },
-        "bestbuy": {
-          "url": "",
-          "sku": ""
-        },
-        "amazon": {
-          "url": "",
-          "sku": ""
-        },
-        "pokemoncenter": {
-          "url": "",
-          "sku": ""
-        }
-      }
-    },
-    {
-      "id": "tcg-610953",
-      "name": "Journey Together Booster Bundle",
-      "category": "Booster Bundle",
-      "set": "Journey Together",
-      "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/610953_200w.jpg",
-      "msrp": 26.94,
-      "msrpEstimated": true,
-      "notes": "",
-      "releaseDate": "2025-03-28",
-      "tcgplayerId": 610953,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/610953/pokemon-sv09-journey-together-journey-together-booster-bundle",
-      "market": {
-        "price": 43.09,
-        "low": 31.99,
-        "change7d": -0.014,
-        "change30d": null,
-        "updatedAt": "2026-10-22"
-      },
-      "score": 1.369,
+      "score": 1.38,
       "retailers": {
         "target": {
           "url": "",
@@ -5924,6 +5844,46 @@
       }
     },
     {
+      "id": "tcg-610953",
+      "name": "Journey Together Booster Bundle",
+      "category": "Booster Bundle",
+      "set": "Journey Together",
+      "tags": [],
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/610953_200w.jpg",
+      "msrp": 26.94,
+      "msrpEstimated": true,
+      "notes": "",
+      "releaseDate": "2025-03-28",
+      "tcgplayerId": 610953,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/610953/pokemon-sv09-journey-together-journey-together-booster-bundle",
+      "market": {
+        "price": 42.97,
+        "low": 31.99,
+        "change7d": -0.017,
+        "change30d": null,
+        "updatedAt": "2026-10-22"
+      },
+      "score": 1.354,
+      "retailers": {
+        "target": {
+          "url": "",
+          "sku": ""
+        },
+        "bestbuy": {
+          "url": "",
+          "sku": ""
+        },
+        "amazon": {
+          "url": "",
+          "sku": ""
+        },
+        "pokemoncenter": {
+          "url": "",
+          "sku": ""
+        }
+      }
+    },
+    {
       "id": "tcg-672434",
       "name": "Ascended Heroes Booster Pack",
       "category": "Booster Pack",
@@ -5937,13 +5897,13 @@
       "tcgplayerId": 672434,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/672434/pokemon-me-ascended-heroes-ascended-heroes-booster-pack",
       "market": {
-        "price": 10.33,
+        "price": 10.34,
         "low": 8.5,
         "change7d": -0.087,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 1.331,
+      "score": 1.333,
       "retailers": {
         "target": {
           "url": "",
@@ -5977,13 +5937,13 @@
       "tcgplayerId": 644352,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/644352/pokemon-me01-mega-evolution-mega-evolution-booster-pack",
       "market": {
-        "price": 9.02,
+        "price": 9.07,
         "low": 7,
-        "change7d": 0.001,
+        "change7d": 0.007,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 1.249,
+      "score": 1.271,
       "retailers": {
         "target": {
           "url": "",
@@ -6017,13 +5977,13 @@
       "tcgplayerId": 692942,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/692942/pokemon-me05-pitch-black-pitch-black-booster-bundle",
       "market": {
-        "price": 40.22,
+        "price": 40.1,
         "low": 27.79,
-        "change7d": -0.007,
+        "change7d": -0.01,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 1.179,
+      "score": 1.164,
       "retailers": {
         "target": {
           "url": "",
@@ -6057,53 +6017,13 @@
       "tcgplayerId": 616303,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/616303/pokemon-miscellaneous-cards-and-products-hops-zacian-ex-box",
       "market": {
-        "price": 33.66,
+        "price": 33.59,
         "low": 30,
-        "change7d": -0.003,
+        "change7d": -0.005,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 1.161,
-      "retailers": {
-        "target": {
-          "url": "",
-          "sku": ""
-        },
-        "bestbuy": {
-          "url": "",
-          "sku": ""
-        },
-        "amazon": {
-          "url": "",
-          "sku": ""
-        },
-        "pokemoncenter": {
-          "url": "",
-          "sku": ""
-        }
-      }
-    },
-    {
-      "id": "tcg-684444",
-      "name": "Chaos Rising Booster Box",
-      "category": "Booster Box",
-      "set": "Chaos Rising",
-      "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/684444_200w.jpg",
-      "msrp": 161.64,
-      "msrpEstimated": true,
-      "notes": "",
-      "releaseDate": "2026-05-22",
-      "tcgplayerId": 684444,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/684444/pokemon-me04-chaos-rising-chaos-rising-booster-box",
-      "market": {
-        "price": 184.22,
-        "low": 164.25,
-        "change7d": 0.003,
-        "change30d": null,
-        "updatedAt": "2026-10-22"
-      },
-      "score": 1.123,
+      "score": 1.151,
       "retailers": {
         "target": {
           "url": "",
@@ -6177,13 +6097,53 @@
       "tcgplayerId": 672396,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/672396/pokemon-me03-perfect-order-perfect-order-booster-bundle",
       "market": {
-        "price": 38.77,
+        "price": 39.11,
         "low": 25,
-        "change7d": -0.016,
+        "change7d": -0.007,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 1.052,
+      "score": 1.096,
+      "retailers": {
+        "target": {
+          "url": "",
+          "sku": ""
+        },
+        "bestbuy": {
+          "url": "",
+          "sku": ""
+        },
+        "amazon": {
+          "url": "",
+          "sku": ""
+        },
+        "pokemoncenter": {
+          "url": "",
+          "sku": ""
+        }
+      }
+    },
+    {
+      "id": "tcg-712099",
+      "name": "Delta Reign Booster Pack",
+      "category": "Booster Pack",
+      "set": "Delta Reign",
+      "tags": [],
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/712099_200w.jpg",
+      "msrp": 4.49,
+      "msrpEstimated": true,
+      "notes": "",
+      "releaseDate": "2026-11-06",
+      "tcgplayerId": 712099,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/712099/pokemon-me06-delta-reign-delta-reign-booster-pack",
+      "market": {
+        "price": 9.73,
+        "low": 9.32,
+        "change7d": -0.299,
+        "change30d": null,
+        "updatedAt": "2026-10-22"
+      },
+      "score": 1.042,
       "retailers": {
         "target": {
           "url": "",
@@ -6217,53 +6177,13 @@
       "tcgplayerId": 624683,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/624683/pokemon-sv10-destined-rivals-destined-rivals-booster-pack",
       "market": {
-        "price": 8.43,
+        "price": 8.4,
         "low": 2,
-        "change7d": -0.04,
+        "change7d": -0.043,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 1.04,
-      "retailers": {
-        "target": {
-          "url": "",
-          "sku": ""
-        },
-        "bestbuy": {
-          "url": "",
-          "sku": ""
-        },
-        "amazon": {
-          "url": "",
-          "sku": ""
-        },
-        "pokemoncenter": {
-          "url": "",
-          "sku": ""
-        }
-      }
-    },
-    {
-      "id": "tcg-692939",
-      "name": "Pitch Black Booster Box",
-      "category": "Booster Box",
-      "set": "Pitch Black",
-      "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/692939_200w.jpg",
-      "msrp": 161.64,
-      "msrpEstimated": true,
-      "notes": "",
-      "releaseDate": "2026-07-17",
-      "tcgplayerId": 692939,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/692939/pokemon-me05-pitch-black-pitch-black-booster-box",
-      "market": {
-        "price": 181.69,
-        "low": 159.99,
-        "change7d": -0.002,
-        "change30d": null,
-        "updatedAt": "2026-10-22"
-      },
-      "score": 1.014,
+      "score": 1.027,
       "retailers": {
         "target": {
           "url": "",
@@ -6324,6 +6244,86 @@
       }
     },
     {
+      "id": "tcg-684444",
+      "name": "Chaos Rising Booster Box",
+      "category": "Booster Box",
+      "set": "Chaos Rising",
+      "tags": [],
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/684444_200w.jpg",
+      "msrp": 161.64,
+      "msrpEstimated": true,
+      "notes": "",
+      "releaseDate": "2026-05-22",
+      "tcgplayerId": 684444,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/684444/pokemon-me04-chaos-rising-chaos-rising-booster-box",
+      "market": {
+        "price": 181.63,
+        "low": 164.25,
+        "change7d": -0.011,
+        "change30d": null,
+        "updatedAt": "2026-10-22"
+      },
+      "score": 0.994,
+      "retailers": {
+        "target": {
+          "url": "",
+          "sku": ""
+        },
+        "bestbuy": {
+          "url": "",
+          "sku": ""
+        },
+        "amazon": {
+          "url": "",
+          "sku": ""
+        },
+        "pokemoncenter": {
+          "url": "",
+          "sku": ""
+        }
+      }
+    },
+    {
+      "id": "tcg-684458",
+      "name": "Chaos Rising 3-Pack Blister [Charmeleon]",
+      "category": "Booster Pack",
+      "set": "Chaos Rising",
+      "tags": [],
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/684458_200w.jpg",
+      "msrp": 14.99,
+      "msrpEstimated": true,
+      "notes": "",
+      "releaseDate": "2026-05-22",
+      "tcgplayerId": 684458,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/684458/pokemon-me04-chaos-rising-chaos-rising-3-pack-blister-charmeleon",
+      "market": {
+        "price": 22.14,
+        "low": 15.99,
+        "change7d": 0.032,
+        "change30d": null,
+        "updatedAt": "2026-10-22"
+      },
+      "score": 0.99,
+      "retailers": {
+        "target": {
+          "url": "",
+          "sku": ""
+        },
+        "bestbuy": {
+          "url": "",
+          "sku": ""
+        },
+        "amazon": {
+          "url": "",
+          "sku": ""
+        },
+        "pokemoncenter": {
+          "url": "",
+          "sku": ""
+        }
+      }
+    },
+    {
       "id": "tcg-565604",
       "name": "Surging Sparks Booster Pack",
       "category": "Booster Pack",
@@ -6337,13 +6337,13 @@
       "tcgplayerId": 565604,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/565604/pokemon-sv08-surging-sparks-surging-sparks-booster-pack",
       "market": {
-        "price": 8.32,
+        "price": 8.3,
         "low": 6.99,
-        "change7d": -0.049,
+        "change7d": -0.051,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 0.998,
+      "score": 0.989,
       "retailers": {
         "target": {
           "url": "",
@@ -6404,26 +6404,26 @@
       }
     },
     {
-      "id": "tcg-684458",
-      "name": "Chaos Rising 3-Pack Blister [Charmeleon]",
-      "category": "Booster Pack",
-      "set": "Chaos Rising",
+      "id": "tcg-692939",
+      "name": "Pitch Black Booster Box",
+      "category": "Booster Box",
+      "set": "Pitch Black",
       "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/684458_200w.jpg",
-      "msrp": 14.99,
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/692939_200w.jpg",
+      "msrp": 161.64,
       "msrpEstimated": true,
       "notes": "",
-      "releaseDate": "2026-05-22",
-      "tcgplayerId": 684458,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/684458/pokemon-me04-chaos-rising-chaos-rising-3-pack-blister-charmeleon",
+      "releaseDate": "2026-07-17",
+      "tcgplayerId": 692939,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/692939/pokemon-me05-pitch-black-pitch-black-booster-box",
       "market": {
-        "price": 21.76,
-        "low": 18.96,
-        "change7d": 0.014,
+        "price": 180.85,
+        "low": 159.99,
+        "change7d": -0.007,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 0.911,
+      "score": 0.97,
       "retailers": {
         "target": {
           "url": "",
@@ -6457,53 +6457,13 @@
       "tcgplayerId": 685576,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/685576/pokemon-miscellaneous-cards-and-products-lumiose-city-mini-tin-meganium-and-meowstic",
       "market": {
-        "price": 14.81,
+        "price": 14.92,
         "low": 10,
-        "change7d": -0.021,
+        "change7d": -0.014,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 0.78,
-      "retailers": {
-        "target": {
-          "url": "",
-          "sku": ""
-        },
-        "bestbuy": {
-          "url": "",
-          "sku": ""
-        },
-        "amazon": {
-          "url": "",
-          "sku": ""
-        },
-        "pokemoncenter": {
-          "url": "",
-          "sku": ""
-        }
-      }
-    },
-    {
-      "id": "tcg-672393",
-      "name": "Perfect Order 3 Pack Blister [Chikorita]",
-      "category": "Booster Pack",
-      "set": "Perfect Order",
-      "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/672393_200w.jpg",
-      "msrp": 14.99,
-      "msrpEstimated": true,
-      "notes": "",
-      "releaseDate": "2026-03-27",
-      "tcgplayerId": 672393,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/672393/pokemon-me03-perfect-order-perfect-order-3-pack-blister-chikorita",
-      "market": {
-        "price": 20.38,
-        "low": 16.99,
-        "change7d": 0.022,
-        "change30d": null,
-        "updatedAt": "2026-10-22"
-      },
-      "score": 0.769,
+      "score": 0.81,
       "retailers": {
         "target": {
           "url": "",
@@ -6537,13 +6497,93 @@
       "tcgplayerId": 684456,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/684456/pokemon-me04-chaos-rising-chaos-rising-booster-bundle",
       "market": {
-        "price": 35.05,
+        "price": 35.31,
         "low": 5,
-        "change7d": -0.016,
+        "change7d": -0.009,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 0.753,
+      "score": 0.789,
+      "retailers": {
+        "target": {
+          "url": "",
+          "sku": ""
+        },
+        "bestbuy": {
+          "url": "",
+          "sku": ""
+        },
+        "amazon": {
+          "url": "",
+          "sku": ""
+        },
+        "pokemoncenter": {
+          "url": "",
+          "sku": ""
+        }
+      }
+    },
+    {
+      "id": "tcg-672393",
+      "name": "Perfect Order 3 Pack Blister [Chikorita]",
+      "category": "Booster Pack",
+      "set": "Perfect Order",
+      "tags": [],
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/672393_200w.jpg",
+      "msrp": 14.99,
+      "msrpEstimated": true,
+      "notes": "",
+      "releaseDate": "2026-03-27",
+      "tcgplayerId": 672393,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/672393/pokemon-me03-perfect-order-perfect-order-3-pack-blister-chikorita",
+      "market": {
+        "price": 20.46,
+        "low": 15.99,
+        "change7d": 0.026,
+        "change30d": null,
+        "updatedAt": "2026-10-22"
+      },
+      "score": 0.786,
+      "retailers": {
+        "target": {
+          "url": "",
+          "sku": ""
+        },
+        "bestbuy": {
+          "url": "",
+          "sku": ""
+        },
+        "amazon": {
+          "url": "",
+          "sku": ""
+        },
+        "pokemoncenter": {
+          "url": "",
+          "sku": ""
+        }
+      }
+    },
+    {
+      "id": "tcg-684448",
+      "name": "Chaos Rising Sleeved Booster Pack",
+      "category": "Booster Pack",
+      "set": "Chaos Rising",
+      "tags": [],
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/684448_200w.jpg",
+      "msrp": 4.49,
+      "msrpEstimated": true,
+      "notes": "",
+      "releaseDate": "2026-05-22",
+      "tcgplayerId": 684448,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/684448/pokemon-me04-chaos-rising-chaos-rising-sleeved-booster-pack",
+      "market": {
+        "price": 6.8,
+        "low": 0.5,
+        "change7d": 0.013,
+        "change30d": null,
+        "updatedAt": "2026-10-22"
+      },
+      "score": 0.752,
       "retailers": {
         "target": {
           "url": "",
@@ -6644,46 +6684,6 @@
       }
     },
     {
-      "id": "tcg-670782",
-      "name": "Knock Out Collection [Kyogre]",
-      "category": "Collection Box",
-      "set": "Miscellaneous Cards & Products",
-      "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/670782_200w.jpg",
-      "msrp": 9.99,
-      "msrpEstimated": true,
-      "notes": "",
-      "releaseDate": "2026-10-21",
-      "tcgplayerId": 670782,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/670782/pokemon-miscellaneous-cards-and-products-knock-out-collection-kyogre",
-      "market": {
-        "price": 14.04,
-        "low": 9.15,
-        "change7d": 0.001,
-        "change30d": null,
-        "updatedAt": "2026-10-22"
-      },
-      "score": 0.71,
-      "retailers": {
-        "target": {
-          "url": "",
-          "sku": ""
-        },
-        "bestbuy": {
-          "url": "",
-          "sku": ""
-        },
-        "amazon": {
-          "url": "",
-          "sku": ""
-        },
-        "pokemoncenter": {
-          "url": "",
-          "sku": ""
-        }
-      }
-    },
-    {
       "id": "tcg-718643",
       "name": "League Battle Deck [Mega Greninja ex]",
       "category": "Other",
@@ -6697,13 +6697,13 @@
       "tcgplayerId": 718643,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/718643/pokemon-miscellaneous-cards-and-products-league-battle-deck-mega-greninja-ex",
       "market": {
-        "price": 35.31,
+        "price": 35.18,
         "low": 26.99,
-        "change7d": -0.032,
+        "change7d": -0.035,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 0.7,
+      "score": 0.682,
       "retailers": {
         "target": {
           "url": "",
@@ -6737,93 +6737,13 @@
       "tcgplayerId": 672394,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/672394/pokemon-me03-perfect-order-perfect-order-booster-box",
       "market": {
-        "price": 173.65,
-        "low": 165,
-        "change7d": -0.002,
+        "price": 172.98,
+        "low": 167,
+        "change7d": -0.006,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 0.665,
-      "retailers": {
-        "target": {
-          "url": "",
-          "sku": ""
-        },
-        "bestbuy": {
-          "url": "",
-          "sku": ""
-        },
-        "amazon": {
-          "url": "",
-          "sku": ""
-        },
-        "pokemoncenter": {
-          "url": "",
-          "sku": ""
-        }
-      }
-    },
-    {
-      "id": "tcg-684448",
-      "name": "Chaos Rising Sleeved Booster Pack",
-      "category": "Booster Pack",
-      "set": "Chaos Rising",
-      "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/684448_200w.jpg",
-      "msrp": 4.49,
-      "msrpEstimated": true,
-      "notes": "",
-      "releaseDate": "2026-05-22",
-      "tcgplayerId": 684448,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/684448/pokemon-me04-chaos-rising-chaos-rising-sleeved-booster-pack",
-      "market": {
-        "price": 6.58,
-        "low": 0.5,
-        "change7d": -0.019,
-        "change30d": null,
-        "updatedAt": "2026-10-22"
-      },
-      "score": 0.629,
-      "retailers": {
-        "target": {
-          "url": "",
-          "sku": ""
-        },
-        "bestbuy": {
-          "url": "",
-          "sku": ""
-        },
-        "amazon": {
-          "url": "",
-          "sku": ""
-        },
-        "pokemoncenter": {
-          "url": "",
-          "sku": ""
-        }
-      }
-    },
-    {
-      "id": "tcg-685577",
-      "name": "Lumiose City Mini Tin [Emboar & Inkay]",
-      "category": "Tin",
-      "set": "Miscellaneous Cards & Products",
-      "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/685577_200w.jpg",
-      "msrp": 9.99,
-      "msrpEstimated": true,
-      "notes": "",
-      "releaseDate": "2026-06-05",
-      "tcgplayerId": 685577,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/685577/pokemon-miscellaneous-cards-and-products-lumiose-city-mini-tin-emboar-and-inkay",
-      "market": {
-        "price": 13.49,
-        "low": 10,
-        "change7d": 0,
-        "change30d": null,
-        "updatedAt": "2026-10-22"
-      },
-      "score": 0.622,
+      "score": 0.625,
       "retailers": {
         "target": {
           "url": "",
@@ -6858,12 +6778,52 @@
       "tcgplayerUrl": "https://www.tcgplayer.com/product/692957/pokemon-me05-pitch-black-pitch-black-sleeved-booster-pack",
       "market": {
         "price": 6.36,
-        "low": 5.9,
+        "low": 5.25,
         "change7d": 0.002,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
       "score": 0.61,
+      "retailers": {
+        "target": {
+          "url": "",
+          "sku": ""
+        },
+        "bestbuy": {
+          "url": "",
+          "sku": ""
+        },
+        "amazon": {
+          "url": "",
+          "sku": ""
+        },
+        "pokemoncenter": {
+          "url": "",
+          "sku": ""
+        }
+      }
+    },
+    {
+      "id": "tcg-670782",
+      "name": "Knock Out Collection [Kyogre]",
+      "category": "Collection Box",
+      "set": "Miscellaneous Cards & Products",
+      "tags": [],
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/670782_200w.jpg",
+      "msrp": 9.99,
+      "msrpEstimated": true,
+      "notes": "",
+      "releaseDate": "2026-10-22",
+      "tcgplayerId": 670782,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/670782/pokemon-miscellaneous-cards-and-products-knock-out-collection-kyogre",
+      "market": {
+        "price": 13.58,
+        "low": 9.15,
+        "change7d": -0.031,
+        "change30d": null,
+        "updatedAt": "2026-10-22"
+      },
+      "score": 0.575,
       "retailers": {
         "target": {
           "url": "",
@@ -6893,17 +6853,17 @@
       "msrp": 9.99,
       "msrpEstimated": true,
       "notes": "",
-      "releaseDate": "2026-10-21",
+      "releaseDate": "2026-10-22",
       "tcgplayerId": 670783,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/670783/pokemon-miscellaneous-cards-and-products-knock-out-collection-suicune",
       "market": {
-        "price": 13.56,
+        "price": 13.46,
         "low": 9.99,
-        "change7d": -0.02,
+        "change7d": -0.027,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 0.593,
+      "score": 0.564,
       "retailers": {
         "target": {
           "url": "",
@@ -6924,26 +6884,66 @@
       }
     },
     {
-      "id": "tcg-692938",
-      "name": "Pitch Black 3-Pack Blister [Binacle]",
-      "category": "Booster Pack",
-      "set": "Pitch Black",
+      "id": "tcg-685577",
+      "name": "Lumiose City Mini Tin [Emboar & Inkay]",
+      "category": "Tin",
+      "set": "Miscellaneous Cards & Products",
       "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/692938_200w.jpg",
-      "msrp": 14.99,
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/685577_200w.jpg",
+      "msrp": 9.99,
       "msrpEstimated": true,
       "notes": "",
-      "releaseDate": "2026-07-17",
-      "tcgplayerId": 692938,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/692938/pokemon-me05-pitch-black-pitch-black-3-pack-blister-binacle",
+      "releaseDate": "2026-06-05",
+      "tcgplayerId": 685577,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/685577/pokemon-miscellaneous-cards-and-products-lumiose-city-mini-tin-emboar-and-inkay",
       "market": {
-        "price": 19.05,
-        "low": 14.5,
-        "change7d": -0.02,
+        "price": 13.29,
+        "low": 10,
+        "change7d": -0.015,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 0.523,
+      "score": 0.561,
+      "retailers": {
+        "target": {
+          "url": "",
+          "sku": ""
+        },
+        "bestbuy": {
+          "url": "",
+          "sku": ""
+        },
+        "amazon": {
+          "url": "",
+          "sku": ""
+        },
+        "pokemoncenter": {
+          "url": "",
+          "sku": ""
+        }
+      }
+    },
+    {
+      "id": "tcg-659193",
+      "name": "Mega Battle Deck (Mega Diancie ex)",
+      "category": "Other",
+      "set": "Miscellaneous Cards & Products",
+      "tags": [],
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/659193_200w.jpg",
+      "msrp": 19.99,
+      "msrpEstimated": true,
+      "notes": "",
+      "releaseDate": "2025-10-24",
+      "tcgplayerId": 659193,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/659193/pokemon-miscellaneous-cards-and-products-mega-battle-deck-mega-diancie-ex",
+      "market": {
+        "price": 24.16,
+        "low": 21.54,
+        "change7d": 0.014,
+        "change30d": null,
+        "updatedAt": "2026-10-22"
+      },
+      "score": 0.524,
       "retailers": {
         "target": {
           "url": "",
@@ -6977,13 +6977,53 @@
       "tcgplayerId": 704193,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/704193/pokemon-me-30th-celebration-30th-celebration-figure-collection-mew",
       "market": {
-        "price": 152.76,
+        "price": 155.74,
         "low": 199.99,
-        "change7d": 0.105,
+        "change7d": 0.126,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 0.46,
+      "score": 0.502,
+      "retailers": {
+        "target": {
+          "url": "",
+          "sku": ""
+        },
+        "bestbuy": {
+          "url": "",
+          "sku": ""
+        },
+        "amazon": {
+          "url": "",
+          "sku": ""
+        },
+        "pokemoncenter": {
+          "url": "",
+          "sku": ""
+        }
+      }
+    },
+    {
+      "id": "tcg-692938",
+      "name": "Pitch Black 3-Pack Blister [Binacle]",
+      "category": "Booster Pack",
+      "set": "Pitch Black",
+      "tags": [],
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/692938_200w.jpg",
+      "msrp": 14.99,
+      "msrpEstimated": true,
+      "notes": "",
+      "releaseDate": "2026-07-17",
+      "tcgplayerId": 692938,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/692938/pokemon-me05-pitch-black-pitch-black-3-pack-blister-binacle",
+      "market": {
+        "price": 18.93,
+        "low": 15,
+        "change7d": -0.026,
+        "change30d": null,
+        "updatedAt": "2026-10-22"
+      },
+      "score": 0.496,
       "retailers": {
         "target": {
           "url": "",
@@ -7044,26 +7084,26 @@
       }
     },
     {
-      "id": "tcg-659193",
-      "name": "Mega Battle Deck (Mega Diancie ex)",
-      "category": "Other",
-      "set": "Miscellaneous Cards & Products",
+      "id": "tcg-610935",
+      "name": "Journey Together Booster Pack",
+      "category": "Booster Pack",
+      "set": "Journey Together",
       "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/659193_200w.jpg",
-      "msrp": 19.99,
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/610935_200w.jpg",
+      "msrp": 4.49,
       "msrpEstimated": true,
       "notes": "",
-      "releaseDate": "2025-10-24",
-      "tcgplayerId": 659193,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/659193/pokemon-miscellaneous-cards-and-products-mega-battle-deck-mega-diancie-ex",
+      "releaseDate": "2025-03-28",
+      "tcgplayerId": 610935,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/610935/pokemon-sv09-journey-together-journey-together-booster-pack",
       "market": {
-        "price": 23.56,
-        "low": 21.54,
-        "change7d": -0.011,
+        "price": 5.92,
+        "low": 1,
+        "change7d": -0.047,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 0.408,
+      "score": 0.385,
       "retailers": {
         "target": {
           "url": "",
@@ -7137,13 +7177,13 @@
       "tcgplayerId": 704194,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/704194/pokemon-me-30th-celebration-30th-celebration-figure-collection-mewtwo",
       "market": {
-        "price": 167.02,
-        "low": 130.01,
-        "change7d": 0.046,
+        "price": 166.54,
+        "low": 114.95,
+        "change7d": 0.043,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 0.342,
+      "score": 0.336,
       "retailers": {
         "target": {
           "url": "",
@@ -7173,7 +7213,7 @@
       "msrp": null,
       "msrpEstimated": false,
       "notes": "",
-      "releaseDate": "2026-10-21",
+      "releaseDate": "2026-10-22",
       "tcgplayerId": 653192,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/653192/pokemon-miscellaneous-cards-and-products-snorlax-and-lapras-vmax-collection",
       "market": {
@@ -7184,86 +7224,6 @@
         "updatedAt": "2026-10-22"
       },
       "score": 0.302,
-      "retailers": {
-        "target": {
-          "url": "",
-          "sku": ""
-        },
-        "bestbuy": {
-          "url": "",
-          "sku": ""
-        },
-        "amazon": {
-          "url": "",
-          "sku": ""
-        },
-        "pokemoncenter": {
-          "url": "",
-          "sku": ""
-        }
-      }
-    },
-    {
-      "id": "tcg-684446",
-      "name": "Chaos Rising Booster Pack",
-      "category": "Booster Pack",
-      "set": "Chaos Rising",
-      "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/684446_200w.jpg",
-      "msrp": 4.49,
-      "msrpEstimated": true,
-      "notes": "",
-      "releaseDate": "2026-05-22",
-      "tcgplayerId": 684446,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/684446/pokemon-me04-chaos-rising-chaos-rising-booster-pack",
-      "market": {
-        "price": 5.69,
-        "low": 4.5,
-        "change7d": -0.056,
-        "change30d": null,
-        "updatedAt": "2026-10-22"
-      },
-      "score": 0.297,
-      "retailers": {
-        "target": {
-          "url": "",
-          "sku": ""
-        },
-        "bestbuy": {
-          "url": "",
-          "sku": ""
-        },
-        "amazon": {
-          "url": "",
-          "sku": ""
-        },
-        "pokemoncenter": {
-          "url": "",
-          "sku": ""
-        }
-      }
-    },
-    {
-      "id": "tcg-610935",
-      "name": "Journey Together Booster Pack",
-      "category": "Booster Pack",
-      "set": "Journey Together",
-      "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/610935_200w.jpg",
-      "msrp": 4.49,
-      "msrpEstimated": true,
-      "notes": "",
-      "releaseDate": "2025-03-28",
-      "tcgplayerId": 610935,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/610935/pokemon-sv09-journey-together-journey-together-booster-pack",
-      "market": {
-        "price": 5.76,
-        "low": 1,
-        "change7d": -0.072,
-        "change30d": null,
-        "updatedAt": "2026-10-22"
-      },
-      "score": 0.287,
       "retailers": {
         "target": {
           "url": "",
@@ -7299,46 +7259,6 @@
       "market": {
         "price": 57.04,
         "low": 94.79,
-        "change7d": 0,
-        "change30d": null,
-        "updatedAt": "2026-10-22"
-      },
-      "score": 0.25,
-      "retailers": {
-        "target": {
-          "url": "",
-          "sku": ""
-        },
-        "bestbuy": {
-          "url": "",
-          "sku": ""
-        },
-        "amazon": {
-          "url": "",
-          "sku": ""
-        },
-        "pokemoncenter": {
-          "url": "",
-          "sku": ""
-        }
-      }
-    },
-    {
-      "id": "tcg-704190",
-      "name": "30th Celebration Ultra-Premium Collection [Day]",
-      "category": "Collection Box",
-      "set": "30th Celebration",
-      "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/704190_200w.jpg",
-      "msrp": null,
-      "msrpEstimated": false,
-      "notes": "",
-      "releaseDate": "2026-11-06",
-      "tcgplayerId": 704190,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/704190/pokemon-me-30th-celebration-30th-celebration-ultra-premium-collection-day",
-      "market": {
-        "price": 561.04,
-        "low": 554.88,
         "change7d": 0,
         "change30d": null,
         "updatedAt": "2026-10-22"
@@ -7534,26 +7454,26 @@
       }
     },
     {
-      "id": "tcg-712101",
-      "name": "Delta Reign Build & Battle Box",
+      "id": "tcg-704190",
+      "name": "30th Celebration Ultra-Premium Collection [Day]",
       "category": "Collection Box",
-      "set": "Delta Reign",
+      "set": "30th Celebration",
       "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/712101_200w.jpg",
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/704190_200w.jpg",
       "msrp": null,
       "msrpEstimated": false,
       "notes": "",
-      "releaseDate": "2026-11-20",
-      "tcgplayerId": 712101,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/712101/pokemon-me06-delta-reign-delta-reign-build-and-battle-box",
+      "releaseDate": "2026-11-06",
+      "tcgplayerId": 704190,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/704190/pokemon-me-30th-celebration-30th-celebration-ultra-premium-collection-day",
       "market": {
-        "price": 69.71,
-        "low": 55.84,
-        "change7d": -0.003,
+        "price": 558.82,
+        "low": 524.96,
+        "change7d": -0.004,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 0.244,
+      "score": 0.242,
       "retailers": {
         "target": {
           "url": "",
@@ -7587,13 +7507,13 @@
       "tcgplayerId": 704189,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/704189/pokemon-me-30th-celebration-30th-celebration-ditto-premium-collection",
       "market": {
-        "price": 191.88,
+        "price": 191.67,
         "low": 187.51,
-        "change7d": -0.004,
+        "change7d": -0.005,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 0.242,
+      "score": 0.24,
       "retailers": {
         "target": {
           "url": "",
@@ -7654,6 +7574,86 @@
       }
     },
     {
+      "id": "tcg-684446",
+      "name": "Chaos Rising Booster Pack",
+      "category": "Booster Pack",
+      "set": "Chaos Rising",
+      "tags": [],
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/684446_200w.jpg",
+      "msrp": 4.49,
+      "msrpEstimated": true,
+      "notes": "",
+      "releaseDate": "2026-05-22",
+      "tcgplayerId": 684446,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/684446/pokemon-me04-chaos-rising-chaos-rising-booster-pack",
+      "market": {
+        "price": 5.58,
+        "low": 4.5,
+        "change7d": -0.075,
+        "change30d": null,
+        "updatedAt": "2026-10-22"
+      },
+      "score": 0.225,
+      "retailers": {
+        "target": {
+          "url": "",
+          "sku": ""
+        },
+        "bestbuy": {
+          "url": "",
+          "sku": ""
+        },
+        "amazon": {
+          "url": "",
+          "sku": ""
+        },
+        "pokemoncenter": {
+          "url": "",
+          "sku": ""
+        }
+      }
+    },
+    {
+      "id": "tcg-672398",
+      "name": "Perfect Order Booster Pack",
+      "category": "Booster Pack",
+      "set": "Perfect Order",
+      "tags": [],
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/672398_200w.jpg",
+      "msrp": 4.49,
+      "msrpEstimated": true,
+      "notes": "",
+      "releaseDate": "2026-03-27",
+      "tcgplayerId": 672398,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/672398/pokemon-me03-perfect-order-perfect-order-booster-pack",
+      "market": {
+        "price": 5.54,
+        "low": 5,
+        "change7d": -0.069,
+        "change30d": null,
+        "updatedAt": "2026-10-22"
+      },
+      "score": 0.225,
+      "retailers": {
+        "target": {
+          "url": "",
+          "sku": ""
+        },
+        "bestbuy": {
+          "url": "",
+          "sku": ""
+        },
+        "amazon": {
+          "url": "",
+          "sku": ""
+        },
+        "pokemoncenter": {
+          "url": "",
+          "sku": ""
+        }
+      }
+    },
+    {
       "id": "tcg-704192",
       "name": "30th Celebration Classic Collection Pack",
       "category": "Collection Box",
@@ -7668,7 +7668,7 @@
       "tcgplayerUrl": "https://www.tcgplayer.com/product/704192/pokemon-me-30th-celebration-30th-celebration-classic-collection-pack",
       "market": {
         "price": 305.31,
-        "low": 229.99,
+        "low": 199,
         "change7d": -0.018,
         "change30d": null,
         "updatedAt": "2026-10-22"
@@ -7694,26 +7694,66 @@
       }
     },
     {
-      "id": "tcg-712108",
-      "name": "Delta Reign Single Pack Blister [Spritzee]",
-      "category": "Other",
+      "id": "tcg-712101",
+      "name": "Delta Reign Build & Battle Box",
+      "category": "Collection Box",
       "set": "Delta Reign",
       "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/712108_200w.jpg",
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/712101_200w.jpg",
       "msrp": null,
       "msrpEstimated": false,
       "notes": "",
-      "releaseDate": "2026-11-06",
-      "tcgplayerId": 712108,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/712108/pokemon-me06-delta-reign-delta-reign-single-pack-blister-spritzee",
+      "releaseDate": "2026-11-20",
+      "tcgplayerId": 712101,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/712101/pokemon-me06-delta-reign-delta-reign-build-and-battle-box",
       "market": {
-        "price": 22.55,
-        "low": 19.49,
-        "change7d": -0.048,
+        "price": 68.24,
+        "low": 52.62,
+        "change7d": -0.024,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 0.154,
+      "score": 0.202,
+      "retailers": {
+        "target": {
+          "url": "",
+          "sku": ""
+        },
+        "bestbuy": {
+          "url": "",
+          "sku": ""
+        },
+        "amazon": {
+          "url": "",
+          "sku": ""
+        },
+        "pokemoncenter": {
+          "url": "",
+          "sku": ""
+        }
+      }
+    },
+    {
+      "id": "tcg-616737",
+      "name": "Retail Exclusive Pokemon Paldean Fates Mini Tins + Poke Ball Tin",
+      "category": "Tin",
+      "set": "Miscellaneous Cards & Products",
+      "tags": [],
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/616737_200w.jpg",
+      "msrp": null,
+      "msrpEstimated": false,
+      "notes": "",
+      "releaseDate": "2026-10-22",
+      "tcgplayerId": 616737,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/616737/pokemon-miscellaneous-cards-and-products-retail-exclusive-pokemon-paldean-fates-mini-tins-plus-poke-ball-tin",
+      "market": {
+        "price": 182.72,
+        "low": 210,
+        "change7d": 0.098,
+        "change30d": null,
+        "updatedAt": "2026-10-22"
+      },
+      "score": 0.196,
       "retailers": {
         "target": {
           "url": "",
@@ -7747,13 +7787,13 @@
       "tcgplayerId": 639828,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/639828/pokemon-miscellaneous-cards-and-products-holiday-calendar-2025",
       "market": {
-        "price": 111.4,
+        "price": 113.5,
         "low": 110,
-        "change7d": 0.075,
+        "change7d": 0.095,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 0.15,
+      "score": 0.19,
       "retailers": {
         "target": {
           "url": "",
@@ -7774,22 +7814,62 @@
       }
     },
     {
-      "id": "tcg-616737",
-      "name": "Retail Exclusive Pokemon Paldean Fates Mini Tins + Poke Ball Tin",
-      "category": "Tin",
+      "id": "tcg-637464",
+      "name": "Kleavor VSTAR Premium Collection (International)",
+      "category": "Collection Box",
       "set": "Miscellaneous Cards & Products",
       "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/616737_200w.jpg",
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/637464_200w.jpg",
       "msrp": null,
       "msrpEstimated": false,
       "notes": "",
-      "releaseDate": "2026-10-21",
-      "tcgplayerId": 616737,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/616737/pokemon-miscellaneous-cards-and-products-retail-exclusive-pokemon-paldean-fates-mini-tins-plus-poke-ball-tin",
+      "releaseDate": "2026-10-22",
+      "tcgplayerId": 637464,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/637464/pokemon-miscellaneous-cards-and-products-kleavor-vstar-premium-collection-international",
       "market": {
-        "price": 178.28,
-        "low": 210,
-        "change7d": 0.071,
+        "price": 79.99,
+        "low": 75,
+        "change7d": 0.081,
+        "change30d": null,
+        "updatedAt": "2026-10-22"
+      },
+      "score": 0.162,
+      "retailers": {
+        "target": {
+          "url": "",
+          "sku": ""
+        },
+        "bestbuy": {
+          "url": "",
+          "sku": ""
+        },
+        "amazon": {
+          "url": "",
+          "sku": ""
+        },
+        "pokemoncenter": {
+          "url": "",
+          "sku": ""
+        }
+      }
+    },
+    {
+      "id": "tcg-712108",
+      "name": "Delta Reign Single Pack Blister [Spritzee]",
+      "category": "Other",
+      "set": "Delta Reign",
+      "tags": [],
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/712108_200w.jpg",
+      "msrp": null,
+      "msrpEstimated": false,
+      "notes": "",
+      "releaseDate": "2026-11-06",
+      "tcgplayerId": 712108,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/712108/pokemon-me06-delta-reign-delta-reign-single-pack-blister-spritzee",
+      "market": {
+        "price": 22.42,
+        "low": 19.42,
+        "change7d": -0.054,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
@@ -7823,12 +7903,12 @@
       "msrp": null,
       "msrpEstimated": false,
       "notes": "",
-      "releaseDate": "2026-10-21",
+      "releaseDate": "2026-10-22",
       "tcgplayerId": 583776,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/583776/pokemon-miscellaneous-cards-and-products-jirachi-v-box",
       "market": {
         "price": 110.37,
-        "low": 161.99,
+        "low": 179.99,
         "change7d": 0.06,
         "change30d": null,
         "updatedAt": "2026-10-22"
@@ -7983,7 +8063,7 @@
       "msrp": null,
       "msrpEstimated": false,
       "notes": "",
-      "releaseDate": "2026-10-21",
+      "releaseDate": "2026-10-22",
       "tcgplayerId": 653625,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/653625/pokemon-miscellaneous-cards-and-products-checklane-2-pack-blister-pawmot-3-tab",
       "market": {
@@ -7994,46 +8074,6 @@
         "updatedAt": "2026-10-22"
       },
       "score": 0.062,
-      "retailers": {
-        "target": {
-          "url": "",
-          "sku": ""
-        },
-        "bestbuy": {
-          "url": "",
-          "sku": ""
-        },
-        "amazon": {
-          "url": "",
-          "sku": ""
-        },
-        "pokemoncenter": {
-          "url": "",
-          "sku": ""
-        }
-      }
-    },
-    {
-      "id": "tcg-718674",
-      "name": "30th Celebration ex Tin [Sylveon ex] (Retail Version)",
-      "category": "Tin",
-      "set": "30th Celebration",
-      "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/718674_200w.jpg",
-      "msrp": null,
-      "msrpEstimated": false,
-      "notes": "",
-      "releaseDate": "2026-09-16",
-      "tcgplayerId": 718674,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/718674/pokemon-me-30th-celebration-30th-celebration-ex-tin-sylveon-ex-retail-version",
-      "market": {
-        "price": 63.08,
-        "low": 55,
-        "change7d": 0.026,
-        "change30d": null,
-        "updatedAt": "2026-10-22"
-      },
-      "score": 0.052,
       "retailers": {
         "target": {
           "url": "",
@@ -8067,13 +8107,53 @@
       "tcgplayerId": 718673,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/718673/pokemon-me-30th-celebration-30th-celebration-ex-tin-greninja-ex-retail-version",
       "market": {
-        "price": 63.77,
+        "price": 63.95,
         "low": 61.42,
-        "change7d": 0.023,
+        "change7d": 0.026,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 0.046,
+      "score": 0.052,
+      "retailers": {
+        "target": {
+          "url": "",
+          "sku": ""
+        },
+        "bestbuy": {
+          "url": "",
+          "sku": ""
+        },
+        "amazon": {
+          "url": "",
+          "sku": ""
+        },
+        "pokemoncenter": {
+          "url": "",
+          "sku": ""
+        }
+      }
+    },
+    {
+      "id": "tcg-718674",
+      "name": "30th Celebration ex Tin [Sylveon ex] (Retail Version)",
+      "category": "Tin",
+      "set": "30th Celebration",
+      "tags": [],
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/718674_200w.jpg",
+      "msrp": null,
+      "msrpEstimated": false,
+      "notes": "",
+      "releaseDate": "2026-09-16",
+      "tcgplayerId": 718674,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/718674/pokemon-me-30th-celebration-30th-celebration-ex-tin-sylveon-ex-retail-version",
+      "market": {
+        "price": 63.06,
+        "low": 55,
+        "change7d": 0.025,
+        "change30d": null,
+        "updatedAt": "2026-10-22"
+      },
+      "score": 0.05,
       "retailers": {
         "target": {
           "url": "",
@@ -8143,7 +8223,7 @@
       "msrp": null,
       "msrpEstimated": false,
       "notes": "",
-      "releaseDate": "2026-10-21",
+      "releaseDate": "2026-10-22",
       "tcgplayerId": 714504,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/714504/pokemon-miscellaneous-cards-and-products-2-pack-blister-zarude-1-tab",
       "market": {
@@ -8214,21 +8294,21 @@
       }
     },
     {
-      "id": "tcg-702496",
-      "name": "Ascended Heroes Tin [Mega Emboar ex]",
+      "id": "tcg-633082",
+      "name": "Azure Legends Tin [Kyogre ex] (International Version)",
       "category": "Tin",
-      "set": "Ascended Heroes",
+      "set": "Miscellaneous Cards & Products",
       "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/702496_200w.jpg",
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/633082_200w.jpg",
       "msrp": null,
       "msrpEstimated": false,
       "notes": "",
-      "releaseDate": "2026-08-28",
-      "tcgplayerId": 702496,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/702496/pokemon-me-ascended-heroes-ascended-heroes-tin-mega-emboar-ex",
+      "releaseDate": "2026-10-22",
+      "tcgplayerId": 633082,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/633082/pokemon-miscellaneous-cards-and-products-azure-legends-tin-kyogre-ex-international-version",
       "market": {
-        "price": 43.48,
-        "low": 38,
+        "price": 36.56,
+        "low": 34.8,
         "change7d": 0.015,
         "change30d": null,
         "updatedAt": "2026-10-22"
@@ -8303,52 +8383,12 @@
       "msrp": null,
       "msrpEstimated": false,
       "notes": "",
-      "releaseDate": "2026-10-21",
+      "releaseDate": "2026-10-22",
       "tcgplayerId": 654113,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/654113/pokemon-miscellaneous-cards-and-products-checklane-2-pack-blister-archaludon-3-tab",
       "market": {
         "price": 18.95,
         "low": 22.95,
-        "change7d": 0.014,
-        "change30d": null,
-        "updatedAt": "2026-10-22"
-      },
-      "score": 0.028,
-      "retailers": {
-        "target": {
-          "url": "",
-          "sku": ""
-        },
-        "bestbuy": {
-          "url": "",
-          "sku": ""
-        },
-        "amazon": {
-          "url": "",
-          "sku": ""
-        },
-        "pokemoncenter": {
-          "url": "",
-          "sku": ""
-        }
-      }
-    },
-    {
-      "id": "tcg-653203",
-      "name": "Pokemon TCG: Trainer's Toolkit (2025)",
-      "category": "Other",
-      "set": "Miscellaneous Cards & Products",
-      "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/653203_200w.jpg",
-      "msrp": null,
-      "msrpEstimated": false,
-      "notes": "",
-      "releaseDate": "2025-10-24",
-      "tcgplayerId": 653203,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/653203/pokemon-miscellaneous-cards-and-products-pokemon-tcg-trainers-toolkit-2025",
-      "market": {
-        "price": 41.99,
-        "low": 25,
         "change7d": 0.014,
         "change30d": null,
         "updatedAt": "2026-10-22"
@@ -8423,7 +8463,7 @@
       "msrp": null,
       "msrpEstimated": false,
       "notes": "",
-      "releaseDate": "2026-10-21",
+      "releaseDate": "2026-10-22",
       "tcgplayerId": 654593,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/654593/pokemon-miscellaneous-cards-and-products-fall-2025-collector-chest",
       "market": {
@@ -8454,66 +8494,26 @@
       }
     },
     {
-      "id": "tcg-594896",
-      "name": "Grand Adventure Collection",
+      "id": "tcg-668632",
+      "name": "Unova Heavy Hitters Premium Collection",
       "category": "Collection Box",
-      "set": "Miscellaneous Cards & Products",
+      "set": "Black Bolt",
       "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/594896_200w.jpg",
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/668632_200w.jpg",
       "msrp": null,
       "msrpEstimated": false,
       "notes": "",
-      "releaseDate": "2026-10-21",
-      "tcgplayerId": 594896,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/594896/pokemon-miscellaneous-cards-and-products-grand-adventure-collection",
+      "releaseDate": "2025-07-18",
+      "tcgplayerId": 668632,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/668632/pokemon-sv-black-bolt-unova-heavy-hitters-premium-collection",
       "market": {
-        "price": 45.75,
-        "low": 45,
-        "change7d": 0.012,
+        "price": 167.91,
+        "low": 165,
+        "change7d": 0.013,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 0.024,
-      "retailers": {
-        "target": {
-          "url": "",
-          "sku": ""
-        },
-        "bestbuy": {
-          "url": "",
-          "sku": ""
-        },
-        "amazon": {
-          "url": "",
-          "sku": ""
-        },
-        "pokemoncenter": {
-          "url": "",
-          "sku": ""
-        }
-      }
-    },
-    {
-      "id": "tcg-704191",
-      "name": "30th Celebration Ultra-Premium Collection [Night]",
-      "category": "Collection Box",
-      "set": "30th Celebration",
-      "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/704191_200w.jpg",
-      "msrp": null,
-      "msrpEstimated": false,
-      "notes": "",
-      "releaseDate": "2026-11-06",
-      "tcgplayerId": 704191,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/704191/pokemon-me-30th-celebration-30th-celebration-ultra-premium-collection-night",
-      "market": {
-        "price": 598.46,
-        "low": 585,
-        "change7d": -0.114,
-        "change30d": null,
-        "updatedAt": "2026-10-22"
-      },
-      "score": 0.022,
+      "score": 0.026,
       "retailers": {
         "target": {
           "url": "",
@@ -8547,13 +8547,13 @@
       "tcgplayerId": 702498,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/702498/pokemon-me-ascended-heroes-ascended-heroes-tin-mega-meganium-ex",
       "market": {
-        "price": 43.2,
+        "price": 43.26,
         "low": 34.95,
-        "change7d": 0.011,
+        "change7d": 0.012,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 0.022,
+      "score": 0.024,
       "retailers": {
         "target": {
           "url": "",
@@ -8574,21 +8574,101 @@
       }
     },
     {
-      "id": "tcg-616951",
-      "name": "Enhanced 2-Pack Blister Pack [Latios, Zekrom & Palkia]",
-      "category": "Other",
+      "id": "tcg-594896",
+      "name": "Grand Adventure Collection",
+      "category": "Collection Box",
       "set": "Miscellaneous Cards & Products",
       "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/616951_200w.jpg",
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/594896_200w.jpg",
       "msrp": null,
       "msrpEstimated": false,
       "notes": "",
-      "releaseDate": "2026-10-21",
-      "tcgplayerId": 616951,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/616951/pokemon-miscellaneous-cards-and-products-enhanced-2-pack-blister-pack-latios-zekrom-and-palkia",
+      "releaseDate": "2026-10-22",
+      "tcgplayerId": 594896,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/594896/pokemon-miscellaneous-cards-and-products-grand-adventure-collection",
       "market": {
-        "price": 17.84,
-        "low": 14.95,
+        "price": 45.75,
+        "low": 45,
+        "change7d": 0.012,
+        "change30d": null,
+        "updatedAt": "2026-10-22"
+      },
+      "score": 0.024,
+      "retailers": {
+        "target": {
+          "url": "",
+          "sku": ""
+        },
+        "bestbuy": {
+          "url": "",
+          "sku": ""
+        },
+        "amazon": {
+          "url": "",
+          "sku": ""
+        },
+        "pokemoncenter": {
+          "url": "",
+          "sku": ""
+        }
+      }
+    },
+    {
+      "id": "tcg-653203",
+      "name": "Pokemon TCG: Trainer's Toolkit (2025)",
+      "category": "Other",
+      "set": "Miscellaneous Cards & Products",
+      "tags": [],
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/653203_200w.jpg",
+      "msrp": null,
+      "msrpEstimated": false,
+      "notes": "",
+      "releaseDate": "2025-10-24",
+      "tcgplayerId": 653203,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/653203/pokemon-miscellaneous-cards-and-products-pokemon-tcg-trainers-toolkit-2025",
+      "market": {
+        "price": 41.92,
+        "low": 25,
+        "change7d": 0.012,
+        "change30d": null,
+        "updatedAt": "2026-10-22"
+      },
+      "score": 0.024,
+      "retailers": {
+        "target": {
+          "url": "",
+          "sku": ""
+        },
+        "bestbuy": {
+          "url": "",
+          "sku": ""
+        },
+        "amazon": {
+          "url": "",
+          "sku": ""
+        },
+        "pokemoncenter": {
+          "url": "",
+          "sku": ""
+        }
+      }
+    },
+    {
+      "id": "tcg-702496",
+      "name": "Ascended Heroes Tin [Mega Emboar ex]",
+      "category": "Tin",
+      "set": "Ascended Heroes",
+      "tags": [],
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/702496_200w.jpg",
+      "msrp": null,
+      "msrpEstimated": false,
+      "notes": "",
+      "releaseDate": "2026-08-28",
+      "tcgplayerId": 702496,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/702496/pokemon-me-ascended-heroes-ascended-heroes-tin-mega-emboar-ex",
+      "market": {
+        "price": 43.32,
+        "low": 38,
         "change7d": 0.011,
         "change30d": null,
         "updatedAt": "2026-10-22"
@@ -8663,7 +8743,7 @@
       "msrp": null,
       "msrpEstimated": false,
       "notes": "",
-      "releaseDate": "2026-10-21",
+      "releaseDate": "2026-10-22",
       "tcgplayerId": 662770,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/662770/pokemon-miscellaneous-cards-and-products-snorlax-ex-and-blissey-ex-special-collection",
       "market": {
@@ -8734,22 +8814,22 @@
       }
     },
     {
-      "id": "tcg-672398",
-      "name": "Perfect Order Booster Pack",
+      "id": "tcg-672409",
+      "name": "Perfect Order Premium Checklane Blister [Clawitzer Line]",
       "category": "Booster Pack",
       "set": "Perfect Order",
       "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/672398_200w.jpg",
-      "msrp": 4.49,
-      "msrpEstimated": true,
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/672409_200w.jpg",
+      "msrp": null,
+      "msrpEstimated": false,
       "notes": "",
       "releaseDate": "2026-03-27",
-      "tcgplayerId": 672398,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/672398/pokemon-me03-perfect-order-perfect-order-booster-pack",
+      "tcgplayerId": 672409,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/672409/pokemon-me03-perfect-order-perfect-order-premium-checklane-blister-clawitzer-line",
       "market": {
-        "price": 5.23,
-        "low": 3,
-        "change7d": -0.121,
+        "price": 14.26,
+        "low": 13.99,
+        "change7d": 0.01,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
@@ -8823,7 +8903,7 @@
       "msrp": null,
       "msrpEstimated": false,
       "notes": "",
-      "releaseDate": "2026-10-21",
+      "releaseDate": "2026-10-22",
       "tcgplayerId": 591147,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/591147/pokemon-miscellaneous-cards-and-products-triple-whammy-tin-slaking",
       "market": {
@@ -8863,7 +8943,7 @@
       "msrp": null,
       "msrpEstimated": false,
       "notes": "",
-      "releaseDate": "2026-10-21",
+      "releaseDate": "2026-10-22",
       "tcgplayerId": 625038,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/625038/pokemon-miscellaneous-cards-and-products-2-booster-packs-and-jirachi-collectors-pin",
       "market": {
@@ -8943,52 +9023,12 @@
       "msrp": null,
       "msrpEstimated": false,
       "notes": "",
-      "releaseDate": "2026-10-21",
+      "releaseDate": "2026-10-22",
       "tcgplayerId": 594539,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/594539/pokemon-miscellaneous-cards-and-products-tera-team-premium-collection",
       "market": {
         "price": 94.34,
         "low": 118.98,
-        "change7d": 0.009,
-        "change30d": null,
-        "updatedAt": "2026-10-22"
-      },
-      "score": 0.018,
-      "retailers": {
-        "target": {
-          "url": "",
-          "sku": ""
-        },
-        "bestbuy": {
-          "url": "",
-          "sku": ""
-        },
-        "amazon": {
-          "url": "",
-          "sku": ""
-        },
-        "pokemoncenter": {
-          "url": "",
-          "sku": ""
-        }
-      }
-    },
-    {
-      "id": "tcg-668632",
-      "name": "Unova Heavy Hitters Premium Collection",
-      "category": "Collection Box",
-      "set": "Black Bolt",
-      "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/668632_200w.jpg",
-      "msrp": null,
-      "msrpEstimated": false,
-      "notes": "",
-      "releaseDate": "2025-07-18",
-      "tcgplayerId": 668632,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/668632/pokemon-sv-black-bolt-unova-heavy-hitters-premium-collection",
-      "market": {
-        "price": 167.29,
-        "low": 159.96,
         "change7d": 0.009,
         "change30d": null,
         "updatedAt": "2026-10-22"
@@ -9148,8 +9188,48 @@
       "tcgplayerUrl": "https://www.tcgplayer.com/product/704148/pokemon-me-30th-celebration-30th-celebration-2-pack-blister",
       "market": {
         "price": 57.53,
-        "low": 80,
+        "low": 79.95,
         "change7d": 0.006,
+        "change30d": null,
+        "updatedAt": "2026-10-22"
+      },
+      "score": 0.012,
+      "retailers": {
+        "target": {
+          "url": "",
+          "sku": ""
+        },
+        "bestbuy": {
+          "url": "",
+          "sku": ""
+        },
+        "amazon": {
+          "url": "",
+          "sku": ""
+        },
+        "pokemoncenter": {
+          "url": "",
+          "sku": ""
+        }
+      }
+    },
+    {
+      "id": "tcg-704191",
+      "name": "30th Celebration Ultra-Premium Collection [Night]",
+      "category": "Collection Box",
+      "set": "30th Celebration",
+      "tags": [],
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/704191_200w.jpg",
+      "msrp": null,
+      "msrpEstimated": false,
+      "notes": "",
+      "releaseDate": "2026-11-06",
+      "tcgplayerId": 704191,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/704191/pokemon-me-30th-celebration-30th-celebration-ultra-premium-collection-night",
+      "market": {
+        "price": 594.77,
+        "low": 570,
+        "change7d": -0.119,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
@@ -9188,7 +9268,47 @@
       "tcgplayerUrl": "https://www.tcgplayer.com/product/650765/pokemon-sv10-destined-rivals-destined-rivals-fun-pack",
       "market": {
         "price": 6.24,
-        "low": 5.48,
+        "low": 5.81,
+        "change7d": 0.006,
+        "change30d": null,
+        "updatedAt": "2026-10-22"
+      },
+      "score": 0.012,
+      "retailers": {
+        "target": {
+          "url": "",
+          "sku": ""
+        },
+        "bestbuy": {
+          "url": "",
+          "sku": ""
+        },
+        "amazon": {
+          "url": "",
+          "sku": ""
+        },
+        "pokemoncenter": {
+          "url": "",
+          "sku": ""
+        }
+      }
+    },
+    {
+      "id": "tcg-629568",
+      "name": "Journey Together Build & Battle Box Display",
+      "category": "Collection Box",
+      "set": "Journey Together",
+      "tags": [],
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/629568_200w.jpg",
+      "msrp": null,
+      "msrpEstimated": false,
+      "notes": "",
+      "releaseDate": "2025-03-28",
+      "tcgplayerId": 629568,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/629568/pokemon-sv09-journey-together-journey-together-build-and-battle-box-display",
+      "market": {
+        "price": 323.87,
+        "low": 329.99,
         "change7d": 0.006,
         "change30d": null,
         "updatedAt": "2026-10-22"
@@ -9254,6 +9374,46 @@
       }
     },
     {
+      "id": "tcg-671271",
+      "name": "2-Pack Blister [Raikou] (3-tab)",
+      "category": "Other",
+      "set": "Miscellaneous Cards & Products",
+      "tags": [],
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/671271_200w.jpg",
+      "msrp": null,
+      "msrpEstimated": false,
+      "notes": "",
+      "releaseDate": "2026-10-22",
+      "tcgplayerId": 671271,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/671271/pokemon-miscellaneous-cards-and-products-2-pack-blister-raikou-3-tab",
+      "market": {
+        "price": 20.48,
+        "low": 17.98,
+        "change7d": 0.005,
+        "change30d": null,
+        "updatedAt": "2026-10-22"
+      },
+      "score": 0.01,
+      "retailers": {
+        "target": {
+          "url": "",
+          "sku": ""
+        },
+        "bestbuy": {
+          "url": "",
+          "sku": ""
+        },
+        "amazon": {
+          "url": "",
+          "sku": ""
+        },
+        "pokemoncenter": {
+          "url": "",
+          "sku": ""
+        }
+      }
+    },
+    {
       "id": "tcg-683264",
       "name": "2-Pack Blister Pack [Oddish, Gloom, & Vileplume]",
       "category": "Other",
@@ -9263,7 +9423,7 @@
       "msrp": null,
       "msrpEstimated": false,
       "notes": "",
-      "releaseDate": "2026-10-21",
+      "releaseDate": "2026-10-22",
       "tcgplayerId": 683264,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/683264/pokemon-miscellaneous-cards-and-products-2-pack-blister-pack-oddish-gloom-and-vileplume",
       "market": {
@@ -9294,66 +9454,26 @@
       }
     },
     {
-      "id": "tcg-671271",
-      "name": "2-Pack Blister [Raikou] (3-tab)",
+      "id": "tcg-616951",
+      "name": "Enhanced 2-Pack Blister Pack [Latios, Zekrom & Palkia]",
       "category": "Other",
       "set": "Miscellaneous Cards & Products",
       "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/671271_200w.jpg",
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/616951_200w.jpg",
       "msrp": null,
       "msrpEstimated": false,
       "notes": "",
-      "releaseDate": "2026-10-21",
-      "tcgplayerId": 671271,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/671271/pokemon-miscellaneous-cards-and-products-2-pack-blister-raikou-3-tab",
+      "releaseDate": "2026-10-22",
+      "tcgplayerId": 616951,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/616951/pokemon-miscellaneous-cards-and-products-enhanced-2-pack-blister-pack-latios-zekrom-and-palkia",
       "market": {
-        "price": 20.46,
-        "low": 17.98,
-        "change7d": 0.004,
+        "price": 17.73,
+        "low": 14.95,
+        "change7d": 0.005,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": 0.008,
-      "retailers": {
-        "target": {
-          "url": "",
-          "sku": ""
-        },
-        "bestbuy": {
-          "url": "",
-          "sku": ""
-        },
-        "amazon": {
-          "url": "",
-          "sku": ""
-        },
-        "pokemoncenter": {
-          "url": "",
-          "sku": ""
-        }
-      }
-    },
-    {
-      "id": "tcg-633082",
-      "name": "Azure Legends Tin [Kyogre ex] (International Version)",
-      "category": "Tin",
-      "set": "Miscellaneous Cards & Products",
-      "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/633082_200w.jpg",
-      "msrp": null,
-      "msrpEstimated": false,
-      "notes": "",
-      "releaseDate": "2026-10-21",
-      "tcgplayerId": 633082,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/633082/pokemon-miscellaneous-cards-and-products-azure-legends-tin-kyogre-ex-international-version",
-      "market": {
-        "price": 36.17,
-        "low": 34.8,
-        "change7d": 0.004,
-        "change30d": null,
-        "updatedAt": "2026-10-22"
-      },
-      "score": 0.008,
+      "score": 0.01,
       "retailers": {
         "target": {
           "url": "",
@@ -9463,7 +9583,7 @@
       "msrp": null,
       "msrpEstimated": false,
       "notes": "",
-      "releaseDate": "2026-10-21",
+      "releaseDate": "2026-10-22",
       "tcgplayerId": 629647,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/629647/pokemon-miscellaneous-cards-and-products-masks-of-ogerpon-premium-collection",
       "market": {
@@ -9534,6 +9654,46 @@
       }
     },
     {
+      "id": "tcg-587369",
+      "name": "Pokemon - Poke Ball Tin - Moon Ball (Q4 2024)",
+      "category": "Other",
+      "set": "Miscellaneous Cards & Products",
+      "tags": [],
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/587369_200w.jpg",
+      "msrp": null,
+      "msrpEstimated": false,
+      "notes": "",
+      "releaseDate": "2026-10-22",
+      "tcgplayerId": 587369,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/587369/pokemon-miscellaneous-cards-and-products-pokemon-poke-ball-tin-moon-ball-q4-2024",
+      "market": {
+        "price": 29.39,
+        "low": 25,
+        "change7d": 0.003,
+        "change30d": null,
+        "updatedAt": "2026-10-22"
+      },
+      "score": 0.006,
+      "retailers": {
+        "target": {
+          "url": "",
+          "sku": ""
+        },
+        "bestbuy": {
+          "url": "",
+          "sku": ""
+        },
+        "amazon": {
+          "url": "",
+          "sku": ""
+        },
+        "pokemoncenter": {
+          "url": "",
+          "sku": ""
+        }
+      }
+    },
+    {
       "id": "tcg-668537",
       "name": "Premium Poster Collection: Mega Gardevoir",
       "category": "Collection Box",
@@ -9547,8 +9707,8 @@
       "tcgplayerId": 668537,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/668537/pokemon-me-ascended-heroes-premium-poster-collection-mega-gardevoir",
       "market": {
-        "price": 140.22,
-        "low": 135,
+        "price": 140.18,
+        "low": 135.8,
         "change7d": 0.003,
         "change30d": null,
         "updatedAt": "2026-10-22"
@@ -9628,7 +9788,7 @@
       "tcgplayerUrl": "https://www.tcgplayer.com/product/647762/pokemon-sv09-journey-together-journey-together-fun-pack",
       "market": {
         "price": 4.11,
-        "low": 3.89,
+        "low": 4,
         "change7d": 0.002,
         "change30d": null,
         "updatedAt": "2026-10-22"
@@ -9663,7 +9823,7 @@
       "msrp": null,
       "msrpEstimated": false,
       "notes": "",
-      "releaseDate": "2026-10-21",
+      "releaseDate": "2026-10-22",
       "tcgplayerId": 594495,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/594495/pokemon-miscellaneous-cards-and-products-legendary-warriors-premium-collection",
       "market": {
@@ -9734,186 +9894,26 @@
       }
     },
     {
-      "id": "tcg-692953",
-      "name": "Pitch Black Premium Checklane Blister [Tyrunt, Tyrantrum] (Target Exclusive)",
-      "category": "Booster Pack",
-      "set": "Pitch Black",
+      "id": "tcg-656487",
+      "name": "Mega Lucario ex Premium Figure Collection",
+      "category": "Collection Box",
+      "set": "Miscellaneous Cards & Products",
       "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/692953_200w.jpg",
+      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/656487_200w.jpg",
       "msrp": null,
       "msrpEstimated": false,
       "notes": "",
-      "releaseDate": "2026-07-17",
-      "tcgplayerId": 692953,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/692953/pokemon-me05-pitch-black-pitch-black-premium-checklane-blister-tyrunt-tyrantrum-target-exclusive",
+      "releaseDate": "2025-11-07",
+      "tcgplayerId": 656487,
+      "tcgplayerUrl": "https://www.tcgplayer.com/product/656487/pokemon-miscellaneous-cards-and-products-mega-lucario-ex-premium-figure-collection",
       "market": {
-        "price": 16.26,
-        "low": 11,
+        "price": 54.99,
+        "low": 50,
         "change7d": 0.002,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
       "score": 0.004,
-      "retailers": {
-        "target": {
-          "url": "",
-          "sku": ""
-        },
-        "bestbuy": {
-          "url": "",
-          "sku": ""
-        },
-        "amazon": {
-          "url": "",
-          "sku": ""
-        },
-        "pokemoncenter": {
-          "url": "",
-          "sku": ""
-        }
-      }
-    },
-    {
-      "id": "tcg-587369",
-      "name": "Pokemon - Poke Ball Tin - Moon Ball (Q4 2024)",
-      "category": "Other",
-      "set": "Miscellaneous Cards & Products",
-      "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/587369_200w.jpg",
-      "msrp": null,
-      "msrpEstimated": false,
-      "notes": "",
-      "releaseDate": "2026-10-21",
-      "tcgplayerId": 587369,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/587369/pokemon-miscellaneous-cards-and-products-pokemon-poke-ball-tin-moon-ball-q4-2024",
-      "market": {
-        "price": 29.37,
-        "low": 25,
-        "change7d": 0.002,
-        "change30d": null,
-        "updatedAt": "2026-10-22"
-      },
-      "score": 0.004,
-      "retailers": {
-        "target": {
-          "url": "",
-          "sku": ""
-        },
-        "bestbuy": {
-          "url": "",
-          "sku": ""
-        },
-        "amazon": {
-          "url": "",
-          "sku": ""
-        },
-        "pokemoncenter": {
-          "url": "",
-          "sku": ""
-        }
-      }
-    },
-    {
-      "id": "tcg-587368",
-      "name": "Pokemon - Poke Ball Tin - Ultra Ball (Q4 2024)",
-      "category": "Other",
-      "set": "Miscellaneous Cards & Products",
-      "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/587368_200w.jpg",
-      "msrp": null,
-      "msrpEstimated": false,
-      "notes": "",
-      "releaseDate": "2026-10-21",
-      "tcgplayerId": 587368,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/587368/pokemon-miscellaneous-cards-and-products-pokemon-poke-ball-tin-ultra-ball-q4-2024",
-      "market": {
-        "price": 27.83,
-        "low": 29,
-        "change7d": 0.002,
-        "change30d": null,
-        "updatedAt": "2026-10-22"
-      },
-      "score": 0.004,
-      "retailers": {
-        "target": {
-          "url": "",
-          "sku": ""
-        },
-        "bestbuy": {
-          "url": "",
-          "sku": ""
-        },
-        "amazon": {
-          "url": "",
-          "sku": ""
-        },
-        "pokemoncenter": {
-          "url": "",
-          "sku": ""
-        }
-      }
-    },
-    {
-      "id": "tcg-598499",
-      "name": "Checklane 2-Pack Blister [Pawmot] (1-tab)",
-      "category": "Other",
-      "set": "Miscellaneous Cards & Products",
-      "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/598499_200w.jpg",
-      "msrp": null,
-      "msrpEstimated": false,
-      "notes": "",
-      "releaseDate": "2026-10-21",
-      "tcgplayerId": 598499,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/598499/pokemon-miscellaneous-cards-and-products-checklane-2-pack-blister-pawmot-1-tab",
-      "market": {
-        "price": 14.87,
-        "low": 89.99,
-        "change7d": 0.001,
-        "change30d": null,
-        "updatedAt": "2026-10-22"
-      },
-      "score": 0.002,
-      "retailers": {
-        "target": {
-          "url": "",
-          "sku": ""
-        },
-        "bestbuy": {
-          "url": "",
-          "sku": ""
-        },
-        "amazon": {
-          "url": "",
-          "sku": ""
-        },
-        "pokemoncenter": {
-          "url": "",
-          "sku": ""
-        }
-      }
-    },
-    {
-      "id": "tcg-672410",
-      "name": "Perfect Order Single Pack Blister [Makuhita]",
-      "category": "Other",
-      "set": "Perfect Order",
-      "tags": [],
-      "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/672410_200w.jpg",
-      "msrp": null,
-      "msrpEstimated": false,
-      "notes": "",
-      "releaseDate": "2026-03-27",
-      "tcgplayerId": 672410,
-      "tcgplayerUrl": "https://www.tcgplayer.com/product/672410/pokemon-me03-perfect-order-perfect-order-single-pack-blister-makuhita",
-      "market": {
-        "price": 7.47,
-        "low": 6,
-        "change7d": 0.001,
-        "change30d": null,
-        "updatedAt": "2026-10-22"
-      },
-      "score": 0.002,
       "retailers": {
         "target": {
           "url": "",
@@ -9947,13 +9947,13 @@
       "tcgplayerId": 710570,
       "tcgplayerUrl": "https://www.tcgplayer.com/product/710570/pokemon-miscellaneous-cards-and-products-deck-crafters-collection-meowth-ex",
       "market": {
-        "price": 13.93,
-        "low": 11.83,
-        "change7d": -0.222,
+        "price": 13.31,
+        "low": 10.99,
+        "change7d": -0.256,
         "change30d": null,
         "updatedAt": "2026-10-22"
       },
-      "score": -0.194,
+      "score": -0.262,
       "retailers": {
         "target": {
           "url": "",
